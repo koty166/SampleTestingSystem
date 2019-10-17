@@ -1,0 +1,22 @@
+C:\Users\я\Documents\Visual Studio 2017\Projects\Проект к школе\Writer\obj\Debug\Writer.csprojResolveAssemblyReference.cache
+C:\Users\я\Documents\Visual Studio 2017\Projects\Проект к школе\Writer\obj\Debug\Проект_к_школе.Form1.resources
+C:\Users\я\Documents\Visual Studio 2017\Projects\Проект к школе\Writer\obj\Debug\Writer.Properties.Resources.resources
+C:\Users\я\Documents\Visual Studio 2017\Projects\Проект к школе\Writer\obj\Debug\Writer.csproj.GenerateResource.Cache
+C:\Users\я\Documents\Visual Studio 2017\Projects\Проект к школе\Writer\bin\Debug\Writer.exe.config
+C:\Users\я\Documents\Visual Studio 2017\Projects\Проект к школе\Writer\bin\Debug\Writer.exe
+C:\Users\я\Documents\Visual Studio 2017\Projects\Проект к школе\Writer\bin\Debug\Writer.pdb
+C:\Users\я\Documents\Visual Studio 2017\Projects\Проект к школе\Writer\obj\Debug\Writer.exe
+C:\Users\я\Documents\Visual Studio 2017\Projects\Проект к школе\Writer\obj\Debug\Writer.pdb
+C:\Users\я\Documents\Visual Studio 2017\Projects\Проект к школе\Writer\obj\Debug\Проект_к_школе.Form2.resources
+C:\Users\я\source\repos\Проект к школе\Writer\obj\Debug\Writer.csprojAssemblyReference.cache
+C:\Users\я\source\repos\Проект к школе\Writer\obj\Debug\Проект_к_школе.FormWriter.resources
+C:\Users\я\source\repos\Проект к школе\Writer\obj\Debug\Проект_к_школе.Form2.resources
+C:\Users\я\source\repos\Проект к школе\Writer\obj\Debug\Проект_к_школе.FormForExplanation.resources
+C:\Users\я\source\repos\Проект к школе\Writer\obj\Debug\Writer.Properties.Resources.resources
+C:\Users\я\source\repos\Проект к школе\Writer\obj\Debug\Writer.csproj.GenerateResource.cache
+C:\Users\я\source\repos\Проект к школе\Writer\obj\Debug\Writer.csproj.CoreCompileInputs.cache
+C:\Users\я\source\repos\Проект к школе\Writer\obj\Debug\Writer.exe
+C:\Users\я\source\repos\Проект к школе\Writer\obj\Debug\Writer.pdb
+C:\Users\я\source\repos\Проект к школе\Writer\bin\Debug\Writer.exe.config
+C:\Users\я\source\repos\Проект к школе\Writer\bin\Debug\Writer.exe
+C:\Users\я\source\repos\Проект к школе\Writer\bin\Debug\Writer.pdb

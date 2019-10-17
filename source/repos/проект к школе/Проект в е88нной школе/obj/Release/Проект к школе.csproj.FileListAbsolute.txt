@@ -1,0 +1,9 @@
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\bin\Release\Writer.exe.config
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\bin\Release\Writer.exe
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\bin\Release\Writer.pdb
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Проект_к_школе.Form1.resources
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Проект_к_школе.Properties.Resources.resources
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Проект к школе.csproj.GenerateResource.cache
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Проект к школе.csproj.CoreCompileInputs.cache
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Writer.exe
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Writer.pdb

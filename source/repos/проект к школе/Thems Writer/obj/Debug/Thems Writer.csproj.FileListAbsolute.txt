@@ -1,0 +1,10 @@
+C:\Users\я\source\repos\Проект к школе\Thems Writer\obj\Debug\Thems Writer.csprojAssemblyReference.cache
+C:\Users\я\source\repos\Проект к школе\Thems Writer\obj\Debug\Thems_Writer.Form1.resources
+C:\Users\я\source\repos\Проект к школе\Thems Writer\obj\Debug\Thems_Writer.Properties.Resources.resources
+C:\Users\я\source\repos\Проект к школе\Thems Writer\obj\Debug\Thems Writer.csproj.GenerateResource.cache
+C:\Users\я\source\repos\Проект к школе\Thems Writer\obj\Debug\Thems Writer.csproj.CoreCompileInputs.cache
+C:\Users\я\source\repos\Проект к школе\Thems Writer\bin\Debug\Writer.exe.config
+C:\Users\я\source\repos\Проект к школе\Thems Writer\bin\Debug\Writer.exe
+C:\Users\я\source\repos\Проект к школе\Thems Writer\bin\Debug\Writer.pdb
+C:\Users\я\source\repos\Проект к школе\Thems Writer\obj\Debug\Writer.exe
+C:\Users\я\source\repos\Проект к школе\Thems Writer\obj\Debug\Writer.pdb
