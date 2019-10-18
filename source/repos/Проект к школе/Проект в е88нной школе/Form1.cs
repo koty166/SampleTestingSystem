@@ -23,10 +23,11 @@ namespace Проект_к_школе
 
         String directory = @"Tests";
 
-        List<Int32> wrong_answers_index = new List<int>();
+        QuestionDone [] MassQuestions;
         List<String> lines = new List<string>();
         List<Image> LIstImages = new List<Image>();
 
+        int WrongAnswerNum = 0;
 
         Lesson[] Lesson_mass;
 
@@ -148,7 +149,6 @@ namespace Проект_к_школе
 
         Image drow_Diagramm()
         {
-            int wrong = wrong_answers_index.Count;
             Image im = pictureBox.Image;
 
             pictureBox.Refresh();
@@ -167,7 +167,7 @@ namespace Проект_к_школе
                 Y = pictureBox.Location.Y - 20
             };
 
-            float end = (((float)wrong / 25) * 360);
+            float end = (((float)WrongAnswerNum / 25) * 360);
             g.FillPie(b,rect , 0, end );
 
             b.Color = Color.SpringGreen;
@@ -175,6 +175,53 @@ namespace Проект_к_школе
             g.FillPie(b, rect, end , 360 - end);
 
             return bit;
+        }
+
+        QuestionDone [] RandomizeListQouestion(QuestionDone [] InMass)
+        {
+            int StartIndex, EndIndex;
+            QuestionDone buff;
+            Random r = new Random();
+
+            for (int i = 0; i < 25; i++)
+            {
+                StartIndex = r.Next(0,25);
+                EndIndex = r.Next(0, 25);
+
+                buff = InMass[EndIndex];
+                InMass[EndIndex] = InMass[StartIndex];
+                InMass[StartIndex] = buff;
+            }
+            return InMass;
+        }
+
+        QuestionDone[] AddToMass(Lesson InL)
+        {
+            QuestionDone[] ret = new QuestionDone[25];
+            for (int i = 0; i < 25; i++)
+            {
+                if (i < 20)
+                    ret[i] = new QuestionDone()
+                    {
+                        Answer = "",
+                        IsDone = false,
+                        IsRigth = false,
+                        Explanation = InL.mass_Question[i].Explanation,
+                        IsImageQuestion = false,
+                        Index = i
+                    };
+                else
+                    ret[i] = new QuestionDone()
+                    {
+                        Answer = "",
+                        IsDone = false,
+                        IsRigth = false,
+                        Explanation = InL.mass_ImageQuestion[i - 20].Explanation,
+                        IsImageQuestion = true,
+                        Index = i
+                    };
+            }
+            return ret;
         }
 
         private void list_of_questions_AfterSelect(object sender, TreeViewEventArgs e)
@@ -185,7 +232,7 @@ namespace Проект_к_школе
 
 
 
-            if (Selected_index < 20)
+            if (!MassQuestions[Selected_index].IsImageQuestion)
             {
                 groupBox1.Visible = true;
                 textBox1.Visible = false;
@@ -194,11 +241,11 @@ namespace Проект_к_школе
 
                 Next.Location = new Point(280, 220);
 
-                Answer1.Text = "Ответ 1:" + Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[Selected_index].Answers[0];
-                Answer2.Text = "Ответ 2:" + Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[Selected_index].Answers[1];
-                Answer3.Text = "Ответ 3:" + Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[Selected_index].Answers[2];
-                Answer4.Text = "Ответ 4:" + Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[Selected_index].Answers[3];
-                label2.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[Selected_index].Question_s;
+                Answer1.Text = "Ответ 1:" + Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[MassQuestions[Selected_index].Index].Answers[0];
+                Answer2.Text = "Ответ 2:" + Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[MassQuestions[Selected_index].Index].Answers[1];
+                Answer3.Text = "Ответ 3:" + Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[MassQuestions[Selected_index].Index].Answers[2];
+                Answer4.Text = "Ответ 4:" + Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[MassQuestions[Selected_index].Index].Answers[3];
+                label2.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[MassQuestions[Selected_index].Index].Question_s;
             }
             else
             {
@@ -210,9 +257,9 @@ namespace Проект_к_школе
                 pictureBox.Visible = true;
                 label1.Visible = true;
 
-                label1.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_ImageQuestion[Selected_index - 20].Question;
+                label1.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_ImageQuestion[MassQuestions[Selected_index].Index - 20].Question;
 
-                pictureBox.Image = LIstImages[Selected_index - 20];
+                pictureBox.Image = LIstImages[MassQuestions[Selected_index].Index - 20];
             }
 
             Next.Text = Selected_index == 24 ? "Закончить" : "Далее";
@@ -237,6 +284,8 @@ namespace Проект_к_школе
                 Start.Visible = false;
                 list_of_lessons.Visible = false;
 
+                MassQuestions = RandomizeListQouestion( AddToMass ( Lesson_mass[list_of_lessons.SelectedIndex] ) );
+
                 list_of_questions.SelectedNode = list_of_questions.Nodes[0];
             }
 
@@ -250,24 +299,26 @@ namespace Проект_к_школе
                 if (list_of_questions.SelectedNode.Index < 20)
                 {
                     int selected_answer = 0;
+                    string answer;
 
-                    if (Answer1.Checked) selected_answer = 0;
-                    else if (Answer2.Checked) selected_answer = 1;
-                    else if (Answer3.Checked) selected_answer = 2;
-                    else if (Answer4.Checked) selected_answer = 3;
-                    else Answer1.Checked = true;
+                    if (Answer1.Checked) { selected_answer = 0; answer = Answer1.Text.Remove(0, 8); }
+                    else if (Answer2.Checked) { selected_answer = 1; answer = Answer2.Text.Remove(0,8); }
+                    else if (Answer3.Checked) { selected_answer = 2; answer = Answer3.Text.Remove(0, 8); }
+                    else if (Answer4.Checked) { selected_answer = 3; answer = Answer4.Text.Remove(0, 8); }
+                    else { Answer1.Checked = true; answer = Answer1.Text.Remove(0, 8); }
 
-                    list_of_questions.SelectedNode.Tag = "done";
+
+                    MassQuestions[list_of_questions.SelectedNode.Index].IsDone = true;
+                    MassQuestions[list_of_questions.SelectedNode.Index].Answer = answer;
 
                     if (selected_answer == Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Rigth_answer)
                     {
-                        lines.Add($"Задача №{list_of_questions.SelectedNode.Index + 1} решена верно.");
+                        MassQuestions[list_of_questions.SelectedNode.Index].IsRigth = true;
                         list_of_questions.SelectedNode.BackColor = Color.Green;
                     }
                     else
                     {
-                        lines.Add($"Задача №{list_of_questions.SelectedNode.Index + 1} решена неверно. Ваш ответ {Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Answers[selected_answer]}");
-                        wrong_answers_index.Add(list_of_questions.SelectedNode.Index);
+                        MassQuestions[list_of_questions.SelectedNode.Index].IsRigth = false;
                         list_of_questions.SelectedNode.BackColor = Color.Red;
                     }
                 }
@@ -275,40 +326,54 @@ namespace Проект_к_школе
                 {
                     textBox1.Clear();
 
-                    list_of_questions.SelectedNode.Tag = "done";
+                    MassQuestions[list_of_questions.SelectedNode.Index].IsDone = true;
+                    MassQuestions[list_of_questions.SelectedNode.Index].Answer = textBox1.Text;
 
                     if (textBox1.Text == Lesson_mass[list_of_lessons.SelectedIndex].mass_ImageQuestion[list_of_questions.SelectedNode.Index - 20].Rigth_answer)
                     {
-                        lines.Add($"Задача №{list_of_questions.SelectedNode.Index + 1} решена верно.");
+                        MassQuestions[list_of_questions.SelectedNode.Index].IsRigth = true;
                         list_of_questions.SelectedNode.BackColor = Color.Green;
                     }
 
                     else
                     {
-                        wrong_answers_index.Add(list_of_questions.SelectedNode.Index);
-                        lines.Add($"Задача №{list_of_questions.SelectedNode.Index + 1} решена неверно. Ваш ответ {textBox1.Text}");
+                        MassQuestions[list_of_questions.SelectedNode.Index].IsRigth = false;
                         list_of_questions.SelectedNode.BackColor = Color.Red;
                     }
                 }
 
                 if (list_of_questions.SelectedNode.Index == 24)
                 {
-                    for (var i = 0; i < list_of_questions.Nodes.Count; i++)
+                    foreach (var i in MassQuestions)
                     {
-                        if ((String)list_of_questions.Nodes[i].Tag != "done")
+                        if (!i.IsDone)
                         {
                             MessageBox.Show("Пожалуйста, заполните все ответы");
                             return;
                         }
-                    }
+                    }    
 
                     textBox2.Visible = true;
                     textBox1.Visible = false;
                     Next.Visible = false;
                     button1.Visible = true;
                     list_of_questions.Visible = false;
+                    groupBox1.Visible = false;
+                    pictureBox.Visible = true;
 
                     {
+
+                        foreach (var i in MassQuestions)
+                        {
+                            if (!i.IsRigth)
+                            {
+                                lines.Add($"Задача №{i.Index + 1} решена неверно, ваш ответ {i.Answer}");
+                                WrongAnswerNum++;
+                            }
+                            else
+                                lines.Add($"Задача №{i.Index + 1} решена верно");
+                            
+                        }
                         
                         String[] s = new string[lines.Count];
                         for (int i = 0; i < lines.Count; i++)
@@ -320,12 +385,18 @@ namespace Проект_к_школе
 
                        
 
-                    if (wrong_answers_index.Count == 0) button1.Text = "Начать другой тест";
+                    if (WrongAnswerNum == 0) button1.Text = "Начать другой тест";
                     else button1.Text = "Объяснение";
 
                     this.MaximumSize = new Size(650, 500);
 
                     pictureBox.Image = drow_Diagramm();
+
+                    Color c = list_of_questions.BackColor;
+                    for (int i = 0; i < 25; i++)
+                    {
+                        list_of_questions.Nodes[i].BackColor = c;
+                    }
 
                 }
                 else
@@ -333,32 +404,25 @@ namespace Проект_к_школе
             }
         }
 
-        int i = 0;
         private void button1_Click(object sender, EventArgs e)
         {
             textBox2.Clear();
             textBox2.Visible = false;
-            pictureBox.Size = new Size(500, 300);
             pictureBox.Visible = false;
 
-            if (wrong_answers_index.Count > 0)
-            {
-                button1.Text = "Далее";
-                if (i != wrong_answers_index.Count)
-                {
-                    label1.Visible = true;
+            pictureBox.Size = new Size(500, 300);
 
-                    if (wrong_answers_index[i] >= 20)
-                        label1.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_ImageQuestion[wrong_answers_index[i] - 20].Explanation;
-                    else
-                        label1.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[wrong_answers_index[i]].Explanation;
-                    i++;
-                    if (i == wrong_answers_index.Count)
+            if (WrongAnswerNum > 0)
+            {
+                foreach (var i in MassQuestions)
+                    if (!i.IsRigth)
                     {
-                        i = 0;
-                        wrong_answers_index.Clear();
+                        button1.Text = "Далее";
+                        label1.Text = i.Explanation;
+                        i.IsRigth = true;
+                        WrongAnswerNum--;
+                        return;
                     }
-                }
             }
             else
             {
@@ -405,4 +469,14 @@ namespace Проект_к_школе
             Personalize();
         }
     }
+    class QuestionDone
+    {
+        internal String Answer;
+        internal bool IsDone;
+        internal bool IsRigth;
+        internal String Explanation;
+        internal bool IsImageQuestion;
+        internal int Index;
+    }
+        
 }
