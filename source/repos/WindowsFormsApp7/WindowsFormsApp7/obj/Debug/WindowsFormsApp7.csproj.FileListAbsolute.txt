@@ -1,0 +1,10 @@
+C:\Users\я\source\repos\WindowsFormsApp7\WindowsFormsApp7\bin\Debug\Writer.exe.config
+C:\Users\я\source\repos\WindowsFormsApp7\WindowsFormsApp7\bin\Debug\Writer.exe
+C:\Users\я\source\repos\WindowsFormsApp7\WindowsFormsApp7\bin\Debug\Writer.pdb
+C:\Users\я\source\repos\WindowsFormsApp7\WindowsFormsApp7\obj\Debug\WindowsFormsApp7.csprojAssemblyReference.cache
+C:\Users\я\source\repos\WindowsFormsApp7\WindowsFormsApp7\obj\Debug\WindowsFormsApp7.Form1.resources
+C:\Users\я\source\repos\WindowsFormsApp7\WindowsFormsApp7\obj\Debug\WindowsFormsApp7.Properties.Resources.resources
+C:\Users\я\source\repos\WindowsFormsApp7\WindowsFormsApp7\obj\Debug\WindowsFormsApp7.csproj.GenerateResource.cache
+C:\Users\я\source\repos\WindowsFormsApp7\WindowsFormsApp7\obj\Debug\WindowsFormsApp7.csproj.CoreCompileInputs.cache
+C:\Users\я\source\repos\WindowsFormsApp7\WindowsFormsApp7\obj\Debug\Writer.exe
+C:\Users\я\source\repos\WindowsFormsApp7\WindowsFormsApp7\obj\Debug\Writer.pdb
