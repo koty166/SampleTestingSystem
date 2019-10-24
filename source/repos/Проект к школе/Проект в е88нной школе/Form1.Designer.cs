@@ -28,42 +28,42 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode73 = new System.Windows.Forms.TreeNode("Узел0");
-            System.Windows.Forms.TreeNode treeNode74 = new System.Windows.Forms.TreeNode("Узел1");
-            System.Windows.Forms.TreeNode treeNode75 = new System.Windows.Forms.TreeNode("Узел2");
-            System.Windows.Forms.TreeNode treeNode76 = new System.Windows.Forms.TreeNode("Узел3");
-            System.Windows.Forms.TreeNode treeNode77 = new System.Windows.Forms.TreeNode("Узел4");
-            System.Windows.Forms.TreeNode treeNode78 = new System.Windows.Forms.TreeNode("Узел5");
-            System.Windows.Forms.TreeNode treeNode79 = new System.Windows.Forms.TreeNode("Узел6");
-            System.Windows.Forms.TreeNode treeNode80 = new System.Windows.Forms.TreeNode("Узел7");
-            System.Windows.Forms.TreeNode treeNode81 = new System.Windows.Forms.TreeNode("Узел8");
-            System.Windows.Forms.TreeNode treeNode82 = new System.Windows.Forms.TreeNode("Узел9");
-            System.Windows.Forms.TreeNode treeNode83 = new System.Windows.Forms.TreeNode("Узел10");
-            System.Windows.Forms.TreeNode treeNode84 = new System.Windows.Forms.TreeNode("Узел11");
-            System.Windows.Forms.TreeNode treeNode85 = new System.Windows.Forms.TreeNode("Узел12");
-            System.Windows.Forms.TreeNode treeNode86 = new System.Windows.Forms.TreeNode("Узел13");
-            System.Windows.Forms.TreeNode treeNode87 = new System.Windows.Forms.TreeNode("Узел14");
-            System.Windows.Forms.TreeNode treeNode88 = new System.Windows.Forms.TreeNode("Узел15");
-            System.Windows.Forms.TreeNode treeNode89 = new System.Windows.Forms.TreeNode("Узел16");
-            System.Windows.Forms.TreeNode treeNode90 = new System.Windows.Forms.TreeNode("Узел17");
-            System.Windows.Forms.TreeNode treeNode91 = new System.Windows.Forms.TreeNode("Узел18");
-            System.Windows.Forms.TreeNode treeNode92 = new System.Windows.Forms.TreeNode("Узел19");
-            System.Windows.Forms.TreeNode treeNode93 = new System.Windows.Forms.TreeNode("Узел20");
-            System.Windows.Forms.TreeNode treeNode94 = new System.Windows.Forms.TreeNode("Узел21");
-            System.Windows.Forms.TreeNode treeNode95 = new System.Windows.Forms.TreeNode("Узел22");
-            System.Windows.Forms.TreeNode treeNode96 = new System.Windows.Forms.TreeNode("Узел23");
-            System.Windows.Forms.TreeNode treeNode97 = new System.Windows.Forms.TreeNode("Узел24");
-            System.Windows.Forms.TreeNode treeNode98 = new System.Windows.Forms.TreeNode("Задача 1");
-            System.Windows.Forms.TreeNode treeNode99 = new System.Windows.Forms.TreeNode("Задача 2");
-            System.Windows.Forms.TreeNode treeNode100 = new System.Windows.Forms.TreeNode("Задача 3");
-            System.Windows.Forms.TreeNode treeNode101 = new System.Windows.Forms.TreeNode("Задача 4");
-            System.Windows.Forms.TreeNode treeNode102 = new System.Windows.Forms.TreeNode("Задача 5");
-            System.Windows.Forms.TreeNode treeNode103 = new System.Windows.Forms.TreeNode("Задача 6");
-            System.Windows.Forms.TreeNode treeNode104 = new System.Windows.Forms.TreeNode("Задача 7");
-            System.Windows.Forms.TreeNode treeNode105 = new System.Windows.Forms.TreeNode("Задача 8");
-            System.Windows.Forms.TreeNode treeNode106 = new System.Windows.Forms.TreeNode("Задача 9");
-            System.Windows.Forms.TreeNode treeNode107 = new System.Windows.Forms.TreeNode("Задача 10");
-            System.Windows.Forms.TreeNode treeNode108 = new System.Windows.Forms.TreeNode("Задача 11");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Узел0");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Узел1");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Узел2");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Узел3");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Узел4");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Узел5");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Узел6");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Узел7");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Узел8");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Узел9");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Узел10");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Узел11");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Узел12");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Узел13");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Узел14");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Узел15");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Узел16");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Узел17");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Узел18");
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Узел19");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Узел20");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Узел21");
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Узел22");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Узел23");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Узел24");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Задача 1");
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Задача 2");
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Задача 3");
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Задача 4");
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Задача 5");
+            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Задача 6");
+            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Задача 7");
+            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Задача 8");
+            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("Задача 9");
+            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Задача 10");
+            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Задача 11");
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
@@ -188,87 +188,87 @@
             // 
             // list_of_questions
             // 
-            this.list_of_questions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.list_of_questions.BackColor = System.Drawing.Color.White;
             this.list_of_questions.ForeColor = System.Drawing.Color.Black;
             this.list_of_questions.HideSelection = false;
             this.list_of_questions.Location = new System.Drawing.Point(670, 3);
             this.list_of_questions.Name = "list_of_questions";
-            treeNode73.Name = "Узел0";
-            treeNode73.Text = "Узел0";
-            treeNode74.Name = "Узел1";
-            treeNode74.Text = "Узел1";
-            treeNode75.Name = "Узел2";
-            treeNode75.Text = "Узел2";
-            treeNode76.Name = "Узел3";
-            treeNode76.Text = "Узел3";
-            treeNode77.Name = "Узел4";
-            treeNode77.Text = "Узел4";
-            treeNode78.Name = "Узел5";
-            treeNode78.Text = "Узел5";
-            treeNode79.Name = "Узел6";
-            treeNode79.Text = "Узел6";
-            treeNode80.Name = "Узел7";
-            treeNode80.Text = "Узел7";
-            treeNode81.Name = "Узел8";
-            treeNode81.Text = "Узел8";
-            treeNode82.Name = "Узел9";
-            treeNode82.Text = "Узел9";
-            treeNode83.Name = "Узел10";
-            treeNode83.Text = "Узел10";
-            treeNode84.Name = "Узел11";
-            treeNode84.Text = "Узел11";
-            treeNode85.Name = "Узел12";
-            treeNode85.Text = "Узел12";
-            treeNode86.Name = "Узел13";
-            treeNode86.Text = "Узел13";
-            treeNode87.Name = "Узел14";
-            treeNode87.Text = "Узел14";
-            treeNode88.Name = "Узел15";
-            treeNode88.Text = "Узел15";
-            treeNode89.Name = "Узел16";
-            treeNode89.Text = "Узел16";
-            treeNode90.Name = "Узел17";
-            treeNode90.Text = "Узел17";
-            treeNode91.Name = "Узел18";
-            treeNode91.Text = "Узел18";
-            treeNode92.Name = "Узел19";
-            treeNode92.Text = "Узел19";
-            treeNode93.Name = "Узел20";
-            treeNode93.Text = "Узел20";
-            treeNode94.Name = "Узел21";
-            treeNode94.Text = "Узел21";
-            treeNode95.Name = "Узел22";
-            treeNode95.Text = "Узел22";
-            treeNode96.Name = "Узел23";
-            treeNode96.Text = "Узел23";
-            treeNode97.Name = "Узел24";
-            treeNode97.Text = "Узел24";
+            treeNode1.Name = "Узел0";
+            treeNode1.Text = "Узел0";
+            treeNode2.Name = "Узел1";
+            treeNode2.Text = "Узел1";
+            treeNode3.Name = "Узел2";
+            treeNode3.Text = "Узел2";
+            treeNode4.Name = "Узел3";
+            treeNode4.Text = "Узел3";
+            treeNode5.Name = "Узел4";
+            treeNode5.Text = "Узел4";
+            treeNode6.Name = "Узел5";
+            treeNode6.Text = "Узел5";
+            treeNode7.Name = "Узел6";
+            treeNode7.Text = "Узел6";
+            treeNode8.Name = "Узел7";
+            treeNode8.Text = "Узел7";
+            treeNode9.Name = "Узел8";
+            treeNode9.Text = "Узел8";
+            treeNode10.Name = "Узел9";
+            treeNode10.Text = "Узел9";
+            treeNode11.Name = "Узел10";
+            treeNode11.Text = "Узел10";
+            treeNode12.Name = "Узел11";
+            treeNode12.Text = "Узел11";
+            treeNode13.Name = "Узел12";
+            treeNode13.Text = "Узел12";
+            treeNode14.Name = "Узел13";
+            treeNode14.Text = "Узел13";
+            treeNode15.Name = "Узел14";
+            treeNode15.Text = "Узел14";
+            treeNode16.Name = "Узел15";
+            treeNode16.Text = "Узел15";
+            treeNode17.Name = "Узел16";
+            treeNode17.Text = "Узел16";
+            treeNode18.Name = "Узел17";
+            treeNode18.Text = "Узел17";
+            treeNode19.Name = "Узел18";
+            treeNode19.Text = "Узел18";
+            treeNode20.Name = "Узел19";
+            treeNode20.Text = "Узел19";
+            treeNode21.Name = "Узел20";
+            treeNode21.Text = "Узел20";
+            treeNode22.Name = "Узел21";
+            treeNode22.Text = "Узел21";
+            treeNode23.Name = "Узел22";
+            treeNode23.Text = "Узел22";
+            treeNode24.Name = "Узел23";
+            treeNode24.Text = "Узел23";
+            treeNode25.Name = "Узел24";
+            treeNode25.Text = "Узел24";
             this.list_of_questions.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode73,
-            treeNode74,
-            treeNode75,
-            treeNode76,
-            treeNode77,
-            treeNode78,
-            treeNode79,
-            treeNode80,
-            treeNode81,
-            treeNode82,
-            treeNode83,
-            treeNode84,
-            treeNode85,
-            treeNode86,
-            treeNode87,
-            treeNode88,
-            treeNode89,
-            treeNode90,
-            treeNode91,
-            treeNode92,
-            treeNode93,
-            treeNode94,
-            treeNode95,
-            treeNode96,
-            treeNode97});
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6,
+            treeNode7,
+            treeNode8,
+            treeNode9,
+            treeNode10,
+            treeNode11,
+            treeNode12,
+            treeNode13,
+            treeNode14,
+            treeNode15,
+            treeNode16,
+            treeNode17,
+            treeNode18,
+            treeNode19,
+            treeNode20,
+            treeNode21,
+            treeNode22,
+            treeNode23,
+            treeNode24,
+            treeNode25});
             this.list_of_questions.Size = new System.Drawing.Size(136, 429);
             this.list_of_questions.TabIndex = 17;
             this.list_of_questions.TabStop = false;
@@ -473,40 +473,40 @@
             this.treeView1.HideSelection = false;
             this.treeView1.Location = new System.Drawing.Point(263, 42);
             this.treeView1.Name = "treeView1";
-            treeNode98.Name = "Задача 1";
-            treeNode98.Text = "Задача 1";
-            treeNode99.Name = "Узел1";
-            treeNode99.Text = "Задача 2";
-            treeNode100.Name = "Узел2";
-            treeNode100.Text = "Задача 3";
-            treeNode101.Name = "Узел3";
-            treeNode101.Text = "Задача 4";
-            treeNode102.Name = "Узел4";
-            treeNode102.Text = "Задача 5";
-            treeNode103.Name = "Узел5";
-            treeNode103.Text = "Задача 6";
-            treeNode104.Name = "Узел6";
-            treeNode104.Text = "Задача 7";
-            treeNode105.Name = "Узел7";
-            treeNode105.Text = "Задача 8";
-            treeNode106.Name = "Узел8";
-            treeNode106.Text = "Задача 9";
-            treeNode107.Name = "Узел9";
-            treeNode107.Text = "Задача 10";
-            treeNode108.Name = "Узел10";
-            treeNode108.Text = "Задача 11";
+            treeNode26.Name = "Задача 1";
+            treeNode26.Text = "Задача 1";
+            treeNode27.Name = "Узел1";
+            treeNode27.Text = "Задача 2";
+            treeNode28.Name = "Узел2";
+            treeNode28.Text = "Задача 3";
+            treeNode29.Name = "Узел3";
+            treeNode29.Text = "Задача 4";
+            treeNode30.Name = "Узел4";
+            treeNode30.Text = "Задача 5";
+            treeNode31.Name = "Узел5";
+            treeNode31.Text = "Задача 6";
+            treeNode32.Name = "Узел6";
+            treeNode32.Text = "Задача 7";
+            treeNode33.Name = "Узел7";
+            treeNode33.Text = "Задача 8";
+            treeNode34.Name = "Узел8";
+            treeNode34.Text = "Задача 9";
+            treeNode35.Name = "Узел9";
+            treeNode35.Text = "Задача 10";
+            treeNode36.Name = "Узел10";
+            treeNode36.Text = "Задача 11";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode98,
-            treeNode99,
-            treeNode100,
-            treeNode101,
-            treeNode102,
-            treeNode103,
-            treeNode104,
-            treeNode105,
-            treeNode106,
-            treeNode107,
-            treeNode108});
+            treeNode26,
+            treeNode27,
+            treeNode28,
+            treeNode29,
+            treeNode30,
+            treeNode31,
+            treeNode32,
+            treeNode33,
+            treeNode34,
+            treeNode35,
+            treeNode36});
             this.treeView1.Size = new System.Drawing.Size(107, 184);
             this.treeView1.TabIndex = 6;
             // 

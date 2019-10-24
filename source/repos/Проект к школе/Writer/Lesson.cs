@@ -10,10 +10,12 @@ namespace Проект_к_школе
     [Serializable]
     class Lesson
     {
-       internal Question[] mass_Question = new Question [20];
-       internal ImageQuestion[] mass_ImageQuestion = new ImageQuestion[5];
-       internal String Name;
-       internal int Score;
+        internal Question[] mass_Question = new Question[20];
+        internal ImageQuestion[] mass_ImageQuestion = new ImageQuestion[5];
+        internal String Name;
+        internal int Score;
+        internal Object[] args = new Object[5];
+        internal bool IsRandom;
 
         public Lesson()
         {

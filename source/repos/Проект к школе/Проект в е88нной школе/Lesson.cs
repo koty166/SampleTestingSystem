@@ -9,13 +9,17 @@ namespace Проект_к_школе
     [Serializable]
     class Lesson
     {
-       internal Question[] mass_Question = new Question [20];
-       internal ImageQuestion[] mass_ImageQuestion = new ImageQuestion[5];
+        internal Question[] mass_Question = new Question[20];
+        internal ImageQuestion[] mass_ImageQuestion = new ImageQuestion[5];
 #pragma warning disable CS0649 // Полю "Lesson.Name" нигде не присваивается значение, поэтому оно всегда будет иметь значение по умолчанию null.
-       internal String Name;
+        internal String Name;
 #pragma warning restore CS0649 // Полю "Lesson.Name" нигде не присваивается значение, поэтому оно всегда будет иметь значение по умолчанию null.
 #pragma warning disable CS0649 // Полю "Lesson.Score" нигде не присваивается значение, поэтому оно всегда будет иметь значение по умолчанию 0.
-       internal int Score;
+        internal int Score;
+
+        internal Object [] args = new Object [5];
+        internal bool IsRandom;
+
 #pragma warning restore CS0649 // Полю "Lesson.Score" нигде не присваивается значение, поэтому оно всегда будет иметь значение по умолчанию 0.
         public Lesson()
         {

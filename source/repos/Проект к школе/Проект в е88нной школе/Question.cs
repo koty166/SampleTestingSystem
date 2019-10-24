@@ -18,6 +18,7 @@ namespace Проект_к_школе
 #pragma warning restore CS0649 // Полю "Question.Question_s" нигде не присваивается значение, поэтому оно всегда будет иметь значение по умолчанию null.
 #pragma warning disable CS0649 // Полю "Question.Explanation" нигде не присваивается значение, поэтому оно всегда будет иметь значение по умолчанию null.
         internal String Explanation;
+        internal Object arg;
 #pragma warning restore CS0649 // Полю "Question.Explanation" нигде не присваивается значение, поэтому оно всегда будет иметь значение по умолчанию null.
 
     }

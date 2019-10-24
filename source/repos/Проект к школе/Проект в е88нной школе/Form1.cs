@@ -33,7 +33,11 @@ namespace Проект_к_школе
 
         bool IsTestStar = false;
 
-        Color GlobalColor, SecondaryColor, LabelColor = Color.Black, ButtonColor = Color.Black;
+        Color
+        GlobalColor, SecondaryColor, LabelColor = Color.Black
+        , ButtonColor = Color.Black, Rigth = Color.SpringGreen
+        , Wrong = Color.Tomato
+        , QuestionDone = Color.SpringGreen;
 
         void Load_in_form()
         {
@@ -142,7 +146,6 @@ namespace Проект_к_школе
                     Lesson_mass[i] = (Lesson)Formated.Deserialize(Stream);
                     Stream.Close();
                 }
-
             }
             Load_in_form();
         }
@@ -156,7 +159,7 @@ namespace Проект_к_школе
 
             Bitmap bit = new Bitmap(im);
             Graphics g = Graphics.FromImage(bit);
-            SolidBrush b = new SolidBrush(Color.Tomato);
+            SolidBrush b = new SolidBrush(Wrong);
             g.Clear(GlobalColor);
             
 
@@ -170,7 +173,7 @@ namespace Проект_к_школе
             float end = (((float)WrongAnswerNum / 25) * 360);
             g.FillPie(b,rect , 0, end );
 
-            b.Color = Color.SpringGreen;
+            b.Color = Rigth;
 
             g.FillPie(b, rect, end , 360 - end);
 
@@ -284,7 +287,10 @@ namespace Проект_к_школе
                 Start.Visible = false;
                 list_of_lessons.Visible = false;
 
-                MassQuestions = RandomizeListQouestion( AddToMass ( Lesson_mass[list_of_lessons.SelectedIndex] ) );
+                if (Lesson_mass[list_of_lessons.SelectedIndex].IsRandom)
+                    MassQuestions = RandomizeListQouestion(AddToMass(Lesson_mass[list_of_lessons.SelectedIndex]));
+                else
+                    MassQuestions = AddToMass(Lesson_mass[list_of_lessons.SelectedIndex]);
 
                 list_of_questions.SelectedNode = list_of_questions.Nodes[0];
             }
@@ -307,6 +313,7 @@ namespace Проект_к_школе
                     else if (Answer4.Checked) { selected_answer = 3; answer = Answer4.Text.Remove(0, 8); }
                     else { Answer1.Checked = true; answer = Answer1.Text.Remove(0, 8); }
 
+                    list_of_questions.SelectedNode.BackColor = QuestionDone;
 
                     MassQuestions[list_of_questions.SelectedNode.Index].IsDone = true;
                     MassQuestions[list_of_questions.SelectedNode.Index].Answer = answer;
@@ -314,16 +321,16 @@ namespace Проект_к_школе
                     if (selected_answer == Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Rigth_answer)
                     {
                         MassQuestions[list_of_questions.SelectedNode.Index].IsRigth = true;
-                        list_of_questions.SelectedNode.BackColor = Color.Green;
                     }
                     else
                     {
                         MassQuestions[list_of_questions.SelectedNode.Index].IsRigth = false;
-                        list_of_questions.SelectedNode.BackColor = Color.Red;
                     }
                 }
                 else
                 {
+                    list_of_questions.SelectedNode.BackColor = QuestionDone;
+
                     textBox1.Clear();
 
                     MassQuestions[list_of_questions.SelectedNode.Index].IsDone = true;
@@ -332,13 +339,12 @@ namespace Проект_к_школе
                     if (textBox1.Text == Lesson_mass[list_of_lessons.SelectedIndex].mass_ImageQuestion[list_of_questions.SelectedNode.Index - 20].Rigth_answer)
                     {
                         MassQuestions[list_of_questions.SelectedNode.Index].IsRigth = true;
-                        list_of_questions.SelectedNode.BackColor = Color.Green;
+                        
                     }
 
                     else
                     {
                         MassQuestions[list_of_questions.SelectedNode.Index].IsRigth = false;
-                        list_of_questions.SelectedNode.BackColor = Color.Red;
                     }
                 }
 
@@ -418,7 +424,7 @@ namespace Проект_к_школе
                     if (!i.IsRigth)
                     {
                         button1.Text = "Далее";
-                        label1.Text = i.Explanation;
+                        label1.Text =$"Задание№{i.Index}: " + i.Explanation;
                         i.IsRigth = true;
                         WrongAnswerNum--;
                         return;
@@ -435,6 +441,9 @@ namespace Проект_к_школе
                 button1.Visible = false;
                 textBox2.Visible = false;
                 IsTestStar = false;
+
+                WrongAnswerNum = 0;
+                lines.Clear();
             }
         }
 
@@ -461,10 +470,12 @@ namespace Проект_к_школе
 
         private void label3_Click(object sender, EventArgs e)
         {
-            GlobalColor = Color.FromArgb(255, 32, 32, 32);
-            SecondaryColor = Color.FromName("White");
-            LabelColor = Color.FromArgb(255, 96, 96, 96);
-            ButtonColor = Color.FromArgb(255, 74, 38, 71);
+            GlobalColor = Color.FromArgb(255, 53, 53, 53);
+            SecondaryColor = Color.FromArgb(255, 81, 81, 81);
+            LabelColor =  Color.FromName("White");
+            ButtonColor = Color.FromName("Gray");
+            Rigth = Color.FromArgb(255,58,120,58);
+            Wrong = Color.FromArgb(255, 178, 36, 12);
 
             Personalize();
         }

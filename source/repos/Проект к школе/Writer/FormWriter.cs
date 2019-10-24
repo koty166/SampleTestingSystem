@@ -220,8 +220,8 @@ namespace Проект_к_школе
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (list_of_questions.SelectedNode != null && list_of_lessons.SelectedItem != null)
-                if (list_of_questions.SelectedNode.Index >= 20)
+            if (list_of_questions.SelectedNode != null && list_of_lessons.SelectedItem != null
+                && list_of_questions.SelectedNode.Index >= 20)
                     if (textBox9.Text.Contains('.') && File.Exists($"Tests\\images\\{textBox9.Text}"))
                     {
                         String s;
@@ -237,7 +237,6 @@ namespace Проект_к_школе
                         MessageBox.Show("Картинка не сушествует или неправельно введено имя");
                         textBox9.Text = "Error.png";
                     }
-                else;
             else
                 MessageBox.Show("Выберите задание и урок");
       

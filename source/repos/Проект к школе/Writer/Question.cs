@@ -13,6 +13,6 @@ namespace Проект_к_школе
         internal int Rigth_answer;
         internal String Question_s;
         internal String Explanation;
-
+        internal Object arg;
     }
 }
