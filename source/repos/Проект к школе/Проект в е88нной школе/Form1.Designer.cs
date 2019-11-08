@@ -28,54 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Узел0");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Узел1");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Узел2");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Узел3");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Узел4");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Узел5");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Узел6");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Узел7");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Узел8");
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Узел9");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Узел10");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Узел11");
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Узел12");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Узел13");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Узел14");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Узел15");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Узел16");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Узел17");
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Узел18");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Узел19");
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Узел20");
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Узел21");
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Узел22");
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Узел23");
-            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Узел24");
-            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Задача 1");
-            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("Задача 2");
-            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("Задача 3");
-            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("Задача 4");
-            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("Задача 5");
-            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("Задача 6");
-            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("Задача 7");
-            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("Задача 8");
-            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("Задача 9");
-            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Задача 10");
-            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("Задача 11");
+            System.Windows.Forms.TreeNode treeNode67 = new System.Windows.Forms.TreeNode("Задача 1");
+            System.Windows.Forms.TreeNode treeNode68 = new System.Windows.Forms.TreeNode("Задача 2");
+            System.Windows.Forms.TreeNode treeNode69 = new System.Windows.Forms.TreeNode("Задача 3");
+            System.Windows.Forms.TreeNode treeNode70 = new System.Windows.Forms.TreeNode("Задача 4");
+            System.Windows.Forms.TreeNode treeNode71 = new System.Windows.Forms.TreeNode("Задача 5");
+            System.Windows.Forms.TreeNode treeNode72 = new System.Windows.Forms.TreeNode("Задача 6");
+            System.Windows.Forms.TreeNode treeNode73 = new System.Windows.Forms.TreeNode("Задача 7");
+            System.Windows.Forms.TreeNode treeNode74 = new System.Windows.Forms.TreeNode("Задача 8");
+            System.Windows.Forms.TreeNode treeNode75 = new System.Windows.Forms.TreeNode("Задача 9");
+            System.Windows.Forms.TreeNode treeNode76 = new System.Windows.Forms.TreeNode("Задача 10");
+            System.Windows.Forms.TreeNode treeNode77 = new System.Windows.Forms.TreeNode("Задача 11");
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.Start = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.ExplanationLabel = new System.Windows.Forms.Label();
             this.list_of_lessons = new System.Windows.Forms.ListBox();
-            this.list_of_questions = new System.Windows.Forms.TreeView();
             this.Next = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.AnswerTextSetup = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.QuestionLabel = new System.Windows.Forms.Label();
             this.Answer4 = new System.Windows.Forms.RadioButton();
             this.Answer3 = new System.Windows.Forms.RadioButton();
             this.Answer2 = new System.Windows.Forms.RadioButton();
@@ -109,7 +81,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(634, 461);
+            this.tabControl1.Size = new System.Drawing.Size(597, 418);
             this.tabControl1.TabIndex = 15;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
@@ -117,49 +89,24 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.textBox2);
             this.tabPage1.Controls.Add(this.Start);
-            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.ExplanationLabel);
             this.tabPage1.Controls.Add(this.list_of_lessons);
-            this.tabPage1.Controls.Add(this.list_of_questions);
             this.tabPage1.Controls.Add(this.Next);
-            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Controls.Add(this.AnswerTextSetup);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.pictureBox);
             this.tabPage1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(626, 435);
+            this.tabPage1.Size = new System.Drawing.Size(589, 392);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Тесты";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(496, 369);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(101, 27);
-            this.button1.TabIndex = 24;
-            this.button1.Text = "Объяснения";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(21, 326);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(469, 101);
-            this.textBox2.TabIndex = 23;
-            this.textBox2.Visible = false;
-            // 
             // Start
             // 
-            this.Start.Location = new System.Drawing.Point(434, 178);
+            this.Start.Location = new System.Drawing.Point(416, 155);
             this.Start.Name = "Start";
             this.Start.Size = new System.Drawing.Size(85, 21);
             this.Start.TabIndex = 22;
@@ -167,117 +114,28 @@
             this.Start.UseVisualStyleBackColor = true;
             this.Start.Click += new System.EventHandler(this.Start_Click);
             // 
-            // label1
+            // ExplanationLabel
             // 
-            this.label1.AutoEllipsis = true;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(201, 13);
-            this.label1.TabIndex = 20;
-            this.label1.Text = "Выбери урок , который хочешь пройти";
+            this.ExplanationLabel.AutoEllipsis = true;
+            this.ExplanationLabel.AutoSize = true;
+            this.ExplanationLabel.Location = new System.Drawing.Point(18, 3);
+            this.ExplanationLabel.Name = "ExplanationLabel";
+            this.ExplanationLabel.Size = new System.Drawing.Size(201, 13);
+            this.ExplanationLabel.TabIndex = 20;
+            this.ExplanationLabel.Text = "Выбери урок , который хочешь пройти";
             // 
             // list_of_lessons
             // 
             this.list_of_lessons.FormattingEnabled = true;
             this.list_of_lessons.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.list_of_lessons.Location = new System.Drawing.Point(94, 164);
+            this.list_of_lessons.Location = new System.Drawing.Point(100, 138);
             this.list_of_lessons.Name = "list_of_lessons";
             this.list_of_lessons.Size = new System.Drawing.Size(294, 56);
             this.list_of_lessons.TabIndex = 18;
             // 
-            // list_of_questions
-            // 
-            this.list_of_questions.BackColor = System.Drawing.Color.White;
-            this.list_of_questions.ForeColor = System.Drawing.Color.Black;
-            this.list_of_questions.HideSelection = false;
-            this.list_of_questions.Location = new System.Drawing.Point(670, 3);
-            this.list_of_questions.Name = "list_of_questions";
-            treeNode1.Name = "Узел0";
-            treeNode1.Text = "Узел0";
-            treeNode2.Name = "Узел1";
-            treeNode2.Text = "Узел1";
-            treeNode3.Name = "Узел2";
-            treeNode3.Text = "Узел2";
-            treeNode4.Name = "Узел3";
-            treeNode4.Text = "Узел3";
-            treeNode5.Name = "Узел4";
-            treeNode5.Text = "Узел4";
-            treeNode6.Name = "Узел5";
-            treeNode6.Text = "Узел5";
-            treeNode7.Name = "Узел6";
-            treeNode7.Text = "Узел6";
-            treeNode8.Name = "Узел7";
-            treeNode8.Text = "Узел7";
-            treeNode9.Name = "Узел8";
-            treeNode9.Text = "Узел8";
-            treeNode10.Name = "Узел9";
-            treeNode10.Text = "Узел9";
-            treeNode11.Name = "Узел10";
-            treeNode11.Text = "Узел10";
-            treeNode12.Name = "Узел11";
-            treeNode12.Text = "Узел11";
-            treeNode13.Name = "Узел12";
-            treeNode13.Text = "Узел12";
-            treeNode14.Name = "Узел13";
-            treeNode14.Text = "Узел13";
-            treeNode15.Name = "Узел14";
-            treeNode15.Text = "Узел14";
-            treeNode16.Name = "Узел15";
-            treeNode16.Text = "Узел15";
-            treeNode17.Name = "Узел16";
-            treeNode17.Text = "Узел16";
-            treeNode18.Name = "Узел17";
-            treeNode18.Text = "Узел17";
-            treeNode19.Name = "Узел18";
-            treeNode19.Text = "Узел18";
-            treeNode20.Name = "Узел19";
-            treeNode20.Text = "Узел19";
-            treeNode21.Name = "Узел20";
-            treeNode21.Text = "Узел20";
-            treeNode22.Name = "Узел21";
-            treeNode22.Text = "Узел21";
-            treeNode23.Name = "Узел22";
-            treeNode23.Text = "Узел22";
-            treeNode24.Name = "Узел23";
-            treeNode24.Text = "Узел23";
-            treeNode25.Name = "Узел24";
-            treeNode25.Text = "Узел24";
-            this.list_of_questions.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6,
-            treeNode7,
-            treeNode8,
-            treeNode9,
-            treeNode10,
-            treeNode11,
-            treeNode12,
-            treeNode13,
-            treeNode14,
-            treeNode15,
-            treeNode16,
-            treeNode17,
-            treeNode18,
-            treeNode19,
-            treeNode20,
-            treeNode21,
-            treeNode22,
-            treeNode23,
-            treeNode24,
-            treeNode25});
-            this.list_of_questions.Size = new System.Drawing.Size(136, 429);
-            this.list_of_questions.TabIndex = 17;
-            this.list_of_questions.TabStop = false;
-            this.list_of_questions.Visible = false;
-            this.list_of_questions.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.list_of_questions_AfterSelect);
-            // 
             // Next
             // 
-            this.Next.Location = new System.Drawing.Point(265, 200);
+            this.Next.Location = new System.Drawing.Point(200, 200);
             this.Next.Name = "Next";
             this.Next.Size = new System.Drawing.Size(86, 20);
             this.Next.TabIndex = 16;
@@ -286,17 +144,17 @@
             this.Next.Visible = false;
             this.Next.Click += new System.EventHandler(this.Next_Click);
             // 
-            // textBox1
+            // AnswerTextSetup
             // 
-            this.textBox1.Location = new System.Drawing.Point(35, 330);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(350, 20);
-            this.textBox1.TabIndex = 15;
-            this.textBox1.Visible = false;
+            this.AnswerTextSetup.Location = new System.Drawing.Point(20, 350);
+            this.AnswerTextSetup.Name = "AnswerTextSetup";
+            this.AnswerTextSetup.Size = new System.Drawing.Size(350, 20);
+            this.AnswerTextSetup.TabIndex = 15;
+            this.AnswerTextSetup.Visible = false;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.QuestionLabel);
             this.groupBox1.Controls.Add(this.Answer4);
             this.groupBox1.Controls.Add(this.Answer3);
             this.groupBox1.Controls.Add(this.Answer2);
@@ -308,14 +166,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Visible = false;
             // 
-            // label2
+            // QuestionLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "label2";
+            this.QuestionLabel.AutoSize = true;
+            this.QuestionLabel.Location = new System.Drawing.Point(18, 16);
+            this.QuestionLabel.Name = "QuestionLabel";
+            this.QuestionLabel.Size = new System.Drawing.Size(35, 13);
+            this.QuestionLabel.TabIndex = 4;
+            this.QuestionLabel.Text = "label2";
             // 
             // Answer4
             // 
@@ -380,7 +238,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(626, 435);
+            this.tabPage2.Size = new System.Drawing.Size(589, 392);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Темы";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -473,40 +331,40 @@
             this.treeView1.HideSelection = false;
             this.treeView1.Location = new System.Drawing.Point(263, 42);
             this.treeView1.Name = "treeView1";
-            treeNode26.Name = "Задача 1";
-            treeNode26.Text = "Задача 1";
-            treeNode27.Name = "Узел1";
-            treeNode27.Text = "Задача 2";
-            treeNode28.Name = "Узел2";
-            treeNode28.Text = "Задача 3";
-            treeNode29.Name = "Узел3";
-            treeNode29.Text = "Задача 4";
-            treeNode30.Name = "Узел4";
-            treeNode30.Text = "Задача 5";
-            treeNode31.Name = "Узел5";
-            treeNode31.Text = "Задача 6";
-            treeNode32.Name = "Узел6";
-            treeNode32.Text = "Задача 7";
-            treeNode33.Name = "Узел7";
-            treeNode33.Text = "Задача 8";
-            treeNode34.Name = "Узел8";
-            treeNode34.Text = "Задача 9";
-            treeNode35.Name = "Узел9";
-            treeNode35.Text = "Задача 10";
-            treeNode36.Name = "Узел10";
-            treeNode36.Text = "Задача 11";
+            treeNode67.Name = "Задача 1";
+            treeNode67.Text = "Задача 1";
+            treeNode68.Name = "Узел1";
+            treeNode68.Text = "Задача 2";
+            treeNode69.Name = "Узел2";
+            treeNode69.Text = "Задача 3";
+            treeNode70.Name = "Узел3";
+            treeNode70.Text = "Задача 4";
+            treeNode71.Name = "Узел4";
+            treeNode71.Text = "Задача 5";
+            treeNode72.Name = "Узел5";
+            treeNode72.Text = "Задача 6";
+            treeNode73.Name = "Узел6";
+            treeNode73.Text = "Задача 7";
+            treeNode74.Name = "Узел7";
+            treeNode74.Text = "Задача 8";
+            treeNode75.Name = "Узел8";
+            treeNode75.Text = "Задача 9";
+            treeNode76.Name = "Узел9";
+            treeNode76.Text = "Задача 10";
+            treeNode77.Name = "Узел10";
+            treeNode77.Text = "Задача 11";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode26,
-            treeNode27,
-            treeNode28,
-            treeNode29,
-            treeNode30,
-            treeNode31,
-            treeNode32,
-            treeNode33,
-            treeNode34,
-            treeNode35,
-            treeNode36});
+            treeNode67,
+            treeNode68,
+            treeNode69,
+            treeNode70,
+            treeNode71,
+            treeNode72,
+            treeNode73,
+            treeNode74,
+            treeNode75,
+            treeNode76,
+            treeNode77});
             this.treeView1.Size = new System.Drawing.Size(107, 184);
             this.treeView1.TabIndex = 6;
             // 
@@ -532,16 +390,18 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 461);
+            this.ClientSize = new System.Drawing.Size(597, 418);
             this.Controls.Add(this.tabControl1);
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "bu";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -561,16 +421,13 @@
 
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button Start;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label ExplanationLabel;
         private System.Windows.Forms.ListBox list_of_lessons;
-        private System.Windows.Forms.TreeView list_of_questions;
         private System.Windows.Forms.Button Next;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox AnswerTextSetup;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label QuestionLabel;
         private System.Windows.Forms.RadioButton Answer4;
         private System.Windows.Forms.RadioButton Answer3;
         private System.Windows.Forms.RadioButton Answer2;

@@ -7,10 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Проект к школе"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Writer", "Writer\Writer.csproj", "{C679E559-080D-4C63-B91B-DB3987236601}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary2", "ClassLibrary2\ClassLibrary2.csproj", "{FEB2C1C9-E336-432B-B715-CC6B7041BA56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleServer", "ConsoleServer\ConsoleServer.csproj", "{2BBD38A6-4ECE-42F7-B4E2-259E79CABCA9}"
+EndProject
 Global
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -24,11 +25,22 @@ Global
 		{C679E559-080D-4C63-B91B-DB3987236601}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C679E559-080D-4C63-B91B-DB3987236601}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C679E559-080D-4C63-B91B-DB3987236601}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEB2C1C9-E336-432B-B715-CC6B7041BA56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEB2C1C9-E336-432B-B715-CC6B7041BA56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEB2C1C9-E336-432B-B715-CC6B7041BA56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEB2C1C9-E336-432B-B715-CC6B7041BA56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BBD38A6-4ECE-42F7-B4E2-259E79CABCA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BBD38A6-4ECE-42F7-B4E2-259E79CABCA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BBD38A6-4ECE-42F7-B4E2-259E79CABCA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BBD38A6-4ECE-42F7-B4E2-259E79CABCA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C3CAC235-827B-446A-B130-3FBCC89D2FA7}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

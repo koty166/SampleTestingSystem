@@ -63,11 +63,8 @@
     <Compile Include="FormForExplanation.Designer.cs">
       <DependentUpon>FormForExplanation.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImageQuestion.cs" />
-    <Compile Include="Lesson.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Question.cs" />
     <EmbeddedResource Include="FormWriter.resx">
       <DependentUpon>FormWriter.cs</DependentUpon>
     </EmbeddedResource>
@@ -98,6 +95,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary2\ClassLibrary2.csproj">
+      <Project>{feb2c1c9-e336-432b-b715-cc6b7041ba56}</Project>
+      <Name>ClassLibrary2</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

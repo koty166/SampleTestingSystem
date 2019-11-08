@@ -9,6 +9,9 @@ using System.Threading;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using ClassLibrary2;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Проект_к_школе
 {
@@ -23,15 +26,14 @@ namespace Проект_к_школе
 
         String directory = @"Tests";
 
-        QuestionDone [] MassQuestions;
-        List<String> lines = new List<string>();
         List<Image> LIstImages = new List<Image>();
 
-        int WrongAnswerNum = 0;
-
         Lesson[] Lesson_mass;
+        internal Pupil pupil;
 
         bool IsTestStar = false;
+        int CurrentQuestion = 0;
+        internal IPAddress IP;
 
         Color
         GlobalColor, SecondaryColor, LabelColor = Color.Black
@@ -53,24 +55,14 @@ namespace Проект_к_школе
 
         }
 
-        void rename_list_of_questions()
-        {
-            for (int i = 0; i < list_of_questions.Nodes.Count; i++)
-            {
-                list_of_questions.Nodes[i].Text = "Задание: " + (i + 1);
-            }
-        }
-
         void Personalize()
         {
             tabPage1.BackColor = GlobalColor;
             tabPage2.BackColor = GlobalColor;
             this.BackColor = GlobalColor;
 
-            list_of_questions.BackColor = SecondaryColor;
             list_of_lessons.BackColor = SecondaryColor;
-            textBox2.BackColor = SecondaryColor;
-            textBox1.BackColor = SecondaryColor;
+            AnswerTextSetup.BackColor = SecondaryColor;
             tabPage1.ForeColor = SecondaryColor;
             tabPage2.ForeColor = SecondaryColor;
             this.BackColor = SecondaryColor;
@@ -90,15 +82,14 @@ namespace Проект_к_школе
             radioButton2.ForeColor = LabelColor;
             radioButton3.ForeColor = LabelColor;
             radioButton4.ForeColor = LabelColor;
-            label1.ForeColor = LabelColor;
-            label2.ForeColor = LabelColor;
+            ExplanationLabel.ForeColor = LabelColor;
+            QuestionLabel.ForeColor = LabelColor;
             label7.ForeColor = LabelColor;
             DarkTheme.ForeColor = LabelColor;
             groupBox1.ForeColor = LabelColor;
             groupBox3.ForeColor = LabelColor;
             groupBox4.ForeColor = LabelColor;
 
-            button1.ForeColor = GlobalColor;
             button3.ForeColor = GlobalColor;
             Next.ForeColor = GlobalColor;
             Start.ForeColor = GlobalColor;
@@ -111,26 +102,26 @@ namespace Проект_к_школе
             List<Image> l = new List<Image>();
             Lesson CurrentLesson = (Lesson)ob;
 
-            foreach (var i in CurrentLesson.mass_ImageQuestion)
+            foreach (var i in CurrentLesson.QuestionList)
             {
+                
                 try
                 {
-                    l.Add(Image.FromFile(directory + $"//images//{i.image_name}"));
+                    ImageQuestion q = (ImageQuestion)i;
+                    l.Add(Image.FromFile(directory + $"//images//{q.image_name}"));
                 }
                 catch
                 {
                     l.Add(Image.FromFile(directory + $"//images//Error.png"));
                 }
             }
+
             LIstImages = l;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             String[] File_mass_date;
-
-
-            rename_list_of_questions();
 
             File_mass_date = Directory.GetFiles(directory, "*.dat");
 
@@ -150,123 +141,14 @@ namespace Проект_к_школе
             Load_in_form();
         }
 
-        Image drow_Diagramm()
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            Image im = pictureBox.Image;
-
-            pictureBox.Refresh();
-            pictureBox.Size = new Size(300, 300);
-
-            Bitmap bit = new Bitmap(im);
-            Graphics g = Graphics.FromImage(bit);
-            SolidBrush b = new SolidBrush(Wrong);
-            g.Clear(GlobalColor);
-            
-
-            Rectangle rect = new Rectangle()
+            if (e.Control && e.KeyCode == Keys.S && !IsTestStar)
             {
-                Size = pictureBox.Size,
-                X = pictureBox.Location.X - 20,
-                Y = pictureBox.Location.Y - 20
-            };
-
-            float end = (((float)WrongAnswerNum / 25) * 360);
-            g.FillPie(b,rect , 0, end );
-
-            b.Color = Rigth;
-
-            g.FillPie(b, rect, end , 360 - end);
-
-            return bit;
-        }
-
-        QuestionDone [] RandomizeListQouestion(QuestionDone [] InMass)
-        {
-            int StartIndex, EndIndex;
-            QuestionDone buff;
-            Random r = new Random();
-
-            for (int i = 0; i < 25; i++)
-            {
-                StartIndex = r.Next(0,25);
-                EndIndex = r.Next(0, 25);
-
-                buff = InMass[EndIndex];
-                InMass[EndIndex] = InMass[StartIndex];
-                InMass[StartIndex] = buff;
+                NetworSetting n = new NetworSetting();
+                n.Show();
+                this.Enabled = false;
             }
-            return InMass;
-        }
-
-        QuestionDone[] AddToMass(Lesson InL)
-        {
-            QuestionDone[] ret = new QuestionDone[25];
-            for (int i = 0; i < 25; i++)
-            {
-                if (i < 20)
-                    ret[i] = new QuestionDone()
-                    {
-                        Answer = "",
-                        IsDone = false,
-                        IsRigth = false,
-                        Explanation = InL.mass_Question[i].Explanation,
-                        IsImageQuestion = false,
-                        Index = i
-                    };
-                else
-                    ret[i] = new QuestionDone()
-                    {
-                        Answer = "",
-                        IsDone = false,
-                        IsRigth = false,
-                        Explanation = InL.mass_ImageQuestion[i - 20].Explanation,
-                        IsImageQuestion = true,
-                        Index = i
-                    };
-            }
-            return ret;
-        }
-
-        private void list_of_questions_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            Next.Visible = true;
-            textBox1.Text = null;
-            int Selected_index = list_of_questions.SelectedNode.Index;
-
-
-
-            if (!MassQuestions[Selected_index].IsImageQuestion)
-            {
-                groupBox1.Visible = true;
-                textBox1.Visible = false;
-                pictureBox.Visible = false;
-                label1.Visible = false;
-
-                Next.Location = new Point(280, 220);
-
-                Answer1.Text = "Ответ 1:" + Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[MassQuestions[Selected_index].Index].Answers[0];
-                Answer2.Text = "Ответ 2:" + Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[MassQuestions[Selected_index].Index].Answers[1];
-                Answer3.Text = "Ответ 3:" + Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[MassQuestions[Selected_index].Index].Answers[2];
-                Answer4.Text = "Ответ 4:" + Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[MassQuestions[Selected_index].Index].Answers[3];
-                label2.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[MassQuestions[Selected_index].Index].Question_s;
-            }
-            else
-            {
-                Next.Location = new Point(500, 350);
-
-                groupBox1.Visible = false;
-
-                textBox1.Visible = true;
-                pictureBox.Visible = true;
-                label1.Visible = true;
-
-                label1.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_ImageQuestion[MassQuestions[Selected_index].Index - 20].Question;
-
-                pictureBox.Image = LIstImages[MassQuestions[Selected_index].Index - 20];
-            }
-
-            Next.Text = Selected_index == 24 ? "Закончить" : "Далее";
-
         }
 
         private void Start_Click(object sender, EventArgs e)
@@ -276,174 +158,109 @@ namespace Проект_к_школе
                 Thread f = new Thread(new ParameterizedThreadStart(LoadPicture));
 
                 f.Start(Lesson_mass[list_of_lessons.SelectedIndex]);
-
                 IsTestStar = true;
 
-                this.MinimumSize = new Size(830, 500);
-
-                groupBox1.Visible = true;
-                list_of_questions.Visible = true;
-                label1.Visible = false;
                 Start.Visible = false;
-                list_of_lessons.Visible = false;
-
-                if (Lesson_mass[list_of_lessons.SelectedIndex].IsRandom)
-                    MassQuestions = RandomizeListQouestion(AddToMass(Lesson_mass[list_of_lessons.SelectedIndex]));
+                if (Application.OpenForms.Count == 1 && pupil == null)
+                {
+                    Registration r = new Registration();
+                    r.Show();
+                    this.Enabled = false;
+                }
                 else
-                    MassQuestions = AddToMass(Lesson_mass[list_of_lessons.SelectedIndex]);
-
-                list_of_questions.SelectedNode = list_of_questions.Nodes[0];
+                    Next2();
             }
-
         }
 
+        void EndTest()
+        {
+
+        }
+        public void Next2() { Next_Click(Next, null); }
         private void Next_Click(object sender, EventArgs e)
         {
-            if (list_of_questions.SelectedNode != null)
+            Lesson CurrentLesson = Lesson_mass[list_of_lessons.SelectedIndex];
+
+            if (CurrentQuestion > CurrentLesson.QuestionList.Count)
             {
-
-                if (list_of_questions.SelectedNode.Index < 20)
+                if (CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new Question().GetType())
                 {
-                    int selected_answer = 0;
-                    string answer;
+                    String UserAnswer;
+                    if (Answer1.Checked) UserAnswer = Answer1.Text;
+                    else if (Answer2.Checked) UserAnswer = Answer2.Text;
+                    else if (Answer3.Checked) UserAnswer = Answer3.Text;
+                    else if (Answer4.Checked) UserAnswer = Answer4.Text;
+                    else UserAnswer = "NO";
 
-                    if (Answer1.Checked) { selected_answer = 0; answer = Answer1.Text.Remove(0, 8); }
-                    else if (Answer2.Checked) { selected_answer = 1; answer = Answer2.Text.Remove(0,8); }
-                    else if (Answer3.Checked) { selected_answer = 2; answer = Answer3.Text.Remove(0, 8); }
-                    else if (Answer4.Checked) { selected_answer = 3; answer = Answer4.Text.Remove(0, 8); }
-                    else { Answer1.Checked = true; answer = Answer1.Text.Remove(0, 8); }
-
-                    list_of_questions.SelectedNode.BackColor = QuestionDone;
-
-                    MassQuestions[list_of_questions.SelectedNode.Index].IsDone = true;
-                    MassQuestions[list_of_questions.SelectedNode.Index].Answer = answer;
-
-                    if (selected_answer == Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Rigth_answer)
-                    {
-                        MassQuestions[list_of_questions.SelectedNode.Index].IsRigth = true;
-                    }
-                    else
-                    {
-                        MassQuestions[list_of_questions.SelectedNode.Index].IsRigth = false;
-                    }
+                    pupil.AnswerList.Add(UserAnswer);
                 }
-                else
+                else if ((CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new ImageQuestion().GetType()))
                 {
-                    list_of_questions.SelectedNode.BackColor = QuestionDone;
-
-                    textBox1.Clear();
-
-                    MassQuestions[list_of_questions.SelectedNode.Index].IsDone = true;
-                    MassQuestions[list_of_questions.SelectedNode.Index].Answer = textBox1.Text;
-
-                    if (textBox1.Text == Lesson_mass[list_of_lessons.SelectedIndex].mass_ImageQuestion[list_of_questions.SelectedNode.Index - 20].Rigth_answer)
-                    {
-                        MassQuestions[list_of_questions.SelectedNode.Index].IsRigth = true;
-                        
-                    }
-
-                    else
-                    {
-                        MassQuestions[list_of_questions.SelectedNode.Index].IsRigth = false;
-                    }
+                    pupil.AnswerList.Add(AnswerTextSetup.Text);
                 }
-
-                if (list_of_questions.SelectedNode.Index == 24)
-                {
-                    foreach (var i in MassQuestions)
-                    {
-                        if (!i.IsDone)
-                        {
-                            MessageBox.Show("Пожалуйста, заполните все ответы");
-                            return;
-                        }
-                    }    
-
-                    textBox2.Visible = true;
-                    textBox1.Visible = false;
-                    Next.Visible = false;
-                    button1.Visible = true;
-                    list_of_questions.Visible = false;
-                    groupBox1.Visible = false;
-                    pictureBox.Visible = true;
-
-                    {
-
-                        foreach (var i in MassQuestions)
-                        {
-                            if (!i.IsRigth)
-                            {
-                                lines.Add($"Задача №{i.Index + 1} решена неверно, ваш ответ {i.Answer}");
-                                WrongAnswerNum++;
-                            }
-                            else
-                                lines.Add($"Задача №{i.Index + 1} решена верно");
-                            
-                        }
-                        
-                        String[] s = new string[lines.Count];
-                        for (int i = 0; i < lines.Count; i++)
-                        {
-                            s[i] = lines[i];
-                        }
-                        textBox2.Lines = s;
-                    }
-
-                       
-
-                    if (WrongAnswerNum == 0) button1.Text = "Начать другой тест";
-                    else button1.Text = "Объяснение";
-
-                    this.MaximumSize = new Size(650, 500);
-
-                    pictureBox.Image = drow_Diagramm();
-
-                    Color c = list_of_questions.BackColor;
-                    for (int i = 0; i < 25; i++)
-                    {
-                        list_of_questions.Nodes[i].BackColor = c;
-                    }
-
-                }
-                else
-                    list_of_questions.SelectedNode = list_of_questions.Nodes[list_of_questions.SelectedNode.Index + 1];
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            textBox2.Clear();
-            textBox2.Visible = false;
-            pictureBox.Visible = false;
-
-            pictureBox.Size = new Size(500, 300);
-
-            if (WrongAnswerNum > 0)
-            {
-                foreach (var i in MassQuestions)
-                    if (!i.IsRigth)
-                    {
-                        button1.Text = "Далее";
-                        label1.Text =$"Задание№{i.Index}: " + i.Explanation;
-                        i.IsRigth = true;
-                        WrongAnswerNum--;
-                        return;
-                    }
-            }
-            else
-            {
-                label1.Text = "Выбери урок , который хочешь пройти";
-
-                list_of_lessons.Visible = true;
-                Start.Visible = true;
-                label1.Visible = true;
-
-                button1.Visible = false;
-                textBox2.Visible = false;
                 IsTestStar = false;
+                EndTest();
+            }
+            else if (CurrentLesson.QuestionList[CurrentQuestion].GetType() == new Explanation().GetType())
+            {
+                Explanation ex = (Explanation)CurrentLesson.QuestionList[0];
 
-                WrongAnswerNum = 0;
-                lines.Clear();
+                groupBox1.Visible = false;
+                AnswerTextSetup.Visible = false;
+
+                Next.Location = new Point(200, 200);
+
+                ExplanationLabel.Text = ex.Text;
+
+                CurrentQuestion++;
+            }
+            else if(CurrentLesson.QuestionList[CurrentQuestion].GetType() == new Question().GetType())
+            {
+                String UserAnswer;
+                Question q = (Question)CurrentLesson.QuestionList[CurrentQuestion];
+
+                groupBox1.Visible = true;
+                ExplanationLabel.Visible = false;
+                AnswerTextSetup.Visible = false;
+                Next.Location = new Point(200, 200);
+
+                Answer1.Text = q.Answers[0];
+                Answer2.Text = q.Answers[1];
+                Answer3.Text = q.Answers[2];
+                Answer4.Text = q.Answers[3];
+
+                QuestionLabel.Text = q.Question_s;
+
+                if (Answer1.Checked) UserAnswer = Answer1.Text;
+                else if (Answer2.Checked) UserAnswer = Answer2.Text;
+                else if (Answer3.Checked) UserAnswer = Answer3.Text;
+                else if (Answer4.Checked) UserAnswer = Answer4.Text;
+                else UserAnswer = "NO";
+
+                pupil.AnswerList.Add(UserAnswer);
+
+                Answer1.Checked = false;
+                Answer2.Checked = false;
+                Answer3.Checked = false;
+                Answer4.Checked = false;
+
+                CurrentQuestion++;
+            }
+            else if(CurrentLesson.QuestionList[CurrentQuestion].GetType() == new ImageQuestion().GetType())
+            {
+                ImageQuestion q = (ImageQuestion)CurrentLesson.QuestionList[CurrentQuestion];
+                groupBox1.Visible = false;
+                AnswerTextSetup.Visible = true;
+                ExplanationLabel.Visible = false;
+
+                Next.Location = new Point(400, 350);
+
+                pupil.AnswerList.Add(AnswerTextSetup.Text);
+
+                ExplanationLabel.Text = q.Question;
+                AnswerTextSetup.Text = null;
+
+                CurrentQuestion++;
             }
         }
 
@@ -452,10 +269,7 @@ namespace Проект_к_школе
             if (IsTestStar && tabControl1.SelectedIndex == 1)
             {
                 tabControl1.SelectedIndex = 0;
-                MessageBox.Show("Пожалуйста завершите тест , прежде чем перейти к темам");
-                if (textBox2.Visible)
-                    pictureBox.Image = drow_Diagramm();
-                
+                MessageBox.Show("Пожалуйста завершите тест , прежде чем перейти к темам");  
             }
            
         }
@@ -479,15 +293,6 @@ namespace Проект_к_школе
 
             Personalize();
         }
-    }
-    class QuestionDone
-    {
-        internal String Answer;
-        internal bool IsDone;
-        internal bool IsRigth;
-        internal String Explanation;
-        internal bool IsImageQuestion;
-        internal int Index;
     }
         
 }

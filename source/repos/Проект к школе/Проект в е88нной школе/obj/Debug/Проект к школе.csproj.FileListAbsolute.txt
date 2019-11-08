@@ -25,3 +25,8 @@ C:\Users\я\source\repos\Проект к школе\Проект в е88нной
 C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\bin\Debug\Writer.pdb
 C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Debug\Writer.exe
 C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Debug\Writer.pdb
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Debug\Проект_к_школе.Registration.resources
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\bin\Debug\ClassLibrary2.dll
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\bin\Debug\ClassLibrary2.pdb
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Debug\Проект к школе.csproj.CopyComplete
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Debug\Проект_к_школе.NetworSetting.resources
