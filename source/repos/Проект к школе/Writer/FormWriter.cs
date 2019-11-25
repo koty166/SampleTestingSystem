@@ -54,6 +54,7 @@ namespace Проект_к_школе
             }
             if (Lesson_mass.Count != 0)
                 AddToLessonChoose();
+            FileTools.Log("Test writer loaded");
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -70,6 +71,7 @@ namespace Проект_к_школе
 
                     stream.Close();
                 }
+            FileTools.Log("Tests saved sucsseed");
         }
 
         private void CreateNewLesson_Click(object sender, EventArgs e)
@@ -82,11 +84,14 @@ namespace Проект_к_школе
             LessonChoose.Items.Clear();
 
             AddToLessonChoose();
+            FileTools.Log("New lesson created");
         }
 
         private void AddQuestion_Click(object sender, EventArgs e)
         {
             QuestionSetupForm form = new QuestionSetupForm();
+            form.Text = "Индекс: " + QuestionChoose.Nodes.Count;
+            FileTools.Log("Question setup opened");
             form.Show();
             this.Enabled = false;
         }
@@ -95,15 +100,19 @@ namespace Проект_к_школе
         {
             if (LessonChoose.SelectedItem != null)
                 ChosenLesson = LessonChoose.SelectedIndex;
+            QuestionChoose.Nodes.Clear();
             foreach (var i in Lesson_mass[LessonChoose.SelectedIndex].QuestionList)
             {
                 AddToQuestionChoose(i);
             }
+            FileTools.Log("List of question rewrited");
         }
 
         private void AddImageQiestion_Click(object sender, EventArgs e)
         {
             ImageQuestionSetupForm form = new ImageQuestionSetupForm();
+            form.Text = "Индекс: " + QuestionChoose.Nodes.Count;
+            FileTools.Log("Image question setup opened");
             form.Show();
             this.Enabled = false;
         }
@@ -111,6 +120,8 @@ namespace Проект_к_школе
         private void AddInstraction_Click(object sender, EventArgs e)
         {
             ExplanationFormSetup form = new ExplanationFormSetup();
+            form.Text = "Индекс: " + QuestionChoose.Nodes.Count;
+            FileTools.Log("Explanation setup opened");
             form.Show();
             this.Enabled = false;
         }
@@ -123,6 +134,8 @@ namespace Проект_к_школе
             {
                 ExplanationFormSetup form = new ExplanationFormSetup();
                 form.LocalQuestion = (Explanation)CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index];
+                form.Text = "Индекс: " + QuestionChoose.SelectedNode.Index.ToString();
+                FileTools.Log("Explanation setup opened as rewrite");
                 form.Show();
                 this.Enabled = false;
             }
@@ -130,6 +143,8 @@ namespace Проект_к_школе
             {
                 QuestionSetupForm form = new QuestionSetupForm();
                 form.LocalQuestion = (Question)CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index];
+                form.Text = "Индекс: " + QuestionChoose.SelectedNode.Index.ToString();
+                FileTools.Log("Йquestion setup opened as rewrite");
                 form.Show();
                 this.Enabled = false;
 
@@ -138,6 +153,8 @@ namespace Проект_к_школе
             {
                 ImageQuestionSetupForm form = new ImageQuestionSetupForm();
                 form.LocalQuestion = (ImageQuestion)CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index];
+                form.Text = "Индекс: " + QuestionChoose.SelectedNode.Index.ToString();
+                FileTools.Log("Image question setup opened as rewrite");
                 form.Show();
                 this.Enabled = false;
             }

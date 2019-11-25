@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
-using System.IO;
-
+using ClassLibrary2;
 namespace Проект_к_школе
 {
     public partial class NetworSetting : Form
@@ -20,14 +13,15 @@ namespace Проект_к_школе
             InitializeComponent();
         }
         static IPAddress IPS;
+
         static bool ListenIP()
         {
             UdpClient listener = new UdpClient(9091);
             IPEndPoint ipend = null;
             byte[] data;
 
-            listener.JoinMulticastGroup(IPAddress.Parse("230.1.1.1"), 50);
             listener.EnableBroadcast = true;
+            listener.JoinMulticastGroup(IPAddress.Parse("230.1.1.1"), 50);
             listener.Client.ReceiveTimeout = 3000;
             try
             {
@@ -52,33 +46,39 @@ namespace Проект_к_школе
         {
             Form1 f = (Form1)Application.OpenForms[0];
             f.Enabled = true;
-            this.Dispose();
+            f.IP = IPAddress.Parse(IPsetup.Text);
+            this.Close();
         }
 
         private void GetIP_Click(object sender, EventArgs e)
         {
-            for (int i = 1; i <= 5; i++)
+            for (int i = 1; i <= 10; i++)
             {
-                NetworkStatys.Text = $"Попытка получить IP: {i} из 5";
+                NetworkStatys.Text = $"Попытка получить IP: {i} из 10";
                 NetworkStatys.Refresh();
                 if (ListenIP())
                     break;
             }
             if (IPS == null)
+            {
                 NetworkStatys.Text = "Не удалось получить IP , введите самостоятельно";
+                FileTools.Log("IP wasn`t get");
+            }
             else
+            {
+                NetworkStatys.Text = "IP получен";
                 IPsetup.Text = IPS.ToString();
+                FileTools.Log("IP is got");
+            }
         }
 
         private void CheckConnections_Click(object sender, EventArgs e)
         {
-            
-            if(TryConnect())
-            {
-                Form1 f = (Form1)Application.OpenForms[0];
+            Form1 f = (Form1)Application.OpenForms[0];
+            if (TryConnect())
                 f.IP = IPS;
-            }
         }
+
         bool TryConnect()
         {
             TcpClient Sender = new TcpClient();
@@ -91,12 +91,8 @@ namespace Проект_к_школе
                 NetworkStatys.Refresh();
                 try
                 {
-                    if (IPS == null)
-                        Sender.Connect(IPAddress.Parse(IPsetup.Text), 9095);
-                    else
-                        Sender.Connect(IPS, 9095);
+                    Sender.Connect(IPAddress.Parse(IPsetup.Text), 9090);
                     connected = true;
-                    IPS = IPAddress.Parse(IPsetup.Text);
                     break;
                 }
                 catch { }
@@ -104,25 +100,34 @@ namespace Проект_к_школе
             if (connected)
             {
                 stream = Sender.GetStream();
-                byte[] data = Encoding.ASCII.GetBytes("Try connect");
+                byte[] data = new byte[1] { 0 };
 
                 stream.Write(data,0,data.Length);
 
-                data = new byte[256];
+                data = new byte[1];
                 int bytes = stream.Read(data,0,data.Length);
 
-                string text = Encoding.ASCII.GetString(data, 0, bytes);
-
-                if (text == "OK")
+                if (data[0] == 2)
                     NetworkStatys.Text = "Соединение установлено";
 
                 stream.Close();
+
+                IPS = IPAddress.Parse(IPsetup.Text);
+                FileTools.Log($"Connected sucsseed by address: {IPS}");
+
                 return true;
             }
             NetworkStatys.Text = "Подключится не удалось";
            
             Sender.Close();
             return false;
+        }
+
+        private void NetworSetting_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Form1 f = (Form1)Application.OpenForms[0];
+            f.Enabled = true;
+            FileTools.Log("Network setting is done");
         }
     }
 }

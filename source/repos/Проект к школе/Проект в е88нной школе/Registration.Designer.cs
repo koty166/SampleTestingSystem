@@ -117,35 +117,35 @@
             0});
             this.FormSetup.Name = "FormSetup";
             this.FormSetup.Size = new System.Drawing.Size(120, 20);
-            this.FormSetup.TabIndex = 17;
+            this.FormSetup.TabIndex = 5;
             // 
             // SurnameSetup
             // 
             this.SurnameSetup.Location = new System.Drawing.Point(134, 87);
             this.SurnameSetup.Name = "SurnameSetup";
             this.SurnameSetup.Size = new System.Drawing.Size(161, 20);
-            this.SurnameSetup.TabIndex = 16;
+            this.SurnameSetup.TabIndex = 2;
             // 
             // PatronymicSetup
             // 
             this.PatronymicSetup.Location = new System.Drawing.Point(134, 132);
             this.PatronymicSetup.Name = "PatronymicSetup";
             this.PatronymicSetup.Size = new System.Drawing.Size(161, 20);
-            this.PatronymicSetup.TabIndex = 15;
+            this.PatronymicSetup.TabIndex = 3;
             // 
             // AgeSetup
             // 
             this.AgeSetup.Location = new System.Drawing.Point(134, 178);
             this.AgeSetup.Name = "AgeSetup";
             this.AgeSetup.Size = new System.Drawing.Size(161, 20);
-            this.AgeSetup.TabIndex = 14;
+            this.AgeSetup.TabIndex = 4;
             // 
             // NameSetup
             // 
             this.NameSetup.Location = new System.Drawing.Point(134, 46);
             this.NameSetup.Name = "NameSetup";
             this.NameSetup.Size = new System.Drawing.Size(161, 20);
-            this.NameSetup.TabIndex = 13;
+            this.NameSetup.TabIndex = 1;
             // 
             // Registration
             // 
@@ -164,10 +164,11 @@
             this.Controls.Add(this.PatronymicSetup);
             this.Controls.Add(this.AgeSetup);
             this.Controls.Add(this.NameSetup);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.Name = "Registration";
             this.Text = "Registration";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Registration_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.FormSetup)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

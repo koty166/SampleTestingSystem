@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ClassLibrary2;
 
@@ -19,8 +12,9 @@ namespace Проект_к_школе
         }
         bool Check ()
         {
-            if (NameSetup.Text.Length <= 10 && NameSetup.Text != "" && SurnameSetup.Text.Length <= 10 && SurnameSetup.Text != "" &&
-                PatronymicSetup.Text.Length <= 10 && PatronymicSetup.Text != "" && Int32.Parse(AgeSetup.Text) > 5 && Int32.Parse(AgeSetup.Text) <= 19)
+            if (NameSetup.Text.Length <= 15 && NameSetup.Text != "" && SurnameSetup.Text.Length <= 15 && SurnameSetup.Text != "" &&
+                PatronymicSetup.Text.Length <= 15 && PatronymicSetup.Text != "" && Int32.Parse(AgeSetup.Text) > 5 && Int32.Parse(AgeSetup.Text) <= 19
+                && FormSetup.Value < 12 && FormSetup.Value >0) 
                 return true;
             else
                 return false;
@@ -40,10 +34,20 @@ namespace Проект_к_школе
                 f.pupil = p;
                 f.Enabled = true;
                 f.Next2();
-                this.Dispose();
+                this.Close();
             }
             else
-                MessageBox.Show("Проверьте правильность введённых данных \nКолл-во символов в строке имени\\фамилии\\отчества не должно превышать 10");
+                MessageBox.Show("Проверьте правильность введённых данных");
+        }
+
+        private void Registration_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Form1 f = (Form1)Application.OpenForms[0];
+            f.Enabled = true;
+            if (f.pupil == null)
+                f.pupil = new Pupil();
+            FileTools.Log("Registration is done");
+            f.Next2();
         }
     }
 }

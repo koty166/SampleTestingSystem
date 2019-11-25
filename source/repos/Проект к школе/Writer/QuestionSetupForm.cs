@@ -56,6 +56,7 @@ namespace Проект_к_школе
         private void QuestionSetupForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.OpenForms[0].Enabled = true;
+            FileTools.Log("Question create is done");
         }
     }
 }

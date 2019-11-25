@@ -10,5 +10,6 @@ namespace ClassLibrary2
     public class Explanation
     {
         public String Text;
+        public int TimerValue;
     }
 }

@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using ClassLibrary2;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace Проект_к_школе
 {
@@ -21,15 +22,16 @@ namespace Проект_к_школе
         }
 
         String directory = @"Tests";
+        bool IsTestStar = false;
+        int CurrentQuestion = 0, CurrentExplanationIndex = 0;
+        internal IPAddress IP;
 
         List<Image> LIstImages = new List<Image>();
 
         Lesson[] Lesson_mass;
-        internal Pupil pupil;
 
-        bool IsTestStar = false;
-        int CurrentQuestion = 0;
-        internal IPAddress IP;
+        Lesson CurrentLesson;
+        internal Pupil pupil;
 
         Color
         GlobalColor, SecondaryColor, LabelColor = Color.Black
@@ -50,8 +52,9 @@ namespace Проект_к_школе
             catch { }
 
         }
-
-        void Personalize()
+       
+    
+       /* void Personalize()
         {
             tabPage1.BackColor = GlobalColor;
             tabPage2.BackColor = GlobalColor;
@@ -64,12 +67,7 @@ namespace Проект_к_школе
             this.BackColor = SecondaryColor;
             treeView1.BackColor = SecondaryColor;
 
-            /* button1.BackColor = SecondaryColor;
-             button3.BackColor = SecondaryColor;
-             Next.BackColor = SecondaryColor;
-             Start.BackColor = SecondaryColor;*/
-
-
+            
             Answer1.ForeColor = LabelColor;
             Answer2.ForeColor = LabelColor;
             Answer3.ForeColor = LabelColor;
@@ -92,6 +90,8 @@ namespace Проект_к_школе
 
 
         }
+        */
+        
 
         void LoadPicture(Object ob)
         {
@@ -100,7 +100,7 @@ namespace Проект_к_школе
 
             foreach (var i in CurrentLesson.QuestionList)
             {
-                
+
                 try
                 {
                     ImageQuestion q = (ImageQuestion)i;
@@ -118,7 +118,7 @@ namespace Проект_к_школе
         private void Form1_Load(object sender, EventArgs e)
         {
             String[] File_mass_date;
-
+            FileTools.Clear();
             File_mass_date = Directory.GetFiles(directory, "*.dat");
 
             if (File_mass_date.Length != 0)
@@ -135,6 +135,7 @@ namespace Проект_к_школе
                 }
             }
             Load_in_form();
+            FileTools.Log($"Proggram load sucseed number of lesson - {Lesson_mass.Length}");
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -144,6 +145,7 @@ namespace Проект_к_школе
                 NetworSetting n = new NetworSetting();
                 n.Show();
                 this.Enabled = false;
+                FileTools.Log("Network setting is opened");
             }
         }
 
@@ -163,45 +165,158 @@ namespace Проект_к_школе
                 {
                     Registration r = new Registration();
                     r.Show();
+                    FileTools.Log("Registration is began");
                     this.Enabled = false;
+
                 }
                 else
                     Next2();
+                FileTools.Log($"Test {Lesson_mass[list_of_lessons.SelectedIndex]} is started");
             }
+        }
+
+        void EndLocal()
+        {
+            if (File.Exists(directory + "\\Save.sav")) File.Delete(directory + "\\Save.sav");
+            BinaryFormatter b = new BinaryFormatter();
+            FileStream s = new FileStream(directory + "\\Save.sav", FileMode.Create);
+            b.Serialize(s, pupil);
+            s.Close();
+            FileTools.Log($"Save local end.Path: {directory + "\\Save.sav"}");
         }
 
         void EndTest()
         {
-            MessageBox.Show("End of test");
-        }
-        public void Next2() { Next_Click(Next, null); }
-        private void Next_Click(object sender, EventArgs e)
-        {
-            Lesson CurrentLesson = Lesson_mass[list_of_lessons.SelectedIndex];
-
-            if (CurrentQuestion >= CurrentLesson.QuestionList.Count)
+            TcpClient Sender = new TcpClient();
+            BinaryFormatter b = new BinaryFormatter();
+            NetworkStream stream;
+            Sender.Client.SendTimeout = 3000;
+            this.Enabled = false;
+            this.Text = "Ending of test...";
+            for (int i = 0; i < 5; i++)
             {
-                if (CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new Question().GetType())
-                {
-                    String UserAnswer;
-                    if (Answer1.Checked) UserAnswer = Answer1.Text;
-                    else if (Answer2.Checked) UserAnswer = Answer2.Text;
-                    else if (Answer3.Checked) UserAnswer = Answer3.Text;
-                    else if (Answer4.Checked) UserAnswer = Answer4.Text;
+                this.Text = $"Попытка подкючения {i + 1} из 5";
+                try { Sender.Connect(IP, 9090); break; }
+                catch { }
+                Thread.Sleep(1000);
+            }
+            if (Sender.Connected)
+            {
+                this.Text = "Подключение завершено.Сброс данных...";
+
+                stream = Sender.GetStream();
+                byte[] data = new byte[1] { 1 };
+
+                stream.Write(data, 0, data.Length);
+
+                b.Serialize(Sender.GetStream(), pupil);
+
+                Sender.Close();
+
+                this.Text = "Сброс данных завершён успешно";
+                FileTools.Log("Data send is end sucseed");
+
+                Thread.Sleep(1500);
+            }
+            else
+            {
+                this.Text = "Подключение неудачно.Сохранение локально...";
+                EndLocal();
+                this.Text = "Сохранение локально завершено";
+                this.Close();
+                return;
+            }
+            EndLocal();
+            this.Close();
+            return;
+        }
+
+        void EndofTime()
+        {
+            for (int i = CurrentQuestion + 1; i < CurrentLesson.QuestionList.Count; i++)
+                if (CurrentLesson.QuestionList[i].GetType() == new Explanation().GetType())
+                    CurrentQuestion = i;
+
+            Next_Click(Next,null);
+            MessageBox.Show("Время , отведённое на выполнение этого задания, истекло");
+            this.Text = "Тестовая система";
+            FileTools.Log($"Time of explanation end; explanation number:{CurrentExplanationIndex}");
+        }
+        int time = 0;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentExplanationIndex];
+            if (ex.TimerValue == 0)
+            {
+                this.Text = "Тестовая система";
+                return;
+            }
+
+            this.Text = $"Осталось {ex.TimerValue - time} секунд";
+            if (ex.TimerValue == time)
+                EndofTime();
+            time++;
+        }
+
+        enum TypeOfQuestion : int
+        {
+            Question = 1,
+            ImageQuestion
+        }
+        void AddToPupilList(TypeOfQuestion type)
+        {
+            switch (type)
+            {
+                case TypeOfQuestion.Question:
+
+                    string UserAnswer;
+                    if (Answer1.Checked) UserAnswer = "1";
+                    else if (Answer2.Checked) UserAnswer = "2";
+                    else if (Answer3.Checked) UserAnswer = "3";
+                    else if (Answer4.Checked) UserAnswer = "4";
                     else UserAnswer = "NO";
 
                     pupil.AnswerList.Add(UserAnswer);
-                }
+                    FileTools.Log($"Added to pupil list:{UserAnswer}");
+                    break;
+                case TypeOfQuestion.ImageQuestion:
+                    UserAnswer = AnswerTextSetup.Text != "" ? AnswerTextSetup.Text : "NO";
+                    pupil.AnswerList.Add(UserAnswer);
+                    FileTools.Log($"Added to pupil list:{UserAnswer}");
+                    break;
+            }
+        }
+
+        public void Next2()
+        {
+            CurrentLesson = Lesson_mass[list_of_lessons.SelectedIndex];
+            timer1.Start();
+            Next_Click(Next, null);
+        }
+        private void Next_Click(object sender, EventArgs e)
+        {
+            FileTools.Log("Next clicked");
+
+            if (!timer1.Enabled) timer1.Start();
+
+            if (CurrentQuestion > 0)
+                if (CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new Question().GetType())
+                    AddToPupilList(TypeOfQuestion.Question);
+
                 else if ((CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new ImageQuestion().GetType()))
-                {
-                    pupil.AnswerList.Add(AnswerTextSetup.Text);
-                }
+                    AddToPupilList(TypeOfQuestion.ImageQuestion);
+
+            if (CurrentQuestion == CurrentLesson.QuestionList.Count)
+            {
                 IsTestStar = false;
                 EndTest();
+                FileTools.Log("End of test");
+                return;
             }
-            else if (CurrentLesson.QuestionList[CurrentQuestion].GetType() == new Explanation().GetType())
+            if (CurrentLesson.QuestionList[CurrentQuestion].GetType() == new Explanation().GetType())
             {
-                Explanation ex = (Explanation)CurrentLesson.QuestionList[0];
+                Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentQuestion];
+                CurrentExplanationIndex = CurrentQuestion;
 
                 groupBox1.Visible = false;
                 AnswerTextSetup.Visible = false;
@@ -213,9 +328,8 @@ namespace Проект_к_школе
 
                 CurrentQuestion++;
             }
-            else if(CurrentLesson.QuestionList[CurrentQuestion].GetType() == new Question().GetType())
+            else if (CurrentLesson.QuestionList[CurrentQuestion].GetType() == new Question().GetType())
             {
-                String UserAnswer;
                 Question q = (Question)CurrentLesson.QuestionList[CurrentQuestion];
 
                 groupBox1.Visible = true;
@@ -231,14 +345,6 @@ namespace Проект_к_школе
 
                 QuestionLabel.Text = q.Question_s;
 
-                if (Answer1.Checked) UserAnswer = Answer1.Text;
-                else if (Answer2.Checked) UserAnswer = Answer2.Text;
-                else if (Answer3.Checked) UserAnswer = Answer3.Text;
-                else if (Answer4.Checked) UserAnswer = Answer4.Text;
-                else UserAnswer = "NO";
-
-                pupil.AnswerList.Add(UserAnswer);
-
                 Answer1.Checked = false;
                 Answer2.Checked = false;
                 Answer3.Checked = false;
@@ -246,7 +352,7 @@ namespace Проект_к_школе
 
                 CurrentQuestion++;
             }
-            else if(CurrentLesson.QuestionList[CurrentQuestion].GetType() == new ImageQuestion().GetType())
+            else if (CurrentLesson.QuestionList[CurrentQuestion].GetType() == new ImageQuestion().GetType())
             {
                 ImageQuestion q = (ImageQuestion)CurrentLesson.QuestionList[CurrentQuestion];
                 groupBox1.Visible = false;
@@ -256,44 +362,14 @@ namespace Проект_к_школе
 
                 Next.Location = new Point(400, 350);
 
-                pupil.AnswerList.Add(AnswerTextSetup.Text);
-
                 ExplanationLabel.Text = q.Question;
-                AnswerTextSetup.Text = null;
+                AnswerTextSetup.Text = "";
 
                 CurrentQuestion++;
             }
         }
-
-        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
-        {
-            if (IsTestStar && tabControl1.SelectedIndex == 1)
-            {
-                tabControl1.SelectedIndex = 0;
-                MessageBox.Show("Пожалуйста завершите тест , прежде чем перейти к темам");  
-            }
-           
-        }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabControl1.SelectedIndex == 1 && IsTestStar == false)
-                this.MinimumSize = new Size(830, 500);
-            if (tabControl1.SelectedIndex == 0 && IsTestStar == false)
-                this.MaximumSize = new Size(650, 500);
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-            GlobalColor = Color.FromArgb(255, 53, 53, 53);
-            SecondaryColor = Color.FromArgb(255, 81, 81, 81);
-            LabelColor =  Color.FromName("White");
-            ButtonColor = Color.FromName("Gray");
-            Rigth = Color.FromArgb(255,58,120,58);
-            Wrong = Color.FromArgb(255, 178, 36, 12);
-
-            Personalize();
-        }
     }
-        
 }
+
+        
+

@@ -16,8 +16,12 @@ namespace Проект_к_школе
         {
             Explanation ex = new Explanation();
             FormWriter form = (FormWriter)Application.OpenForms[0];
-
-            ex.Text = TextOfExplanation.Text;
+            try
+            {
+                ex.Text = TextOfExplanation.Text;
+                ex.TimerValue = Convert.ToInt32(TimeSetup.Text);
+            }
+            catch { MessageBox.Show("Проверь правильность ввода"); return; }
             if (!IsChange)
             {
                 form.Lesson_mass[form.ChosenLesson].QuestionList.Add(ex);
@@ -36,6 +40,7 @@ namespace Проект_к_школе
             try
             {
                 TextOfExplanation.Text = LocalQuestion.Text;
+                TimeSetup.Text = LocalQuestion.TimerValue.ToString();
                 AddExplanation.Text = "Изменить";
                 IsChange = true;
             }
@@ -47,6 +52,7 @@ namespace Проект_к_школе
 
         private void ExplanationFormSetup_FormClosing(object sender, FormClosingEventArgs e)
         {
+            FileTools.Log("Explanation create is done");
             Application.OpenForms[0].Enabled = true;
         }
     }

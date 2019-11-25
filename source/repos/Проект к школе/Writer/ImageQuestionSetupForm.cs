@@ -21,6 +21,7 @@ namespace Проект_к_школе
         private void ImageChooseButton_Click(object sender, EventArgs e)
         {
             ImageChooseDialog.ShowDialog();
+            FileTools.Log("Image diaLog is opened");
         }
 
         private void ImageChooseDialog_FileOk(object sender, CancelEventArgs e)
@@ -89,6 +90,7 @@ namespace Проект_к_школе
         private void ImageQuestionSetupForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.OpenForms[0].Enabled = true;
+            FileTools.Log("Image Question create is done");
         }
 
         private void ImageNameSetup_MouseEnter(object sender, EventArgs e)

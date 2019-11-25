@@ -103,11 +103,11 @@
             // 
             // GetIP
             // 
-            this.GetIP.Location = new System.Drawing.Point(157, 153);
+            this.GetIP.Location = new System.Drawing.Point(128, 154);
             this.GetIP.Name = "GetIP";
-            this.GetIP.Size = new System.Drawing.Size(90, 33);
+            this.GetIP.Size = new System.Drawing.Size(141, 33);
             this.GetIP.TabIndex = 7;
-            this.GetIP.Text = "Получить IP";
+            this.GetIP.Text = "Начать получение IP ";
             this.GetIP.UseVisualStyleBackColor = true;
             this.GetIP.Click += new System.EventHandler(this.GetIP_Click);
             // 
@@ -124,10 +124,11 @@
             this.Controls.Add(this.IPLabel);
             this.Controls.Add(this.IPsetup);
             this.Controls.Add(this.CheckConnections);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.Name = "NetworSetting";
             this.Text = "NetworSetting";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NetworSetting_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

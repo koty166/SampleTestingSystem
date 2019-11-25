@@ -31,19 +31,21 @@
             this.TextOfExplanation = new System.Windows.Forms.TextBox();
             this.AddExplanation = new System.Windows.Forms.Button();
             this.ExplanationTextLabel = new System.Windows.Forms.Label();
+            this.TimeSetup = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // TextOfExplanation
             // 
-            this.TextOfExplanation.Location = new System.Drawing.Point(18, 27);
+            this.TextOfExplanation.Location = new System.Drawing.Point(12, 25);
             this.TextOfExplanation.Multiline = true;
             this.TextOfExplanation.Name = "TextOfExplanation";
-            this.TextOfExplanation.Size = new System.Drawing.Size(454, 328);
+            this.TextOfExplanation.Size = new System.Drawing.Size(454, 275);
             this.TextOfExplanation.TabIndex = 0;
             // 
             // AddExplanation
             // 
-            this.AddExplanation.Location = new System.Drawing.Point(165, 378);
+            this.AddExplanation.Location = new System.Drawing.Point(366, 377);
             this.AddExplanation.Name = "AddExplanation";
             this.AddExplanation.Size = new System.Drawing.Size(129, 27);
             this.AddExplanation.TabIndex = 1;
@@ -60,11 +62,29 @@
             this.ExplanationTextLabel.TabIndex = 2;
             this.ExplanationTextLabel.Text = "Введи текст обяснения или инструкциии";
             // 
+            // TimeSetup
+            // 
+            this.TimeSetup.Location = new System.Drawing.Point(175, 355);
+            this.TimeSetup.Name = "TimeSetup";
+            this.TimeSetup.Size = new System.Drawing.Size(115, 20);
+            this.TimeSetup.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 358);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(167, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Время на вопросы (В секундах)";
+            // 
             // ExplanationFormSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(507, 416);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.TimeSetup);
             this.Controls.Add(this.ExplanationTextLabel);
             this.Controls.Add(this.AddExplanation);
             this.Controls.Add(this.TextOfExplanation);
@@ -83,5 +103,7 @@
         private System.Windows.Forms.TextBox TextOfExplanation;
         private System.Windows.Forms.Button AddExplanation;
         private System.Windows.Forms.Label ExplanationTextLabel;
+        private System.Windows.Forms.TextBox TimeSetup;
+        private System.Windows.Forms.Label label2;
     }
 }

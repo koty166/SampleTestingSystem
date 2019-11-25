@@ -9,11 +9,14 @@ namespace ClassLibrary2
     [Serializable]
     public class Pupil
     {
-        int Age;
-        int Form;
-        string Name;
-        string Surname;
-        string Patronymic;//Отчетсво
+        public int Age;
+        public int Form;
+        public string Name;
+        public string Surname;
+        public string Patronymic;
+        public string MarkForTest;
+        public string[] arg  = new string [5];
+        public bool IsMale;
 
         public List<string> AnswerList = new List<string>();
 

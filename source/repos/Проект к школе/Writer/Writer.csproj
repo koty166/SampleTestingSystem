@@ -57,12 +57,6 @@
     <Compile Include="FormWriter.Designer.cs">
       <DependentUpon>FormWriter.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
-    </Compile>
     <Compile Include="ImageQuestionSetupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,9 +76,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormWriter.resx">
       <DependentUpon>FormWriter.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImageQuestionSetupForm.resx">
       <DependentUpon>ImageQuestionSetupForm.cs</DependentUpon>
