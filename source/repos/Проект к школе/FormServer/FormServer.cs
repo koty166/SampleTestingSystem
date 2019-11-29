@@ -201,8 +201,10 @@ namespace FormServer
             }
             catch
             {
-                pupList = new List<Pupil>();
-                pupList.Add((Pupil)b.Deserialize(f));
+                pupList = new List<Pupil>
+                {
+                    (Pupil)b.Deserialize(f)
+                };
             }
 
             switch(TypeOfAnalis.SelectedIndex)

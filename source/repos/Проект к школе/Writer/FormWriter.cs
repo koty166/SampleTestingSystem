@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
+using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
 using ClassLibrary2;
 
@@ -159,6 +160,44 @@ namespace Проект_к_школе
                 this.Enabled = false;
             }
             
+        }
+
+        private void FromTxt_Click(object sender, EventArgs e)
+        {
+            if (LessonChoose.SelectedItem == null) return;
+            openFileDialog1.InitialDirectory = Environment.CurrentDirectory;
+            openFileDialog1.ShowDialog();
+            StreamReader w = new StreamReader(openFileDialog1.FileName,Encoding.UTF8);
+            Lesson CurrentLesson = Lesson_mass[LessonChoose.SelectedIndex];
+            Question q;
+            string s;
+            int index = 0;
+            try
+            {
+                while(true)
+                {
+                    s = w.ReadLine();
+                    if (s == "0") break;
+                    if (s == "-1")
+                    {
+                        index++;
+                        continue;
+                    }
+
+                    q = (Question)CurrentLesson.QuestionList[index];
+
+                    q.Question_s = s;
+
+                    q.Answers[0] = w.ReadLine();
+                    q.Answers[1] = w.ReadLine();
+                    q.Answers[2] = w.ReadLine();
+                    q.Answers[3] = w.ReadLine();
+                    index++;
+                }
+            }
+            catch(Exception ex)
+            { MessageBox.Show(ex.Message); }
+            MessageBox.Show("Done");
         }
     }
 }

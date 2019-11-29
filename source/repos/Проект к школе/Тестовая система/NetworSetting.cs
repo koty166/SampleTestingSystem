@@ -129,5 +129,10 @@ namespace Проект_к_школе
             f.Enabled = true;
             FileTools.Log("Network setting is done");
         }
+
+        private void NetworSetting_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

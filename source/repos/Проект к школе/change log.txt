@@ -1,0 +1,8 @@
+Version 1.0.0.1
+-Add Analysis Functional
+-Add Form Server
+-Add "From txt" button
+-------------------------------------
+Version 1.0.0.0
+-Basic Functional
+-Stable

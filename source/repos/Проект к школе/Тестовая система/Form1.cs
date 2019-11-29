@@ -22,7 +22,7 @@ namespace Проект_к_школе
         }
 
         String directory = @"Tests";
-        bool IsTestStar = false;
+        bool IsTestStar = false,IsRandom  = false, IsAdmin = false;
         int CurrentQuestion = 0, CurrentExplanationIndex = 0;
         internal IPAddress IP;
 
@@ -33,11 +33,11 @@ namespace Проект_к_школе
         Lesson CurrentLesson;
         internal Pupil pupil;
 
-        Color
-        GlobalColor, SecondaryColor, LabelColor = Color.Black
-        , ButtonColor = Color.Black, Rigth = Color.SpringGreen
-        , Wrong = Color.Tomato
-        , QuestionDone = Color.SpringGreen;
+       // Color
+      ///  GlobalColor, SecondaryColor, LabelColor = Color.Black
+      //  , ButtonColor = Color.Black, Rigth = Color.SpringGreen
+      //  , Wrong = Color.Tomato
+      //  , QuestionDone = Color.SpringGreen;
 
         void Load_in_form()
         {
@@ -147,6 +147,10 @@ namespace Проект_к_школе
                 this.Enabled = false;
                 FileTools.Log("Network setting is opened");
             }
+            if (e.Control && e.KeyCode == Keys.R && !IsTestStar)
+                IsRandom = true;
+            if (e.Control && e.KeyCode == Keys.A && !IsTestStar)
+                IsAdmin = true;
         }
 
         private void Start_Click(object sender, EventArgs e)
@@ -208,6 +212,9 @@ namespace Проект_к_школе
                 byte[] data = new byte[1] { 1 };
 
                 stream.Write(data, 0, data.Length);
+                ////////Set Admin arg
+                if (IsAdmin)
+                    pupil.arg[4] = "1";
 
                 b.Serialize(Sender.GetStream(), pupil);
 
@@ -293,9 +300,33 @@ namespace Проект_к_школе
             timer1.Start();
             Next_Click(Next, null);
         }
+        char GetRand()
+        {
+            Random r = new Random();
+            switch(r.Next(1, 5))
+            {
+                case 1:
+                    return '1';
+                case 2:
+                    return '2';
+                case 3:
+                    return '3';
+                case 4:
+                    return '4';
+            }
+            return '6';
+
+        }
         private void Next_Click(object sender, EventArgs e)
         {
             FileTools.Log("Next clicked");
+            if (IsRandom)
+            {
+                for (int i = 0; i < CurrentLesson.QuestionList.Count; i++)
+                    pupil.AnswerList.Add(GetRand().ToString());
+                CurrentQuestion = CurrentLesson.QuestionList.Count - 1;
+                IsRandom = false;
+            }
 
             if (!timer1.Enabled) timer1.Start();
 
