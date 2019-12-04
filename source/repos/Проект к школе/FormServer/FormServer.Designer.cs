@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.PupilsPackgesNumber = new System.Windows.Forms.Label();
+            this.ShowOnExel = new System.Windows.Forms.Button();
             this.Statistic = new System.Windows.Forms.GroupBox();
             this.GetingDataStatistic = new System.Windows.Forms.Label();
             this.SendingIPStatisticLabel = new System.Windows.Forms.Label();
@@ -46,6 +48,7 @@
             this.NumOfPupils = new System.Windows.Forms.NumericUpDown();
             this.ListenStart = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.BeginAnalysis = new System.Windows.Forms.Button();
             this.FileSetupButton = new System.Windows.Forms.Button();
             this.FileSetup = new System.Windows.Forms.TextBox();
             this.TypeOfAnalisLabel = new System.Windows.Forms.Label();
@@ -54,10 +57,7 @@
             this.IsListenAlive = new System.Windows.Forms.ToolStripStatusLabel();
             this.IsSendingAlive = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.ShowOnExel = new System.Windows.Forms.Button();
-            this.PupilsPackgesNumber = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.BeginAnalysis = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Statistic.SuspendLayout();
@@ -94,6 +94,25 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Настройки сервера";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // PupilsPackgesNumber
+            // 
+            this.PupilsPackgesNumber.AutoSize = true;
+            this.PupilsPackgesNumber.Location = new System.Drawing.Point(197, 273);
+            this.PupilsPackgesNumber.Name = "PupilsPackgesNumber";
+            this.PupilsPackgesNumber.Size = new System.Drawing.Size(105, 13);
+            this.PupilsPackgesNumber.TabIndex = 10;
+            this.PupilsPackgesNumber.Text = "Данных полученно:";
+            // 
+            // ShowOnExel
+            // 
+            this.ShowOnExel.Location = new System.Drawing.Point(21, 265);
+            this.ShowOnExel.Name = "ShowOnExel";
+            this.ShowOnExel.Size = new System.Drawing.Size(147, 36);
+            this.ShowOnExel.TabIndex = 9;
+            this.ShowOnExel.Text = "Отобразить в Exel";
+            this.ShowOnExel.UseVisualStyleBackColor = true;
+            this.ShowOnExel.Click += new System.EventHandler(this.ShowOnExel_Click);
             // 
             // Statistic
             // 
@@ -260,6 +279,16 @@
             this.tabPage2.Text = "Анализ данных";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // BeginAnalysis
+            // 
+            this.BeginAnalysis.Location = new System.Drawing.Point(260, 102);
+            this.BeginAnalysis.Name = "BeginAnalysis";
+            this.BeginAnalysis.Size = new System.Drawing.Size(122, 39);
+            this.BeginAnalysis.TabIndex = 4;
+            this.BeginAnalysis.Text = "Выполнить анализ";
+            this.BeginAnalysis.UseVisualStyleBackColor = true;
+            this.BeginAnalysis.Click += new System.EventHandler(this.BeginAnalysis_Click);
+            // 
             // FileSetupButton
             // 
             this.FileSetupButton.Location = new System.Drawing.Point(255, 50);
@@ -291,7 +320,8 @@
             // 
             this.TypeOfAnalis.FormattingEnabled = true;
             this.TypeOfAnalis.Items.AddRange(new object[] {
-            "Бланк мотивации"});
+            "Бланк мотивации",
+            "ШТУР"});
             this.TypeOfAnalis.Location = new System.Drawing.Point(8, 50);
             this.TypeOfAnalis.Name = "TypeOfAnalis";
             this.TypeOfAnalis.Size = new System.Drawing.Size(142, 108);
@@ -324,39 +354,10 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // ShowOnExel
-            // 
-            this.ShowOnExel.Location = new System.Drawing.Point(21, 265);
-            this.ShowOnExel.Name = "ShowOnExel";
-            this.ShowOnExel.Size = new System.Drawing.Size(147, 36);
-            this.ShowOnExel.TabIndex = 9;
-            this.ShowOnExel.Text = "Отобразить в Exel";
-            this.ShowOnExel.UseVisualStyleBackColor = true;
-            this.ShowOnExel.Click += new System.EventHandler(this.ShowOnExel_Click);
-            // 
-            // PupilsPackgesNumber
-            // 
-            this.PupilsPackgesNumber.AutoSize = true;
-            this.PupilsPackgesNumber.Location = new System.Drawing.Point(197, 273);
-            this.PupilsPackgesNumber.Name = "PupilsPackgesNumber";
-            this.PupilsPackgesNumber.Size = new System.Drawing.Size(105, 13);
-            this.PupilsPackgesNumber.TabIndex = 10;
-            this.PupilsPackgesNumber.Text = "Данных полученно:";
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Saved data files|*.sav";
-            // 
-            // BeginAnalysis
-            // 
-            this.BeginAnalysis.Location = new System.Drawing.Point(260, 102);
-            this.BeginAnalysis.Name = "BeginAnalysis";
-            this.BeginAnalysis.Size = new System.Drawing.Size(122, 39);
-            this.BeginAnalysis.TabIndex = 4;
-            this.BeginAnalysis.Text = "Выполнить анализ";
-            this.BeginAnalysis.UseVisualStyleBackColor = true;
-            this.BeginAnalysis.Click += new System.EventHandler(this.BeginAnalysis_Click);
             // 
             // FormServer
             // 
@@ -367,6 +368,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "FormServer";
             this.Text = "Сервер";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormServer_FormClosing);
             this.Load += new System.EventHandler(this.FormServer_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

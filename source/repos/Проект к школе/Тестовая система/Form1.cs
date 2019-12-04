@@ -135,7 +135,7 @@ namespace Проект_к_школе
                 }
             }
             Load_in_form();
-            FileTools.Log($"Proggram load sucseed number of lesson - {Lesson_mass.Length}");
+            FileTools.Log($"Proggram load sucseed number of lesson - {Lesson_mass.Length.ToString()}");
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

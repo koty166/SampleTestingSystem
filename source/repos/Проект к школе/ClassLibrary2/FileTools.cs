@@ -14,37 +14,53 @@ namespace ClassLibrary2
         }
         static public void Log(String Message)
         {
-            if(!File.Exists("log.log"))
-                File.Create( "log.log").Close();
+            try
+            {
+                if (!File.Exists("log.log"))
+                    File.Create("log.log").Close();
 
-            StreamWriter w = new StreamWriter( "log.log" ,true);
-            w.WriteLine(DateTime.Now +":" + DateTime.Now.Millisecond + "\t\t" + Message);
-            w.Close();
+                StreamWriter w = new StreamWriter("log.log", true);
+                w.WriteLine(DateTime.Now + ":" + DateTime.Now.Millisecond + "\t\t" + Message);
+                w.Close();
+            }
+            catch { }
         }
         static public void Log(String Message , String Path)
         {
-            if (!File.Exists(Path))
-                File.Create(Path).Close();
+            try
+            {
+                if (!File.Exists(Path))
+                    File.Create(Path).Close();
 
-            StreamWriter w = new StreamWriter(Path, true);
-            w.WriteLine(DateTime.Now + ":" + DateTime.Now.Millisecond + "\t\t" + Message);
-            w.Close();
+                StreamWriter w = new StreamWriter(Path, true);
+                w.WriteLine(DateTime.Now + ":" + DateTime.Now.Millisecond + "\t\t" + Message);
+                w.Close();
+            }
+            catch { }
         }
         static public void Save(Object ob, String Path)
         {
-            BinaryFormatter b = new BinaryFormatter();
-            FileStream f = new FileStream(Path,FileMode.Create);
-            b.Serialize(f,ob);
-            f.Close();
+            try
+            {
+                BinaryFormatter b = new BinaryFormatter();
+                FileStream f = new FileStream(Path, FileMode.Create);
+                b.Serialize(f, ob);
+                f.Close();
+            }
+            catch { }
         }
         static public void Save(Object ob)
         {
-            BinaryFormatter b = new BinaryFormatter();
-            if (!Directory.Exists("Saves")) Directory.CreateDirectory("Saves");
-            string s = "Saves//" + DateTime.Today.ToShortDateString() + ".sav";
-            FileStream f = new FileStream(s,FileMode.Create);
-            b.Serialize(f,ob);
-            f.Close();
+            try
+            {
+                BinaryFormatter b = new BinaryFormatter();
+                if (!Directory.Exists("Saves")) Directory.CreateDirectory("Saves");
+                string s = "Saves//" + DateTime.Today.ToShortDateString() + ".sav";
+                FileStream f = new FileStream(s, FileMode.Create);
+                b.Serialize(f, ob);
+                f.Close();
+            }
+            catch { }
         }
 
     }

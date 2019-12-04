@@ -23,7 +23,7 @@ namespace FormServer
         static List<Pupil> ListOfPupil = new List<Pupil>();
         static int NumOfSendingIPPackages = 0, IPChecking = 0 , PupilsData = 0;
         static string SendingIP;
-        Thread IPsender, DataListener;
+        Thread IPsender = null, DataListener = null;
 
         public FormServer()
         {
@@ -91,16 +91,19 @@ namespace FormServer
                 }
                 if (item.MarkForTest != null)
                 {
+                    string[] MarkMass = item.MarkForTest.Split(';');
+                    
                     WorkSheet.Cells[j * 7 + 1, item.AnswerList.Count + 6] = "Результаты анализа:";
 
-                    WorkSheet.Cells[j * 7 + 1, item.AnswerList.Count + 9] = item.arg[0];
-                    WorkSheet.Cells[j * 7 + 2, item.AnswerList.Count + 9] = item.arg[1];
-                    WorkSheet.Cells[j * 7 + 3, item.AnswerList.Count + 9] = item.arg[2];
-                    WorkSheet.Cells[j * 7 + 4, item.AnswerList.Count + 9] = item.arg[3];
-               
-                    WorkSheet.Cells[j * 7 + 5, item.AnswerList.Count + 9] = $"Уровень:{item.MarkForTest}";
+                    int m = 1;
+                    foreach (var i in MarkMass)
+                    {
+                        WorkSheet.Cells[j * 7 + m, item.AnswerList.Count + 9] = i;
+                        m++;
+                    }
                 }
                 j++;
+
             }
 
             DialogResult d = MessageBox.Show("Сохранить файл Exel в папку приложения?", "Сохранить", MessageBoxButtons.YesNo);
@@ -207,10 +210,15 @@ namespace FormServer
                 };
             }
 
+            f.Close();
+
             switch(TypeOfAnalis.SelectedIndex)
             {
                 case 0:
                      AnalysisClass.MotivationAnalysis(pupList);
+                    break;
+                case 1:
+                    AnalysisClass.ShcoolCognitiveActivityTestAnalysis(pupList);
                     break;
             }
 
@@ -223,6 +231,22 @@ namespace FormServer
             if (TypeOfAnalis.SelectedItem == null||FileSetup.Text == "" || FileSetup.Text == null) return;
             Analysis(openFileDialog1.FileName);
         }
+
+        private void FormServer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (IPsender != null && IPsender.IsAlive)
+                IPsender.Abort();
+            if ( DataListener != null && DataListener.IsAlive)
+            {
+                ////Sending TCP connection need to rigth end of waiting connections
+                TcpClient t = new TcpClient();
+                t.Connect("localhost", 9090);
+                t.Close();
+                /////////////////
+                DataListener.Abort();
+            }
+        }
+        
 
         static void SendIP(object b)
         {
@@ -262,59 +286,63 @@ namespace FormServer
             NetworkStream stream;
             int dones = 0;
             FileTools.Log("Wait connection started , pupils - " + (int)many);
-            while (true)
+            try
             {
-                l.Start();
-                TcpClient read = l.AcceptTcpClient();
-
-                stream = read.GetStream();
-                byte[] data = new byte[1];
-                stream.Read(data, 0, data.Length);
-
-                if (data[0] == 0)
+                while (true)
                 {
-                    data = new byte[1] { 2 };
+                    l.Start();
+                    TcpClient read = l.AcceptTcpClient();
 
-                    stream.Write(data, 0, data.Length);
+                    stream = read.GetStream();
+                    byte[] data = new byte[1];
+                    stream.Read(data, 0, data.Length);
 
-                    stream.Close();
-                    read.Close();
-                    FileTools.Log("Send OK to try-connection request");
-                    IPChecking++;
-                }
-                else if (data[0] == 1)
-                {
-
-                    BinaryFormatter f = new BinaryFormatter();
-                    Pupil pup;
-
-                    pup = (Pupil)f.Deserialize(stream);
-
-                    ListOfPupil.Add(pup);
-
-                    FileTools.Log($"Pupil {dones} data is get");
-                    Console.WriteLine("Получены данные ученика");
-
-                    dones++;
-                    PupilsData++;
-                    if (dones == (int)many)
+                    if (data[0] == 0)
                     {
-                        int n = 0;
-                        FileTools.Log("Wait connection end , all pupils send data");
-                        MessageBox.Show("Все данные получены");
-                        while (true)
-                        {
-                            n++;
-                            if (!File.Exists(Environment.CurrentDirectory + "\\Saves\\Save" + n.ToString() + ".sav"))
-                                break;
-                        }
-                        if (!Directory.Exists("Saves\\")) Directory.CreateDirectory("Saves\\");
+                        data = new byte[1] { 2 };
 
-                        FileTools.Save(ListOfPupil, Environment.CurrentDirectory + "\\Saves\\Save" + n.ToString() + ".sav");
-                        break;
+                        stream.Write(data, 0, data.Length);
+
+                        stream.Close();
+                        read.Close();
+                        FileTools.Log("Send OK to try-connection request");
+                        IPChecking++;
+                    }
+                    else if (data[0] == 1)
+                    {
+
+                        BinaryFormatter f = new BinaryFormatter();
+                        Pupil pup;
+
+                        pup = (Pupil)f.Deserialize(stream);
+
+                        ListOfPupil.Add(pup);
+
+                        FileTools.Log($"Pupil {dones} data is get");
+                        Console.WriteLine("Получены данные ученика");
+
+                        dones++;
+                        PupilsData++;
+                        if (dones == (int)many)
+                        {
+                            int n = 0;
+                            FileTools.Log("Wait connection end , all pupils send data");
+                            MessageBox.Show("Все данные получены");
+                            while (true)
+                            {
+                                n++;
+                                if (!File.Exists(Environment.CurrentDirectory + "\\Saves\\Save" + n.ToString() + ".sav"))
+                                    break;
+                            }
+                            if (!Directory.Exists("Saves\\")) Directory.CreateDirectory("Saves\\");
+
+                            FileTools.Save(ListOfPupil, Environment.CurrentDirectory + "\\Saves\\Save" + n.ToString() + ".sav");
+                            break;
+                        }
                     }
                 }
             }
+            catch {  }
         }
     }
 }
