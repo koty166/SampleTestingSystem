@@ -24,12 +24,12 @@ namespace Проект_к_школе
             catch { MessageBox.Show("Проверь правильность ввода"); return; }
             if (!IsChange)
             {
-                form.Lesson_mass[form.ChosenLesson].QuestionList.Add(ex);
+                form.Lesson_mass[form.ChoosenLesson].QuestionList.Add(ex);
                 form.AddToQuestionChoose(ex);
             }
             else
             {
-                form.Lesson_mass[form.ChosenLesson].QuestionList[form.ChoosenQuestion] = ex;
+                form.Lesson_mass[form.ChoosenLesson].QuestionList[form.ChoosenQuestion] = ex;
             }
             form.Enabled = true;
             this.Dispose();

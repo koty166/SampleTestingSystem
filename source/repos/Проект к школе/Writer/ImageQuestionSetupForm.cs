@@ -69,12 +69,12 @@ namespace Проект_к_школе
             q.image_name = ImageNameSetup.Text;
             if (!IsChange)
             {
-                form.Lesson_mass[form.ChosenLesson].QuestionList.Add(q);
+                form.Lesson_mass[form.ChoosenLesson].QuestionList.Add(q);
                 form.AddToQuestionChoose(q);
             }
             else
             {
-                form.Lesson_mass[form.ChosenLesson].QuestionList[form.ChoosenQuestion] = q;
+                form.Lesson_mass[form.ChoosenLesson].QuestionList[form.ChoosenQuestion] = q;
             }
 
             form.Enabled = true;

@@ -16,7 +16,7 @@ namespace Проект_к_школе
         }
         internal List<Lesson> Lesson_mass = new List<Lesson>();
         String directory = @"Tests";
-        internal int ChosenLesson;
+        internal int ChoosenLesson;
         internal int ChoosenQuestion;
 
 
@@ -28,7 +28,8 @@ namespace Проект_к_школе
             }
 
         }
-       internal void AddToQuestionChoose(object Question)
+
+        internal void AddToQuestionChoose(object Question)
         {
             QuestionChoose.Nodes.Add(new TreeNode(Question.ToString()));
         }
@@ -100,7 +101,7 @@ namespace Проект_к_школе
         private void LessonChoose_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (LessonChoose.SelectedItem != null)
-                ChosenLesson = LessonChoose.SelectedIndex;
+                ChoosenLesson = LessonChoose.SelectedIndex;
             QuestionChoose.Nodes.Clear();
             foreach (var i in Lesson_mass[LessonChoose.SelectedIndex].QuestionList)
             {
@@ -129,7 +130,7 @@ namespace Проект_к_школе
 
         private void QuestionChoose_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            Lesson CurrentLesson = Lesson_mass[ChosenLesson];
+            Lesson CurrentLesson = Lesson_mass[ChoosenLesson];
             ChoosenQuestion = QuestionChoose.SelectedNode.Index;
             if (CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index].GetType() == new Explanation().GetType())
             {
@@ -198,6 +199,17 @@ namespace Проект_к_школе
             catch(Exception ex)
             { MessageBox.Show(ex.Message); }
             MessageBox.Show("Done");
+        }
+
+        private void DeleteQuestion_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Внимание , это действие не обратимо!", "Удалить?", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+            if (QuestionChoose.SelectedNode == null) return;
+
+            Lesson_mass[ChoosenLesson].QuestionList.RemoveAt(ChoosenQuestion);
+
+            LessonChoose_SelectedIndexChanged(LessonChoose,null);
         }
     }
 }

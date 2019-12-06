@@ -33,12 +33,6 @@ namespace Проект_к_школе
         Lesson CurrentLesson;
         internal Pupil pupil;
 
-       // Color
-      ///  GlobalColor, SecondaryColor, LabelColor = Color.Black
-      //  , ButtonColor = Color.Black, Rigth = Color.SpringGreen
-      //  , Wrong = Color.Tomato
-      //  , QuestionDone = Color.SpringGreen;
-
         void Load_in_form()
         {
             try
@@ -51,47 +45,7 @@ namespace Проект_к_школе
             }
             catch { }
 
-        }
-       
-    
-       /* void Personalize()
-        {
-            tabPage1.BackColor = GlobalColor;
-            tabPage2.BackColor = GlobalColor;
-            this.BackColor = GlobalColor;
-
-            list_of_lessons.BackColor = SecondaryColor;
-            AnswerTextSetup.BackColor = SecondaryColor;
-            tabPage1.ForeColor = SecondaryColor;
-            tabPage2.ForeColor = SecondaryColor;
-            this.BackColor = SecondaryColor;
-            treeView1.BackColor = SecondaryColor;
-
-            
-            Answer1.ForeColor = LabelColor;
-            Answer2.ForeColor = LabelColor;
-            Answer3.ForeColor = LabelColor;
-            Answer4.ForeColor = LabelColor;
-            radioButton1.ForeColor = LabelColor;
-            radioButton2.ForeColor = LabelColor;
-            radioButton3.ForeColor = LabelColor;
-            radioButton4.ForeColor = LabelColor;
-            ExplanationLabel.ForeColor = LabelColor;
-            QuestionLabel.ForeColor = LabelColor;
-            label7.ForeColor = LabelColor;
-            DarkTheme.ForeColor = LabelColor;
-            groupBox1.ForeColor = LabelColor;
-            groupBox3.ForeColor = LabelColor;
-            groupBox4.ForeColor = LabelColor;
-
-            button3.ForeColor = GlobalColor;
-            Next.ForeColor = GlobalColor;
-            Start.ForeColor = GlobalColor;
-
-
-        }
-        */
-        
+        } 
 
         void LoadPicture(Object ob)
         {
@@ -252,6 +206,7 @@ namespace Проект_к_школе
         int time = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (CurrentExplanationIndex == 0) return;
             Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentExplanationIndex];
             if (ex.TimerValue == 0)
             {
@@ -297,7 +252,6 @@ namespace Проект_к_школе
         public void Next2()
         {
             CurrentLesson = Lesson_mass[list_of_lessons.SelectedIndex];
-            timer1.Start();
             Next_Click(Next, null);
         }
         char GetRand()
@@ -327,8 +281,15 @@ namespace Проект_к_школе
                 CurrentQuestion = CurrentLesson.QuestionList.Count - 1;
                 IsRandom = false;
             }
+            bool IsTimerTick = false;
+            if (CurrentQuestion != 0 && CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new Explanation().GetType())
+            {
+                Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentQuestion - 1];
 
-            if (!timer1.Enabled) timer1.Start();
+                IsTimerTick = ex.TimerValue != 0 && !timer1.Enabled ;
+            }
+                 
+            if (IsTimerTick) timer1.Start();
 
             if (CurrentQuestion > 0)
                 if (CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new Question().GetType())
@@ -351,6 +312,7 @@ namespace Проект_к_школе
 
                 groupBox1.Visible = false;
                 AnswerTextSetup.Visible = false;
+                ExplanationLabel.Visible = true;
                 Next.Visible = true;
 
                 Next.Location = new Point(200, 200);

@@ -39,6 +39,7 @@
             this.AddImageQuestion = new System.Windows.Forms.Button();
             this.FromTxt = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.DeleteQuestion = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // QuestionChoose
@@ -125,7 +126,7 @@
             // 
             // FromTxt
             // 
-            this.FromTxt.Location = new System.Drawing.Point(207, 244);
+            this.FromTxt.Location = new System.Drawing.Point(329, 396);
             this.FromTxt.Name = "FromTxt";
             this.FromTxt.Size = new System.Drawing.Size(77, 31);
             this.FromTxt.TabIndex = 21;
@@ -137,11 +138,22 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // DeleteQuestion
+            // 
+            this.DeleteQuestion.Location = new System.Drawing.Point(187, 245);
+            this.DeleteQuestion.Name = "DeleteQuestion";
+            this.DeleteQuestion.Size = new System.Drawing.Size(122, 35);
+            this.DeleteQuestion.TabIndex = 22;
+            this.DeleteQuestion.Text = "Удалить";
+            this.DeleteQuestion.UseVisualStyleBackColor = true;
+            this.DeleteQuestion.Click += new System.EventHandler(this.DeleteQuestion_Click);
+            // 
             // FormWriter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(438, 447);
+            this.Controls.Add(this.DeleteQuestion);
             this.Controls.Add(this.FromTxt);
             this.Controls.Add(this.AddImageQuestion);
             this.Controls.Add(this.AddInstraction);
@@ -175,6 +187,7 @@
         private System.Windows.Forms.Button AddImageQuestion;
         private System.Windows.Forms.Button FromTxt;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button DeleteQuestion;
     }
 }
 

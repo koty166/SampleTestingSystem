@@ -348,7 +348,7 @@ namespace AnalysisLibrary
             }
         }
 
-        static List<String> GetRightAnswers()
+        static List<string> GetRightAnswers()
         {
             StreamReader r = new StreamReader(Environment.CurrentDirectory + "RigthAnswersSetting.txt");
             List<String> OutString = new List<string>();
@@ -359,13 +359,22 @@ namespace AnalysisLibrary
             }
             return OutString;
 
+
+        }
+
+        static byte MarkForTest(string UserAnswer, string RightAnswer)
+        {
+            string[] mass = RightAnswer.Split(';');
+            if (mass[0].Contains(UserAnswer)) return 2;
+            if (mass[1].Contains(UserAnswer)) return 1;
+            return 0;
         }
 
         public static void ShcoolCognitiveActivityTestAnalysis(List<Pupil> PupList)
         {
             FileTools.Log("Analis is begin");
 
-            List<String> RightAnswers = null;
+            List<string> RightAnswers = null;
 
             foreach (var i in PupList)
             {
@@ -546,46 +555,65 @@ namespace AnalysisLibrary
                             ///////////////////////Obobshenie
                             ///////gum
                             case 88:
+                               Gum += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 89:
+                                Gum += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 95:
+                                Gum += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 96:
+                                Gum += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 99:
+                                Gum += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 102:
+                                Gum += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 103:
+                                Gum += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
 
                             /////////nature
                             case 86:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 87:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 91:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 92:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 94:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 98:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 100:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 104:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
 
                             /////////////math
                             case 90:
+                                Math += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 93:
+                                Math += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 97:
+                                Math += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 101:
+                                Math += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                         }
                     }
@@ -750,46 +778,65 @@ namespace AnalysisLibrary
                             ///////////////////////Obobshenie
                             ///////gum
                             case 91:
+                                Math += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 95:
+                                Math += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 96:
+                                Math += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 98:
+                                Math += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 100:
+                                Math += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 102:
+                                Math += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 104:
+                                Math += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
 
                             /////////nature
                             case 86:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 88:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 90:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 92:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 97:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 99:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 101:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 103:
+                                Nature += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
 
                             /////////////math
                             case 87:
+                                Math += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 89:
+                                Math += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 93:
+                                Math += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 94:
+                                Math += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                         }
                     }
@@ -800,19 +847,20 @@ namespace AnalysisLibrary
                 {
                     if (i.AnswerList[j] == RightAnswers[j] && j <= 40) Knowledge++;//////////обшая осведомлённость
 
-                    if (i.AnswerList[j] == RightAnswers[j] && j <= 65 && j > 40) Analogy++;//////////Аналогии
-                    if (i.AnswerList[j] == RightAnswers[j] && j <= 85 && j > 65) Classification++;/////////классификации
-
-                    if (i.AnswerList[j] == RightAnswers[j] && j <= 104 && j > 85) Oboshenie++;////////////обобшение/////////////////////
-                   
-                  
+                    if (i.AnswerList[j] == RightAnswers[j] && j <= 65 && j > 40)
+                        Analogy++;//////////Аналогии
+                    if (i.AnswerList[j] == RightAnswers[j] && j <= 85 && j > 65)
+                        Classification++;/////////классификации
+                    if (i.AnswerList[j] == RightAnswers[j] && j <= 104 && j > 85)
+                        Oboshenie += MarkForTest(i.AnswerList[j], RightAnswers[j]);////////////обобшение
                     if (i.AnswerList[j] == RightAnswers[j] && j <= 119 && j > 104)
                     {
                         Math++;
                         NumberLines++;
                     }  /////////////Числовые ряды
 
-                    if (i.AnswerList[j] == RightAnswers[j] && j <= 129 && j > 119) Space++;//////////////Пространственные представления
+                    if (i.AnswerList[j] == RightAnswers[j] && j <= 129 && j > 119)
+                        Space++;//////////////Пространственные представления
                 }
 
                 PersentOfTestComplete = (Double)(Knowledge + Analogy + Classification + Oboshenie + NumberLines + Space) / 129 * 100;
@@ -828,9 +876,9 @@ namespace AnalysisLibrary
                     if (i.Form == 10 && PersentOfTestComplete < 36) Level = "Низкий";
 
                     if (i.Form == 7 && PersentOfTestComplete > 54) Level = "Высокий";
-                    if (i.Form == 8 && PersentOfTestComplete < 65) Level = "Высокий";
-                    if (i.Form == 9 && PersentOfTestComplete < 72) Level = "Высокий";
-                    if (i.Form == 10 && PersentOfTestComplete < 80) Level = "Высокий";
+                    if (i.Form == 8 && PersentOfTestComplete > 65) Level = "Высокий";
+                    if (i.Form == 9 && PersentOfTestComplete > 72) Level = "Высокий";
+                    if (i.Form == 10 && PersentOfTestComplete > 80) Level = "Высокий";
 
                     else Level = "Средний";
                 }
