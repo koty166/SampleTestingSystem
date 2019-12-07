@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -245,8 +241,29 @@ namespace FormServer
                 /////////////////
                 DataListener.Abort();
             }
+            FileTools.Save(ListOfPupil);
         }
-        
+
+        private void FromTxt_Click(object sender, EventArgs e)
+        {
+            StreamReader r = new StreamReader(Environment.CurrentDirectory + "\\read.txt");
+            Pupil p = new Pupil();
+            string[] mas = r.ReadLine().Split(' ');
+            p.Name = mas[0];
+            p.Surname = mas[1];
+            p.Patronymic = mas[2];
+            p.Age = int.Parse(mas[3]);
+            p.Form = int.Parse(mas[4]);
+            p.IsMale = bool.Parse(mas[5]);//////Need to write - "true"
+            while(true)
+            {
+                string s = r.ReadLine();
+                if (s == "0") break;
+                p.AnswerList.Add(s);
+            }
+            r.Close();
+            ListOfPupil.Add(p);
+        }
 
         static void SendIP(object b)
         {

@@ -22,11 +22,12 @@ namespace AnalysisLibrary
             }
             return 0;
         }
-
+        
         static void Save(List<Pupil> PupList)
         {
             int n = 0;
-            while (true)
+            
+;            while (true)
             {
                 n++;
                 if (!File.Exists(Environment.CurrentDirectory + $"\\Saves\\ModifiedSav{n}.sav"))
@@ -222,17 +223,17 @@ namespace AnalysisLibrary
                             else if (CognitiveActivity >= 22 && CognitiveActivity <= 27) CognitiveMark = "Познавательная активность - средний";
                             else if (CognitiveActivity >= 28 && CognitiveActivity <= 40) CognitiveMark = "Познавательная активность - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 20) AchivementMark = "Мотивация достижения - низкий";
-                            else if (CognitiveActivity >= 21 && CognitiveActivity <= 28) AchivementMark = "Мотивация достижения - средний";
-                            else if (CognitiveActivity >= 29 && CognitiveActivity <= 40) AchivementMark = "Мотивация достижения - высокий";
+                            if (AchievementMotivation >= 10 && AchievementMotivation <= 20) AchivementMark = "Мотивация достижения - низкий";
+                            else if (AchievementMotivation >= 21 && AchievementMotivation <= 28) AchivementMark = "Мотивация достижения - средний";
+                            else if (AchievementMotivation >= 29 && AchievementMotivation <= 40) AchivementMark = "Мотивация достижения - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 16) AnxietyMark = "Тревожность - низкий";
-                            else if (CognitiveActivity >= 17 && CognitiveActivity <= 23) AnxietyMark = "Тревожность - средний";
-                            else if (CognitiveActivity >= 25 && CognitiveActivity <= 40) AnxietyMark = "Тревожность - высокий";
+                            if (Anxiety >= 10 && Anxiety <= 16) AnxietyMark = "Тревожность - низкий";
+                            else if (Anxiety >= 17 && Anxiety <= 23) AnxietyMark = "Тревожность - средний";
+                            else if (Anxiety >= 25 && Anxiety <= 40) AnxietyMark = "Тревожность - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 12) AngerMark = "Гнев - низкий";
-                            else if (CognitiveActivity >= 13 && CognitiveActivity <= 19) AngerMark = "Гнев - средний";
-                            else if (CognitiveActivity >= 20 && CognitiveActivity <= 40) AngerMark = "Гнев - высокий";
+                            if (Anger >= 10 && Anger <= 12) AngerMark = "Гнев - низкий";
+                            else if (Anger >= 13 && Anger <= 19) AngerMark = "Гнев - средний";
+                            else if (Anger >= 20 && Anger <= 40) AngerMark = "Гнев - высокий";
                         }
                         if (i.Age >= 12 && i.Age <= 14)
                         {
@@ -240,17 +241,17 @@ namespace AnalysisLibrary
                             else if (CognitiveActivity >= 19 && CognitiveActivity <= 26) CognitiveMark = "Познавательная активность - средний";
                             else if (CognitiveActivity >= 27 && CognitiveActivity <= 40) CognitiveMark = "Познавательная активность - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 17) AchivementMark = "Мотивация достижения - низкий";
-                            else if (CognitiveActivity >= 18 && CognitiveActivity <= 24) AchivementMark = "Мотивация достижения - средний";
-                            else if (CognitiveActivity >= 25 && CognitiveActivity <= 40) AchivementMark = "Мотивация достижения - высокий";
+                            if (AchievementMotivation >= 10 && AchievementMotivation <= 17) AchivementMark = "Мотивация достижения - низкий";
+                            else if (AchievementMotivation >= 18 && AchievementMotivation <= 24) AchivementMark = "Мотивация достижения - средний";
+                            else if (AchievementMotivation >= 25 && AchievementMotivation <= 40) AchivementMark = "Мотивация достижения - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 18) AnxietyMark = "Тревожность - низкий";
-                            else if (CognitiveActivity >= 19 && CognitiveActivity <= 25) AnxietyMark = "Тревожность - средний";
-                            else if (CognitiveActivity >= 26 && CognitiveActivity <= 40) AnxietyMark = "Тревожность - высокий";
+                            if (Anxiety >= 10 && Anxiety <= 18) AnxietyMark = "Тревожность - низкий";
+                            else if (Anxiety >= 19 && Anxiety <= 25) AnxietyMark = "Тревожность - средний";
+                            else if (Anxiety >= 26 && Anxiety <= 40) AnxietyMark = "Тревожность - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 14) AngerMark = "Гнев - низкий";
-                            else if (CognitiveActivity >= 15 && CognitiveActivity <= 22) AngerMark = "Гнев - средний";
-                            else if (CognitiveActivity >= 23 && CognitiveActivity <= 40) AngerMark = "Гнев - высокий";
+                            if (Anger >= 10 && Anger <= 14) AngerMark = "Гнев - низкий";
+                            else if (Anger >= 15 && Anger <= 22) AngerMark = "Гнев - средний";
+                            else if (Anger >= 23 && Anger <= 40) AngerMark = "Гнев - высокий";
                         }
                         if (i.Age >= 15 && i.Age <= 16)
                         {
@@ -258,17 +259,17 @@ namespace AnalysisLibrary
                             else if (CognitiveActivity >= 21 && CognitiveActivity <= 29) CognitiveMark = "Познавательная активность - средний";
                             else if (CognitiveActivity >= 31 && CognitiveActivity <= 40) CognitiveMark = "Познавательная активность - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 17) AchivementMark = "Мотивация достижения - низкий";
-                            else if (CognitiveActivity >= 18 && CognitiveActivity <= 25) AchivementMark = "Мотивация достижения - средний";
-                            else if (CognitiveActivity >= 26 && CognitiveActivity <= 40) AchivementMark = "Мотивация достижения - высокий";
+                            if (AchievementMotivation >= 10 && AchievementMotivation <= 17) AchivementMark = "Мотивация достижения - низкий";
+                            else if (AchievementMotivation >= 18 && AchievementMotivation <= 25) AchivementMark = "Мотивация достижения - средний";
+                            else if (AchievementMotivation >= 26 && AchievementMotivation <= 40) AchivementMark = "Мотивация достижения - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 15) AnxietyMark = "Тревожность - низкий";
-                            else if (CognitiveActivity >= 16 && CognitiveActivity <= 22) AnxietyMark = "Тревожность - средний";
-                            else if (CognitiveActivity >= 23 && CognitiveActivity <= 40) AnxietyMark = "Тревожность - высокий";
+                            if (Anxiety >= 10 && Anxiety <= 15) AnxietyMark = "Тревожность - низкий";
+                            else if (Anxiety >= 16 && Anxiety <= 22) AnxietyMark = "Тревожность - средний";
+                            else if (Anxiety >= 23 && Anxiety <= 40) AnxietyMark = "Тревожность - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 11) AngerMark = "Гнев - низкий";
-                            else if (CognitiveActivity >= 12 && CognitiveActivity <= 18) AngerMark = "Гнев - средний";
-                            else if (CognitiveActivity >= 19 && CognitiveActivity <= 40) AngerMark = "Гнев - высокий";
+                            if (Anger >= 10 && Anger <= 11) AngerMark = "Гнев - низкий";
+                            else if (Anger >= 12 && Anger <= 18) AngerMark = "Гнев - средний";
+                            else if (Anger >= 19 && Anger <= 40) AngerMark = "Гнев - высокий";
                         }
                     }
                     else
@@ -279,17 +280,17 @@ namespace AnalysisLibrary
                             else if (CognitiveActivity >= 21 && CognitiveActivity <= 30) CognitiveMark = "Познавательная активность - средний";
                             else if (CognitiveActivity >= 31 && CognitiveActivity <= 40) CognitiveMark = "Познавательная активность - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 21) AchivementMark = "Мотивация достижения - низкий";
-                            else if (CognitiveActivity >= 22 && CognitiveActivity <= 31) AchivementMark = "Мотивация достижения - средний";
-                            else if (CognitiveActivity >= 32 && CognitiveActivity <= 40) AchivementMark = "Мотивация достижения - высокий";
+                            if (AchievementMotivation >= 10 && AchievementMotivation <= 21) AchivementMark = "Мотивация достижения - низкий";
+                            else if (AchievementMotivation >= 22 && AchievementMotivation <= 31) AchivementMark = "Мотивация достижения - средний";
+                            else if (AchievementMotivation >= 32 && AchievementMotivation <= 40) AchivementMark = "Мотивация достижения - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 19) AnxietyMark = "Тревожность - низкий";
-                            else if (CognitiveActivity >= 20 && CognitiveActivity <= 26) AnxietyMark = "Тревожность - средний";
-                            else if (CognitiveActivity >= 27 && CognitiveActivity <= 40) AnxietyMark = "Тревожность - высокий";
+                            if (Anxiety >= 10 && Anxiety <= 19) AnxietyMark = "Тревожность - низкий";
+                            else if (Anxiety >= 20 && Anxiety <= 26) AnxietyMark = "Тревожность - средний";
+                            else if (Anxiety >= 27 && Anxiety <= 40) AnxietyMark = "Тревожность - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 13) AngerMark = "Гнев - низкий";
-                            else if (CognitiveActivity >= 14 && CognitiveActivity <= 20) AngerMark = "Гнев - средний";
-                            else if (CognitiveActivity >= 21 && CognitiveActivity <= 40) AngerMark = "Гнев - высокий";
+                            if (Anger >= 10 && Anger <= 13) AngerMark = "Гнев - низкий";
+                            else if (Anger >= 14 && Anger <= 20) AngerMark = "Гнев - средний";
+                            else if (Anger >= 21 && Anger <= 40) AngerMark = "Гнев - высокий";
                         }
                         if (i.Age >= 12 && i.Age <= 14)
                         {
@@ -297,17 +298,17 @@ namespace AnalysisLibrary
                             else if (CognitiveActivity >= 21 && CognitiveActivity <= 27) CognitiveMark = "Познавательная активность - средний";
                             else if (CognitiveActivity >= 28 && CognitiveActivity <= 40) CognitiveMark = "Познавательная активность - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 22) AchivementMark = "Мотивация достижения - низкий";
-                            else if (CognitiveActivity >= 23 && CognitiveActivity <= 30) AchivementMark = "Мотивация достижения - средний";
-                            else if (CognitiveActivity >= 31 && CognitiveActivity <= 40) AchivementMark = "Мотивация достижения - высокий";
+                            if (AchievementMotivation >= 10 && AchievementMotivation <= 22) AchivementMark = "Мотивация достижения - низкий";
+                            else if (AchievementMotivation >= 23 && AchievementMotivation <= 30) AchivementMark = "Мотивация достижения - средний";
+                            else if (AchievementMotivation >= 31 && AchievementMotivation <= 40) AchivementMark = "Мотивация достижения - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 18) AnxietyMark = "Тревожность - низкий";
-                            else if (CognitiveActivity >= 19 && CognitiveActivity <= 24) AnxietyMark = "Тревожность - средний";
-                            else if (CognitiveActivity >= 25 && CognitiveActivity <= 40) AnxietyMark = "Тревожность - высокий";
+                            if (Anxiety >= 10 && Anxiety <= 18) AnxietyMark = "Тревожность - низкий";
+                            else if (Anxiety >= 19 && Anxiety <= 24) AnxietyMark = "Тревожность - средний";
+                            else if (Anxiety >= 25 && Anxiety <= 40) AnxietyMark = "Тревожность - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 13) AngerMark = "Гнев - низкий";
-                            else if (CognitiveActivity >= 14 && CognitiveActivity <= 19) AngerMark = "Гнев - средний";
-                            else if (CognitiveActivity >= 20 && CognitiveActivity <= 40) AngerMark = "Гнев - высокий";
+                            if (Anger >= 10 && Anger <= 13) AngerMark = "Гнев - низкий";
+                            else if (Anger >= 14 && Anger <= 19) AngerMark = "Гнев - средний";
+                            else if (Anger >= 20 && Anger <= 40) AngerMark = "Гнев - высокий";
                             ///////////////////я заебался это писать
                         }
                         if (i.Age >= 15 && i.Age <= 16)
@@ -316,17 +317,17 @@ namespace AnalysisLibrary
                             else if (CognitiveActivity >= 18 && CognitiveActivity <= 28) CognitiveMark = "Познавательная активность - средний";
                             else if (CognitiveActivity >= 29 && CognitiveActivity <= 40) CognitiveMark = "Познавательная активность - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 21) AchivementMark = "Мотивация достижения - низкий";
-                            else if (CognitiveActivity >= 22 && CognitiveActivity <= 30) AchivementMark = "Мотивация достижения - средний";
-                            else if (CognitiveActivity >= 31 && CognitiveActivity <= 40) AchivementMark = "Мотивация достижения - высокий";
+                            if (AchievementMotivation >= 10 && AchievementMotivation <= 21) AchivementMark = "Мотивация достижения - низкий";
+                            else if (AchievementMotivation >= 22 && AchievementMotivation <= 30) AchivementMark = "Мотивация достижения - средний";
+                            else if (AchievementMotivation >= 31 && AchievementMotivation <= 40) AchivementMark = "Мотивация достижения - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 16) AnxietyMark = "Тревожность - низкий";
-                            else if (CognitiveActivity >= 17 && CognitiveActivity <= 24) AnxietyMark = "Тревожность - средний";
-                            else if (CognitiveActivity >= 25 && CognitiveActivity <= 40) AnxietyMark = "Тревожность - высокий";
+                            if (Anxiety >= 10 && Anxiety <= 16) AnxietyMark = "Тревожность - низкий";
+                            else if (Anxiety >= 17 && Anxiety <= 24) AnxietyMark = "Тревожность - средний";
+                            else if (Anxiety >= 25 && Anxiety <= 40) AnxietyMark = "Тревожность - высокий";
 
-                            if (CognitiveActivity >= 10 && CognitiveActivity <= 13) AngerMark = "Гнев - низкий";
-                            else if (CognitiveActivity >= 14 && CognitiveActivity <= 20) AngerMark = "Гнев - средний";
-                            else if (CognitiveActivity >= 21 && CognitiveActivity <= 40) AngerMark = "Гнев - высокий";
+                            if (Anger >= 10 && Anger <= 13) AngerMark = "Гнев - низкий";
+                            else if (Anger >= 14 && Anger <= 20) AngerMark = "Гнев - средний";
+                            else if (Anger >= 21 && Anger <= 40) AngerMark = "Гнев - высокий";
 
                         }
                     }
@@ -341,7 +342,6 @@ namespace AnalysisLibrary
                 }
 
                 i.MarkForTest = $"{CognitiveMark};{AchivementMark};{AnxietyMark};{AngerMark};{LevelMark}";
-
                 Save(PupList);
 
                 FileTools.Log("Analis is end");

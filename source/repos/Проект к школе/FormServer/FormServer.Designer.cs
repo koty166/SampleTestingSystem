@@ -58,6 +58,7 @@
             this.IsSendingAlive = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.FromTxt = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Statistic.SuspendLayout();
@@ -266,6 +267,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.FromTxt);
             this.tabPage2.Controls.Add(this.BeginAnalysis);
             this.tabPage2.Controls.Add(this.FileSetupButton);
             this.tabPage2.Controls.Add(this.FileSetup);
@@ -359,6 +361,16 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Saved data files|*.sav";
             // 
+            // FromTxt
+            // 
+            this.FromTxt.Location = new System.Drawing.Point(14, 194);
+            this.FromTxt.Name = "FromTxt";
+            this.FromTxt.Size = new System.Drawing.Size(103, 52);
+            this.FromTxt.TabIndex = 5;
+            this.FromTxt.Text = "из txt";
+            this.FromTxt.UseVisualStyleBackColor = true;
+            this.FromTxt.Click += new System.EventHandler(this.FromTxt_Click);
+            // 
             // FormServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -421,6 +433,7 @@
         private System.Windows.Forms.Button ShowOnExel;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button BeginAnalysis;
+        private System.Windows.Forms.Button FromTxt;
     }
 }
 

@@ -1,3 +1,6 @@
+Version 1.2.0.1
+-Motivation analysis is correct now
+------------------------------------
 Version 1.2.0.0
 -Add ивга2.0 Analysis 
 -Add delete question functional

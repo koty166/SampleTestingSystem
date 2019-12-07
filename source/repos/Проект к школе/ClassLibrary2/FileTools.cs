@@ -53,9 +53,17 @@ namespace ClassLibrary2
         {
             try
             {
+                int m = 0;
+                string s;
                 BinaryFormatter b = new BinaryFormatter();
-                if (!Directory.Exists("Saves")) Directory.CreateDirectory("Saves");
-                string s = "Saves//" + DateTime.Today.ToShortDateString() + ".sav";
+                if (!Directory.Exists("Saves")) Directory.CreateDirectory("Saves");  
+                while (true)
+                {
+                    s = "Saves//" + DateTime.Today.ToShortDateString() + m + ".sav";
+                    if (File.Exists(s))
+                        m++;
+                    else break;
+                }
                 FileStream f = new FileStream(s, FileMode.Create);
                 b.Serialize(f, ob);
                 f.Close();
