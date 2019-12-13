@@ -22,14 +22,14 @@ namespace Проект_к_школе
 
         String directory = @"Tests";
         bool IsTestStar = false,IsRandom  = false, IsAdmin = false;
-        int CurrentQuestion = 0, CurrentExplanationIndex = 0;
+        byte CurrentQuestion = 0, CurrentExplanationIndex = 0;
         internal IPAddress IP;
 
-        List<Image> LIstImages = new List<Image>();
+        Image NextImage;
 
-        Lesson[] Lesson_mass;
+        internal Lesson[] Lesson_mass;
 
-        Lesson CurrentLesson;
+        internal Lesson CurrentLesson;
         internal Pupil pupil;
 
         void Load_in_form()
@@ -46,26 +46,17 @@ namespace Проект_к_школе
 
         } 
 
-        void LoadPicture(Object ob)
+        void LoadPicture(Object _q)
         {
-            List<Image> l = new List<Image>();
-            Lesson CurrentLesson = (Lesson)ob;
-
-            foreach (var i in CurrentLesson.QuestionList)
+            ImageQuestion q = (ImageQuestion)_q;
+            try
             {
-
-                try
-                {
-                    ImageQuestion q = (ImageQuestion)i;
-                    l.Add(Image.FromFile(directory + $"//images//{q.image_name}"));
-                }
-                catch
-                {
-                    l.Add(Image.FromFile(directory + $"//images//Error.png"));
-                }
+                NextImage = Image.FromFile(directory + $"//images//{q.image_name}");
             }
-
-            LIstImages = l;
+            catch
+            {
+                NextImage = Image.FromFile(directory + $"//images//Error.png");
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -110,25 +101,19 @@ namespace Проект_к_школе
         {
             if (list_of_lessons.SelectedItem != null)
             {
-                Thread f = new Thread(new ParameterizedThreadStart(LoadPicture));
-
-                f.Start(Lesson_mass[list_of_lessons.SelectedIndex]);
+                
                 IsTestStar = true;
 
                 Start.Visible = false;
                 list_of_lessons.Visible = false;
 
-                if (Application.OpenForms.Count == 1 && pupil == null)
-                {
-                    Registration r = new Registration();
-                    r.Show();
-                    FileTools.Log("Registration is began");
-                    this.Enabled = false;
+                Registration r = new Registration();
+                r.Show();
+                FileTools.Log("Registration is began");
+                this.Enabled = false;
 
-                }
-                else
-                    Next2();
                 FileTools.Log($"Test {Lesson_mass[list_of_lessons.SelectedIndex]} is started");
+                CurrentLesson = Lesson_mass[list_of_lessons.SelectedIndex];     
             }
         }
 
@@ -167,7 +152,7 @@ namespace Проект_к_школе
                 stream.Write(data, 0, data.Length);
                 ////////Set Admin arg
                 if (IsAdmin)
-                    pupil.arg[4] = "1";
+                    pupil.args[4] = "1";
 
                 b.Serialize(Sender.GetStream(), pupil);
 
@@ -195,7 +180,7 @@ namespace Проект_к_школе
         {
             for (int i = CurrentQuestion + 1; i < CurrentLesson.QuestionList.Count; i++)
                 if (CurrentLesson.QuestionList[i].GetType() == new Explanation().GetType())
-                    CurrentQuestion = i;
+                    CurrentQuestion = (byte)i;
 
             Next_Click(Next,null);
             MessageBox.Show("Время , отведённое на выполнение этого задания, истекло");
@@ -241,45 +226,21 @@ namespace Проект_к_школе
                     FileTools.Log($"Added to pupil list:{UserAnswer}");
                     break;
                 case TypeOfQuestion.ImageQuestion:
-                    UserAnswer = AnswerTextSetup.Text != "" ? AnswerTextSetup.Text : "NO";
+                    UserAnswer = (AnswerTextSetup.Text != "" ? AnswerTextSetup.Text : "NO").ToLowerInvariant();
+                    for (int i = 0; i < UserAnswer.Length; i++)
+                        if (UserAnswer[i] == '.' || i == ' ') UserAnswer.Remove(i,1);
                     pupil.AnswerList.Add(UserAnswer);
                     FileTools.Log($"Added to pupil list:{UserAnswer}");
                     break;
             }
         }
 
-        public void Next2()
-        {
-            CurrentLesson = Lesson_mass[list_of_lessons.SelectedIndex];
-            Next_Click(Next, null);
-        }
-        char GetRand()
-        {
-            Random r = new Random();
-            switch(r.Next(1, 5))
-            {
-                case 1:
-                    return '1';
-                case 2:
-                    return '2';
-                case 3:
-                    return '3';
-                case 4:
-                    return '4';
-            }
-            return '6';
+        public void Next2() => Next_Click(Next, null);
 
-        }
         private void Next_Click(object sender, EventArgs e)
         {
             FileTools.Log("Next clicked");
-            if (IsRandom)
-            {
-                for (int i = 0; i < CurrentLesson.QuestionList.Count; i++)
-                    pupil.AnswerList.Add(GetRand().ToString());
-                CurrentQuestion = CurrentLesson.QuestionList.Count - 1;
-                IsRandom = false;
-            }
+
             bool IsTimerTick = false;
             if (CurrentQuestion != 0 && CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new Explanation().GetType())
             {
@@ -304,6 +265,8 @@ namespace Проект_к_школе
                 FileTools.Log("End of test");
                 return;
             }
+            
+
             if (CurrentLesson.QuestionList[CurrentQuestion].GetType() == new Explanation().GetType())
             {
                 Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentQuestion];
@@ -311,6 +274,7 @@ namespace Проект_к_школе
 
                 groupBox1.Visible = false;
                 AnswerTextSetup.Visible = false;
+                pictureBox.Visible = false;
                 ExplanationLabel.Visible = true;
                 Next.Visible = true;
 
@@ -327,6 +291,7 @@ namespace Проект_к_школе
                 groupBox1.Visible = true;
                 ExplanationLabel.Visible = false;
                 AnswerTextSetup.Visible = false;
+                pictureBox.Visible = false;
                 Next.Visible = true;
                 Next.Location = new Point(200, 200);
 
@@ -357,8 +322,19 @@ namespace Проект_к_школе
                 ExplanationLabel.Text = q.Question;
                 AnswerTextSetup.Text = "";
 
+                pictureBox.Visible = true;
+                pictureBox.Image = NextImage;
+               // pictureBox.Refresh();
+
                 CurrentQuestion++;
             }
+
+            if (CurrentQuestion + 1 < CurrentLesson.QuestionList.Count)
+                if (CurrentLesson.QuestionList[CurrentQuestion + 1].GetType() == new ImageQuestion().GetType())
+                {
+                    Thread f = new Thread(new ParameterizedThreadStart(LoadPicture));
+                    f.Start(CurrentLesson.QuestionList[CurrentQuestion + 1]);
+                }
         }
     }
 }

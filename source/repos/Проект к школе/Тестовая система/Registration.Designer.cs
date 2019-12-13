@@ -30,17 +30,20 @@
         {
             this.RegistrationText = new System.Windows.Forms.Label();
             this.Save = new System.Windows.Forms.Button();
-            this.ShoolForm = new System.Windows.Forms.Label();
-            this.Age = new System.Windows.Forms.Label();
+            this.FormLabel = new System.Windows.Forms.Label();
             this.Patronymic = new System.Windows.Forms.Label();
             this.Surname = new System.Windows.Forms.Label();
             this.StudentName = new System.Windows.Forms.Label();
             this.FormSetup = new System.Windows.Forms.NumericUpDown();
             this.SurnameSetup = new System.Windows.Forms.TextBox();
             this.PatronymicSetup = new System.Windows.Forms.TextBox();
-            this.AgeSetup = new System.Windows.Forms.TextBox();
             this.NameSetup = new System.Windows.Forms.TextBox();
+            this.IsMale = new System.Windows.Forms.RadioButton();
+            this.IsFemale = new System.Windows.Forms.RadioButton();
+            this.AgeLabel = new System.Windows.Forms.Label();
+            this.AgeSetup = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.FormSetup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AgeSetup)).BeginInit();
             this.SuspendLayout();
             // 
             // RegistrationText
@@ -54,7 +57,7 @@
             // 
             // Save
             // 
-            this.Save.Location = new System.Drawing.Point(80, 262);
+            this.Save.Location = new System.Drawing.Point(75, 275);
             this.Save.Name = "Save";
             this.Save.Size = new System.Drawing.Size(125, 56);
             this.Save.TabIndex = 23;
@@ -62,23 +65,14 @@
             this.Save.UseVisualStyleBackColor = true;
             this.Save.Click += new System.EventHandler(this.Save_Click);
             // 
-            // ShoolForm
+            // FormLabel
             // 
-            this.ShoolForm.AutoSize = true;
-            this.ShoolForm.Location = new System.Drawing.Point(13, 229);
-            this.ShoolForm.Name = "ShoolForm";
-            this.ShoolForm.Size = new System.Drawing.Size(38, 13);
-            this.ShoolForm.TabIndex = 22;
-            this.ShoolForm.Text = "Класс";
-            // 
-            // Age
-            // 
-            this.Age.AutoSize = true;
-            this.Age.Location = new System.Drawing.Point(13, 185);
-            this.Age.Name = "Age";
-            this.Age.Size = new System.Drawing.Size(49, 13);
-            this.Age.TabIndex = 21;
-            this.Age.Text = "Возраст";
+            this.FormLabel.AutoSize = true;
+            this.FormLabel.Location = new System.Drawing.Point(13, 171);
+            this.FormLabel.Name = "FormLabel";
+            this.FormLabel.Size = new System.Drawing.Size(38, 13);
+            this.FormLabel.TabIndex = 22;
+            this.FormLabel.Text = "Класс";
             // 
             // Patronymic
             // 
@@ -109,7 +103,7 @@
             // 
             // FormSetup
             // 
-            this.FormSetup.Location = new System.Drawing.Point(134, 222);
+            this.FormSetup.Location = new System.Drawing.Point(134, 164);
             this.FormSetup.Maximum = new decimal(new int[] {
             11,
             0,
@@ -133,13 +127,6 @@
             this.PatronymicSetup.Size = new System.Drawing.Size(161, 20);
             this.PatronymicSetup.TabIndex = 3;
             // 
-            // AgeSetup
-            // 
-            this.AgeSetup.Location = new System.Drawing.Point(134, 178);
-            this.AgeSetup.Name = "AgeSetup";
-            this.AgeSetup.Size = new System.Drawing.Size(161, 20);
-            this.AgeSetup.TabIndex = 4;
-            // 
             // NameSetup
             // 
             this.NameSetup.Location = new System.Drawing.Point(134, 46);
@@ -147,22 +134,67 @@
             this.NameSetup.Size = new System.Drawing.Size(161, 20);
             this.NameSetup.TabIndex = 1;
             // 
+            // IsMale
+            // 
+            this.IsMale.AutoSize = true;
+            this.IsMale.Location = new System.Drawing.Point(15, 221);
+            this.IsMale.Name = "IsMale";
+            this.IsMale.Size = new System.Drawing.Size(63, 17);
+            this.IsMale.TabIndex = 25;
+            this.IsMale.TabStop = true;
+            this.IsMale.Text = "Парень";
+            this.IsMale.UseVisualStyleBackColor = true;
+            // 
+            // IsFemale
+            // 
+            this.IsFemale.AutoSize = true;
+            this.IsFemale.Location = new System.Drawing.Point(16, 198);
+            this.IsFemale.Name = "IsFemale";
+            this.IsFemale.Size = new System.Drawing.Size(71, 17);
+            this.IsFemale.TabIndex = 26;
+            this.IsFemale.TabStop = true;
+            this.IsFemale.Text = "Девушка";
+            this.IsFemale.UseVisualStyleBackColor = true;
+            // 
+            // AgeLabel
+            // 
+            this.AgeLabel.AutoSize = true;
+            this.AgeLabel.Location = new System.Drawing.Point(12, 253);
+            this.AgeLabel.Name = "AgeLabel";
+            this.AgeLabel.Size = new System.Drawing.Size(49, 13);
+            this.AgeLabel.TabIndex = 28;
+            this.AgeLabel.Text = "Возраст";
+            // 
+            // AgeSetup
+            // 
+            this.AgeSetup.Location = new System.Drawing.Point(133, 246);
+            this.AgeSetup.Maximum = new decimal(new int[] {
+            18,
+            0,
+            0,
+            0});
+            this.AgeSetup.Name = "AgeSetup";
+            this.AgeSetup.Size = new System.Drawing.Size(120, 20);
+            this.AgeSetup.TabIndex = 27;
+            // 
             // Registration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(310, 334);
+            this.Controls.Add(this.AgeLabel);
+            this.Controls.Add(this.AgeSetup);
+            this.Controls.Add(this.IsFemale);
+            this.Controls.Add(this.IsMale);
             this.Controls.Add(this.RegistrationText);
             this.Controls.Add(this.Save);
-            this.Controls.Add(this.ShoolForm);
-            this.Controls.Add(this.Age);
+            this.Controls.Add(this.FormLabel);
             this.Controls.Add(this.Patronymic);
             this.Controls.Add(this.Surname);
             this.Controls.Add(this.StudentName);
             this.Controls.Add(this.FormSetup);
             this.Controls.Add(this.SurnameSetup);
             this.Controls.Add(this.PatronymicSetup);
-            this.Controls.Add(this.AgeSetup);
             this.Controls.Add(this.NameSetup);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
@@ -170,6 +202,7 @@
             this.Text = "Registration";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Registration_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.FormSetup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AgeSetup)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -179,15 +212,17 @@
 
         private System.Windows.Forms.Label RegistrationText;
         private System.Windows.Forms.Button Save;
-        private System.Windows.Forms.Label ShoolForm;
-        private System.Windows.Forms.Label Age;
+        private System.Windows.Forms.Label FormLabel;
         private System.Windows.Forms.Label Patronymic;
         private System.Windows.Forms.Label Surname;
         private System.Windows.Forms.Label StudentName;
         private System.Windows.Forms.NumericUpDown FormSetup;
         private System.Windows.Forms.TextBox SurnameSetup;
         private System.Windows.Forms.TextBox PatronymicSetup;
-        private System.Windows.Forms.TextBox AgeSetup;
         private System.Windows.Forms.TextBox NameSetup;
+        private System.Windows.Forms.RadioButton IsMale;
+        private System.Windows.Forms.RadioButton IsFemale;
+        private System.Windows.Forms.Label AgeLabel;
+        private System.Windows.Forms.NumericUpDown AgeSetup;
     }
 }

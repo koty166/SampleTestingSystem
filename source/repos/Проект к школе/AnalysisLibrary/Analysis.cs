@@ -333,7 +333,7 @@ namespace AnalysisLibrary
                     }
                 }
                 /////////////Best results
-                if (i.arg[4] == "1")
+                if (i.args[4] == "1")
                 {
                     CognitiveMark = "Познавательная активность - высокий";
                     AchivementMark = "Мотивация достижения - высокий";
@@ -348,9 +348,13 @@ namespace AnalysisLibrary
             }
         }
 
-        static List<string> GetRightAnswers()
+        static List<string> GetRightAnswers(bool IsA)
         {
-            StreamReader r = new StreamReader(Environment.CurrentDirectory + "RigthAnswersSetting.txt");
+            StreamReader r;
+            if (IsA)
+                r = new StreamReader(Environment.CurrentDirectory + "RigthAnswersSettingA.txt");
+            else
+                r = new StreamReader(Environment.CurrentDirectory + "RigthAnswersSettingB.txt");
             List<String> OutString = new List<string>();
             while (true)
             {
@@ -365,8 +369,18 @@ namespace AnalysisLibrary
         static byte MarkForTest(string UserAnswer, string RightAnswer)
         {
             string[] mass = RightAnswer.Split(';');
-            if (mass[0].Contains(UserAnswer)) return 2;
-            if (mass[1].Contains(UserAnswer)) return 1;
+            int m = 0;
+            foreach (var item in mass)
+            {
+                string[] UnderMass = item.Split(' ');
+                foreach (var i in UnderMass)
+                {
+                    if (i == UserAnswer && m == 0) return 2;
+                    if (i == UserAnswer && m == 1) return 1;
+                    if (i == UserAnswer && m == 2) return 0;
+                }
+                m++;
+            }
             return 0;
         }
 
@@ -391,12 +405,18 @@ namespace AnalysisLibrary
                     }
                 if (i.MarkForTest == "NO") continue;
 
-
-                try { RightAnswers = GetRightAnswers(); }
+                
+                try
+                {
+                    if(i.args[3] == "A")
+                       RightAnswers = GetRightAnswers(true);
+                    else
+                        RightAnswers = GetRightAnswers(false);
+                }
                 catch { }
 
                 ///////////////  A - variant
-                if(i.arg[3] == "A")
+                if(i.args[3] == "A")
                 {
                     ////////////////////setting at math / gum / nature
                     for (int j = 1; j <= i.AnswerList.Count; j++)
@@ -619,7 +639,7 @@ namespace AnalysisLibrary
                     }
                 }
                 ///////////////  B - variant
-                if (i.arg[3] == "B")
+                if (i.args[3] == "B")
                 {
                     ////////////////////setting at math / gum / nature
                     for (int j = 1; j <= i.AnswerList.Count; j++)

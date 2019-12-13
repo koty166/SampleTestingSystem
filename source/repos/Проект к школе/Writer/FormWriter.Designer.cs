@@ -132,6 +132,7 @@
             this.FromTxt.TabIndex = 21;
             this.FromTxt.Text = "FromTxt";
             this.FromTxt.UseVisualStyleBackColor = true;
+            this.FromTxt.Visible = false;
             this.FromTxt.Click += new System.EventHandler(this.FromTxt_Click);
             // 
             // openFileDialog1

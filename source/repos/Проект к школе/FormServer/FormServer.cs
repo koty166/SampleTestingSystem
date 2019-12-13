@@ -252,8 +252,8 @@ namespace FormServer
             p.Name = mas[0];
             p.Surname = mas[1];
             p.Patronymic = mas[2];
-            p.Age = int.Parse(mas[3]);
-            p.Form = int.Parse(mas[4]);
+            p.Age = byte.Parse(mas[3]);
+            p.Form = byte.Parse(mas[4]);
             p.IsMale = bool.Parse(mas[5]);//////Need to write - "true"
             while(true)
             {

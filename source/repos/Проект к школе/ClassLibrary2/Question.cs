@@ -11,7 +11,5 @@ namespace ClassLibrary2
     {
         public String[] Answers = new String[4];
         public String Question_s;
-        public Object arg;
-
     }
 }

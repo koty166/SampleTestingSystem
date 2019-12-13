@@ -10,7 +10,6 @@ namespace ClassLibrary2
     public class ImageQuestion
     {
         public String image_name;
-        public String Question;
-        public Object arg;   
+        public String Question; 
     }
 }

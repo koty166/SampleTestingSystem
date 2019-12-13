@@ -1,3 +1,8 @@
+Version 1.2.0.2
+-Optimise clisent application 
+-Optimise main-class-library
+-Reduse RAM demand
+------------------------------------
 Version 1.2.0.1
 -Motivation analysis is correct now
 ------------------------------------
