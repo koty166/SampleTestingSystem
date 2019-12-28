@@ -38,13 +38,13 @@ namespace AnalysisLibrary
             FileTools.Save(PupList, $"{Environment.CurrentDirectory}\\Saves\\ModifiedSav{n}.sav");
         }
 
-        public static void MotivationAnalysis(List<Pupil> PupList)
+        public static int MotivationAnalysis(List<Pupil> PupList)
         {
             FileTools.Log("Analisys is begin");
             foreach (var i in PupList)
             {
                 if (i.MarkForTest != null) continue;
-
+                if (i.AnswerList.Count < 40) return 1;
                 FileTools.Log("Analis is begin on pupil " + i.Name);
 
                 int CognitiveActivity = 0, AchievementMotivation = 0, Anxiety = 0, Anger = 0, Summ;
@@ -346,6 +346,8 @@ namespace AnalysisLibrary
 
                 FileTools.Log("Analis is end");
             }
+            PupList[0].args[3] = "Познавательная активность;Мотивация достижения;Тревожность;Гнев;Общая оценка за тест";
+            return 0;
         }
 
         static List<string> GetRightAnswers(bool IsA)
@@ -355,15 +357,15 @@ namespace AnalysisLibrary
                 r = new StreamReader(Environment.CurrentDirectory + "RigthAnswersSettingA.txt");
             else
                 r = new StreamReader(Environment.CurrentDirectory + "RigthAnswersSettingB.txt");
-            List<String> OutString = new List<string>();
+
+            List<string> OutString = new List<string>();
             while (true)
             {
-                if (r.ReadLine() == "0") break;
-                OutString.Add(r.ReadLine());
+                string s = r.ReadLine();
+                if (s == "0") break;
+                OutString.Add(s);
             }
             return OutString;
-
-
         }
 
         static byte MarkForTest(string UserAnswer, string RightAnswer)
@@ -377,14 +379,14 @@ namespace AnalysisLibrary
                 {
                     if (i == UserAnswer && m == 0) return 2;
                     if (i == UserAnswer && m == 1) return 1;
-                    if (i == UserAnswer && m == 2) return 0;
+                    else return 0;
                 }
                 m++;
             }
             return 0;
         }
 
-        public static void ShcoolCognitiveActivityTestAnalysis(List<Pupil> PupList)
+        public static int ShcoolCognitiveActivityTestAnalysis(List<Pupil> PupList)
         {
             FileTools.Log("Analis is begin");
 
@@ -397,13 +399,14 @@ namespace AnalysisLibrary
                 double PersentOfTestComplete;
 
                 if (i.MarkForTest != null) continue;
+
                 foreach (var m in i.AnswerList)
                     if (m == "NO")
                     {
                         i.MarkForTest = "NO";
                         break;
                     }
-                if (i.MarkForTest == "NO") continue;
+
 
                 
                 try
@@ -912,6 +915,7 @@ namespace AnalysisLibrary
                 Save(PupList);
                 FileTools.Log("Analis is end");
             }
+            return 0;
         }
     }
 }

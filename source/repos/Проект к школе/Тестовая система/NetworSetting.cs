@@ -4,6 +4,8 @@ using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
 using ClassLibrary2;
+using System.IO;
+
 namespace Проект_к_школе
 {
     public partial class NetworSetting : Form
@@ -42,19 +44,14 @@ namespace Проект_к_школе
             return false;
         }
 
-        private void Done_Click(object sender, EventArgs e)
-        {
-            Form1 f = (Form1)Application.OpenForms[0];
-            f.Enabled = true;
-            f.IP = IPAddress.Parse(IPsetup.Text);
-            this.Close();
-        }
+        private void Done_Click(object sender, EventArgs e) => Close();
 
         private void GetIP_Click(object sender, EventArgs e)
         {
             for (int i = 1; i <= 10; i++)
             {
                 NetworkStatys.Text = $"Попытка получить IP: {i} из 10";
+                FileTools.Log($"Try to get IP: {i} of 10");
                 NetworkStatys.Refresh();
                 if (ListenIP())
                     break;
@@ -68,7 +65,7 @@ namespace Проект_к_школе
             {
                 NetworkStatys.Text = "IP получен";
                 IPsetup.Text = IPS.ToString();
-                FileTools.Log("IP is got");
+                FileTools.Log("IP was get");
             }
         }
 
@@ -81,6 +78,8 @@ namespace Проект_к_школе
 
         bool TryConnect()
         {
+            FileTools.Log("Connection-try start");
+
             TcpClient Sender = new TcpClient();
             NetworkStream stream;
             bool connected = false;
@@ -88,6 +87,7 @@ namespace Проект_к_школе
             for (int i = 1; i <= 10; i++)
             {
                 NetworkStatys.Text = $"Попытка подключения: {i} из 10";
+                FileTools.Log($"Connection try: {i} of 10");
                 NetworkStatys.Refresh();
                 try
                 {
@@ -118,7 +118,8 @@ namespace Проект_к_школе
                 return true;
             }
             NetworkStatys.Text = "Подключится не удалось";
-           
+            FileTools.Log("Connection failed");
+
             Sender.Close();
             return false;
         }
@@ -127,12 +128,8 @@ namespace Проект_к_школе
         {
             Form1 f = (Form1)Application.OpenForms[0];
             f.Enabled = true;
-            FileTools.Log("Network setting is done");
-        }
-
-        private void NetworSetting_Load(object sender, EventArgs e)
-        {
-
+            f.IP = IPsetup.Text != "" ? IPAddress.Parse(IPsetup.Text) : IPAddress.Parse("127.0.0.1");
+            FileTools.Log("Network setting is closed");
         }
     }
 }

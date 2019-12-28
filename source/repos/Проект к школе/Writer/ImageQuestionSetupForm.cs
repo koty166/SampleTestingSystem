@@ -42,6 +42,7 @@ namespace Проект_к_школе
             {
                 MessageBox.Show("Недопустимая картинка , проверьте её нахождение в папке Tests\\Images");
             }
+            ImageChooseDialog.Dispose();
         }
         private void ImageQuestionSetupForm_Load(object sender, EventArgs e)
         {
@@ -53,6 +54,8 @@ namespace Проект_к_школе
                 ImageNameSetup.Text = LocalQuestion.image_name;
                 AddImageQuestion.Text = "Изменить";
                 IsChange = true;
+
+                ImageExample.Image = Image.FromFile(directory + "\\Images\\" + LocalQuestion.image_name);
             }
             catch
             {

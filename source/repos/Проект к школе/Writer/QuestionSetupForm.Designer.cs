@@ -39,6 +39,8 @@
             this.AnswerSetup3 = new System.Windows.Forms.TextBox();
             this.AnswerSetup2 = new System.Windows.Forms.TextBox();
             this.AnswerSetup1 = new System.Windows.Forms.TextBox();
+            this.Answer5Label = new System.Windows.Forms.Label();
+            this.AnswerSetup5 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // QuestionSetupLabel
@@ -59,7 +61,7 @@
             // 
             // AddQuestion
             // 
-            this.AddQuestion.Location = new System.Drawing.Point(144, 133);
+            this.AddQuestion.Location = new System.Drawing.Point(236, 138);
             this.AddQuestion.Name = "AddQuestion";
             this.AddQuestion.Size = new System.Drawing.Size(135, 25);
             this.AddQuestion.TabIndex = 22;
@@ -131,11 +133,31 @@
             this.AnswerSetup1.Size = new System.Drawing.Size(83, 20);
             this.AnswerSetup1.TabIndex = 26;
             // 
+            // Answer5Label
+            // 
+            this.Answer5Label.AutoSize = true;
+            this.Answer5Label.Location = new System.Drawing.Point(9, 141);
+            this.Answer5Label.Name = "Answer5Label";
+            this.Answer5Label.Size = new System.Drawing.Size(86, 13);
+            this.Answer5Label.TabIndex = 35;
+            this.Answer5Label.Text = "Текст ответа 5:";
+            this.Answer5Label.Visible = false;
+            // 
+            // AnswerSetup5
+            // 
+            this.AnswerSetup5.Location = new System.Drawing.Point(104, 138);
+            this.AnswerSetup5.Name = "AnswerSetup5";
+            this.AnswerSetup5.Size = new System.Drawing.Size(83, 20);
+            this.AnswerSetup5.TabIndex = 34;
+            this.AnswerSetup5.Visible = false;
+            // 
             // QuestionSetupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(399, 175);
+            this.Controls.Add(this.Answer5Label);
+            this.Controls.Add(this.AnswerSetup5);
             this.Controls.Add(this.Answer4Label);
             this.Controls.Add(this.Answer3Label);
             this.Controls.Add(this.Answer2Label);
@@ -169,5 +191,7 @@
         private System.Windows.Forms.TextBox AnswerSetup3;
         private System.Windows.Forms.TextBox AnswerSetup2;
         private System.Windows.Forms.TextBox AnswerSetup1;
+        private System.Windows.Forms.Label Answer5Label;
+        private System.Windows.Forms.TextBox AnswerSetup5;
     }
 }

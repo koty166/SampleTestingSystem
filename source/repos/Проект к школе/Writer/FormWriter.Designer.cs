@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.QuestionChoose = new System.Windows.Forms.TreeView();
             this.LessonChoose = new System.Windows.Forms.ListBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
@@ -40,6 +41,13 @@
             this.FromTxt = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.DeleteQuestion = new System.Windows.Forms.Button();
+            this.arg0 = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.arg2 = new System.Windows.Forms.TextBox();
+            this.arg1 = new System.Windows.Forms.TextBox();
+            this.arg4 = new System.Windows.Forms.TextBox();
+            this.arg3 = new System.Windows.Forms.TextBox();
+            this.Args = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // QuestionChoose
@@ -149,11 +157,66 @@
             this.DeleteQuestion.UseVisualStyleBackColor = true;
             this.DeleteQuestion.Click += new System.EventHandler(this.DeleteQuestion_Click);
             // 
+            // arg0
+            // 
+            this.arg0.Location = new System.Drawing.Point(384, 253);
+            this.arg0.Name = "arg0";
+            this.arg0.Size = new System.Drawing.Size(45, 20);
+            this.arg0.TabIndex = 23;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // arg2
+            // 
+            this.arg2.Location = new System.Drawing.Point(384, 310);
+            this.arg2.Name = "arg2";
+            this.arg2.Size = new System.Drawing.Size(45, 20);
+            this.arg2.TabIndex = 25;
+            // 
+            // arg1
+            // 
+            this.arg1.Location = new System.Drawing.Point(384, 282);
+            this.arg1.Name = "arg1";
+            this.arg1.Size = new System.Drawing.Size(45, 20);
+            this.arg1.TabIndex = 26;
+            // 
+            // arg4
+            // 
+            this.arg4.Location = new System.Drawing.Point(384, 362);
+            this.arg4.Name = "arg4";
+            this.arg4.Size = new System.Drawing.Size(45, 20);
+            this.arg4.TabIndex = 27;
+            // 
+            // arg3
+            // 
+            this.arg3.Location = new System.Drawing.Point(384, 336);
+            this.arg3.Name = "arg3";
+            this.arg3.Size = new System.Drawing.Size(45, 20);
+            this.arg3.TabIndex = 28;
+            // 
+            // Args
+            // 
+            this.Args.AutoSize = true;
+            this.Args.Location = new System.Drawing.Point(336, 224);
+            this.Args.Name = "Args";
+            this.Args.Size = new System.Drawing.Size(95, 13);
+            this.Args.TabIndex = 29;
+            this.Args.Text = "Аргументы урока";
+            // 
             // FormWriter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(438, 447);
+            this.Controls.Add(this.Args);
+            this.Controls.Add(this.arg3);
+            this.Controls.Add(this.arg4);
+            this.Controls.Add(this.arg1);
+            this.Controls.Add(this.arg2);
+            this.Controls.Add(this.arg0);
             this.Controls.Add(this.DeleteQuestion);
             this.Controls.Add(this.FromTxt);
             this.Controls.Add(this.AddImageQuestion);
@@ -189,6 +252,13 @@
         private System.Windows.Forms.Button FromTxt;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button DeleteQuestion;
+        private System.Windows.Forms.TextBox arg0;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.TextBox arg2;
+        private System.Windows.Forms.TextBox arg1;
+        private System.Windows.Forms.TextBox arg4;
+        private System.Windows.Forms.TextBox arg3;
+        private System.Windows.Forms.Label Args;
     }
 }
 

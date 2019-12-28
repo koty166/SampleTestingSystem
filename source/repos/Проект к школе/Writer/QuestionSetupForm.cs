@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using ClassLibrary2;
 
+
 namespace Проект_к_школе
 {
     public partial class QuestionSetupForm : Form
@@ -22,6 +23,7 @@ namespace Проект_к_школе
             q.Answers[1] = AnswerSetup2.Text;
             q.Answers[2] = AnswerSetup3.Text;
             q.Answers[3] = AnswerSetup4.Text;
+            q.arg = AnswerSetup5.Text;
             if (!IsChange)
             {
                 form.Lesson_mass[form.ChoosenLesson].QuestionList.Add(q);
@@ -37,6 +39,12 @@ namespace Проект_к_школе
 
         private void QuestionSetupForm_Load(object sender, EventArgs e)
         {
+            FormWriter f = (FormWriter)Application.OpenForms[0];
+            if ((string)f.Lesson_mass[f.ChoosenLesson].args[3] == "1")
+            {
+                Answer5Label.Visible = true;
+                AnswerSetup5.Visible = true;
+            }
             try
             {
                 QuestionSetup.Text = LocalQuestion.Question_s;
@@ -44,6 +52,7 @@ namespace Проект_к_школе
                 AnswerSetup2.Text = LocalQuestion.Answers[1];
                 AnswerSetup3.Text = LocalQuestion.Answers[2];
                 AnswerSetup4.Text = LocalQuestion.Answers[3];
+                AnswerSetup5.Text = LocalQuestion.arg;
                 AddQuestion.Text = "Изменить";
                 IsChange = true;
             }

@@ -49,6 +49,7 @@
             // RegistrationText
             // 
             this.RegistrationText.AutoSize = true;
+            this.RegistrationText.BackColor = System.Drawing.Color.Transparent;
             this.RegistrationText.Location = new System.Drawing.Point(72, 9);
             this.RegistrationText.Name = "RegistrationText";
             this.RegistrationText.Size = new System.Drawing.Size(159, 13);
@@ -57,17 +58,19 @@
             // 
             // Save
             // 
+            this.Save.BackColor = System.Drawing.Color.White;
             this.Save.Location = new System.Drawing.Point(75, 275);
             this.Save.Name = "Save";
             this.Save.Size = new System.Drawing.Size(125, 56);
             this.Save.TabIndex = 23;
             this.Save.Text = "Сохранить";
-            this.Save.UseVisualStyleBackColor = true;
+            this.Save.UseVisualStyleBackColor = false;
             this.Save.Click += new System.EventHandler(this.Save_Click);
             // 
             // FormLabel
             // 
             this.FormLabel.AutoSize = true;
+            this.FormLabel.BackColor = System.Drawing.SystemColors.Control;
             this.FormLabel.Location = new System.Drawing.Point(13, 171);
             this.FormLabel.Name = "FormLabel";
             this.FormLabel.Size = new System.Drawing.Size(38, 13);
@@ -77,6 +80,7 @@
             // Patronymic
             // 
             this.Patronymic.AutoSize = true;
+            this.Patronymic.BackColor = System.Drawing.SystemColors.Control;
             this.Patronymic.Location = new System.Drawing.Point(13, 139);
             this.Patronymic.Name = "Patronymic";
             this.Patronymic.Size = new System.Drawing.Size(54, 13);
@@ -86,6 +90,7 @@
             // Surname
             // 
             this.Surname.AutoSize = true;
+            this.Surname.BackColor = System.Drawing.SystemColors.Control;
             this.Surname.Location = new System.Drawing.Point(13, 94);
             this.Surname.Name = "Surname";
             this.Surname.Size = new System.Drawing.Size(56, 13);
@@ -95,6 +100,7 @@
             // StudentName
             // 
             this.StudentName.AutoSize = true;
+            this.StudentName.BackColor = System.Drawing.SystemColors.Control;
             this.StudentName.Location = new System.Drawing.Point(13, 43);
             this.StudentName.Name = "StudentName";
             this.StudentName.Size = new System.Drawing.Size(29, 13);
@@ -137,28 +143,31 @@
             // IsMale
             // 
             this.IsMale.AutoSize = true;
+            this.IsMale.BackColor = System.Drawing.SystemColors.Control;
             this.IsMale.Location = new System.Drawing.Point(15, 221);
             this.IsMale.Name = "IsMale";
             this.IsMale.Size = new System.Drawing.Size(63, 17);
             this.IsMale.TabIndex = 25;
             this.IsMale.TabStop = true;
             this.IsMale.Text = "Парень";
-            this.IsMale.UseVisualStyleBackColor = true;
+            this.IsMale.UseVisualStyleBackColor = false;
             // 
             // IsFemale
             // 
             this.IsFemale.AutoSize = true;
+            this.IsFemale.BackColor = System.Drawing.SystemColors.Control;
             this.IsFemale.Location = new System.Drawing.Point(16, 198);
             this.IsFemale.Name = "IsFemale";
             this.IsFemale.Size = new System.Drawing.Size(71, 17);
             this.IsFemale.TabIndex = 26;
             this.IsFemale.TabStop = true;
             this.IsFemale.Text = "Девушка";
-            this.IsFemale.UseVisualStyleBackColor = true;
+            this.IsFemale.UseVisualStyleBackColor = false;
             // 
             // AgeLabel
             // 
             this.AgeLabel.AutoSize = true;
+            this.AgeLabel.BackColor = System.Drawing.SystemColors.Control;
             this.AgeLabel.Location = new System.Drawing.Point(12, 253);
             this.AgeLabel.Name = "AgeLabel";
             this.AgeLabel.Size = new System.Drawing.Size(49, 13);

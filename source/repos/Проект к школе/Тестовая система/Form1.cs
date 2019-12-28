@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -8,6 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using ClassLibrary2;
 using System.Net;
 using System.Net.Sockets;
+using ClassLibrary2.Security;
 
 namespace Проект_к_школе
 {
@@ -19,12 +19,10 @@ namespace Проект_к_школе
         {
             InitializeComponent();
         }
-
         String directory = @"Tests";
-        bool IsTestStar = false,IsRandom  = false, IsAdmin = false;
+        bool IsTestStar = false, IsAdmin = false;
         byte CurrentQuestion = 0, CurrentExplanationIndex = 0;
         internal IPAddress IP;
-
         Image NextImage;
 
         internal Lesson[] Lesson_mass;
@@ -41,6 +39,7 @@ namespace Проект_к_школе
                     {
                         list_of_lessons.Items.Add(i.Name);
                     }
+                FileTools.Log("List of lesson is rewrited");
             }
             catch { }
 
@@ -52,10 +51,12 @@ namespace Проект_к_школе
             try
             {
                 NextImage = Image.FromFile(directory + $"//images//{q.image_name}");
+                FileTools.Log("Picture load sucseed , path:" + directory + $"//images//{q.image_name}");
             }
             catch
             {
                 NextImage = Image.FromFile(directory + $"//images//Error.png");
+                FileTools.Log("Picture load failed , load error picture");
             }
         }
 
@@ -91,8 +92,6 @@ namespace Проект_к_школе
                 this.Enabled = false;
                 FileTools.Log("Network setting is opened");
             }
-            if (e.Control && e.KeyCode == Keys.R && !IsTestStar)
-                IsRandom = true;
             if (e.Control && e.KeyCode == Keys.A && !IsTestStar)
                 IsAdmin = true;
         }
@@ -144,6 +143,7 @@ namespace Проект_к_школе
             }
             if (Sender.Connected)
             {
+                byte[] Key = new byte[256];
                 this.Text = "Подключение завершено.Сброс данных...";
 
                 stream = Sender.GetStream();
@@ -154,10 +154,24 @@ namespace Проект_к_школе
                 if (IsAdmin)
                     pupil.args[4] = "1";
 
-                b.Serialize(Sender.GetStream(), pupil);
+                stream.Read(Key, 0, 256);
 
+                for (int i = 0; i < 256; i++)
+                    Key[i] = (byte)(127 - Key[i]);
+
+                data = (byte[])EncryptClass.Encrypt(pupil, Key);
+
+                Key = BitConverter.GetBytes(data.Length);
+                stream.Write(Key, 0, 3);
+
+                MessageBox.Show((data.Length / 128).ToString());
+
+                stream.Write( data , 0 , data.Length );
+                
+    
+                //b.Serialize(Sender.GetStream(),pupil);
                 Sender.Close();
-
+                
                 this.Text = "Сброс данных завершён успешно";
                 FileTools.Log("Data send is end sucseed");
 
@@ -166,6 +180,7 @@ namespace Проект_к_школе
             else
             {
                 this.Text = "Подключение неудачно.Сохранение локально...";
+                FileTools.Log("Data send is failed");
                 EndLocal();
                 this.Text = "Сохранение локально завершено";
                 this.Close();
@@ -176,21 +191,26 @@ namespace Проект_к_школе
             return;
         }
 
-        void EndofTime()
+        void EndOfTime()
         {
             for (int i = CurrentQuestion + 1; i < CurrentLesson.QuestionList.Count; i++)
                 if (CurrentLesson.QuestionList[i].GetType() == new Explanation().GetType())
+                {
                     CurrentQuestion = (byte)i;
+                    break;
+                }
 
-            Next_Click(Next,null);
+             Next_Click(Next,null);
+            timer1.Enabled = false;
             MessageBox.Show("Время , отведённое на выполнение этого задания, истекло");
             this.Text = "Тестовая система";
-            FileTools.Log($"Time of explanation end; explanation number:{CurrentExplanationIndex}");
+            FileTools.Log($"Timer is end , explanation number:{CurrentExplanationIndex}");
         }
+
         int time = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (CurrentExplanationIndex == 0) return;
+            if (!(CurrentExplanationIndex >= 0)) return;
             Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentExplanationIndex];
             if (ex.TimerValue == 0)
             {
@@ -200,35 +220,37 @@ namespace Проект_к_школе
 
             this.Text = $"Осталось {ex.TimerValue - time} секунд";
             if (ex.TimerValue == time)
-                EndofTime();
+                EndOfTime();
             time++;
         }
 
-        enum TypeOfQuestion : int
+        enum TypeOfQuestion : byte
         {
             Question = 1,
             ImageQuestion
         }
-        void AddToPupilList(TypeOfQuestion type)
+        void AddToPupilList(byte t)
         {
-            switch (type)
+            switch (t)
             {
-                case TypeOfQuestion.Question:
+                case 1:
 
                     string UserAnswer;
                     if (Answer1.Checked) UserAnswer = "1";
                     else if (Answer2.Checked) UserAnswer = "2";
                     else if (Answer3.Checked) UserAnswer = "3";
                     else if (Answer4.Checked) UserAnswer = "4";
-                    else UserAnswer = "NO";
+                    else UserAnswer = "no";
 
                     pupil.AnswerList.Add(UserAnswer);
                     FileTools.Log($"Added to pupil list:{UserAnswer}");
                     break;
-                case TypeOfQuestion.ImageQuestion:
-                    UserAnswer = (AnswerTextSetup.Text != "" ? AnswerTextSetup.Text : "NO").ToLowerInvariant();
+                case 2:
+                    UserAnswer = (AnswerTextSetup.Text != "" ? AnswerTextSetup.Text : "no").ToLowerInvariant();
                     for (int i = 0; i < UserAnswer.Length; i++)
-                        if (UserAnswer[i] == '.' || i == ' ') UserAnswer.Remove(i,1);
+                        if (UserAnswer[i] == '.' || UserAnswer[i] == ' ')
+                           UserAnswer =  UserAnswer.Remove(i,1);
+
                     pupil.AnswerList.Add(UserAnswer);
                     FileTools.Log($"Added to pupil list:{UserAnswer}");
                     break;
@@ -246,17 +268,21 @@ namespace Проект_к_школе
             {
                 Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentQuestion - 1];
 
-                IsTimerTick = ex.TimerValue != 0 && !timer1.Enabled ;
+                IsTimerTick = ex.TimerValue != 0 && !timer1.Enabled;
             }
-                 
-            if (IsTimerTick) timer1.Start();
+
+            if (IsTimerTick)
+            {
+                time = 0;
+                timer1.Start();
+            }
 
             if (CurrentQuestion > 0)
                 if (CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new Question().GetType())
-                    AddToPupilList(TypeOfQuestion.Question);
+                    AddToPupilList((byte)TypeOfQuestion.Question);
 
                 else if ((CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new ImageQuestion().GetType()))
-                    AddToPupilList(TypeOfQuestion.ImageQuestion);
+                    AddToPupilList((byte)TypeOfQuestion.ImageQuestion);
 
             if (CurrentQuestion == CurrentLesson.QuestionList.Count)
             {
@@ -278,7 +304,7 @@ namespace Проект_к_школе
                 ExplanationLabel.Visible = true;
                 Next.Visible = true;
 
-                Next.Location = new Point(200, 200);
+                Next.Location = new Point(220, 230);
 
                 ExplanationLabel.Text = ex.Text;
 
@@ -293,12 +319,16 @@ namespace Проект_к_школе
                 AnswerTextSetup.Visible = false;
                 pictureBox.Visible = false;
                 Next.Visible = true;
-                Next.Location = new Point(200, 200);
+                Next.Location = new Point(180, 230);
 
+
+                if ((string)CurrentLesson.args[3] == "1") Answer5.Visible = true;
+                else Answer5.Visible = false;
                 Answer1.Text = q.Answers[0];
                 Answer2.Text = q.Answers[1];
                 Answer3.Text = q.Answers[2];
                 Answer4.Text = q.Answers[3];
+                Answer5.Text = q.arg;
 
                 QuestionLabel.Text = q.Question_s;
 
@@ -306,6 +336,7 @@ namespace Проект_к_школе
                 Answer2.Checked = false;
                 Answer3.Checked = false;
                 Answer4.Checked = false;
+                Answer5.Checked = false;
 
                 CurrentQuestion++;
             }
@@ -314,7 +345,7 @@ namespace Проект_к_школе
                 ImageQuestion q = (ImageQuestion)CurrentLesson.QuestionList[CurrentQuestion];
                 groupBox1.Visible = false;
                 AnswerTextSetup.Visible = true;
-                ExplanationLabel.Visible = false;
+                ExplanationLabel.Visible = true;
                 Next.Visible = true;
 
                 Next.Location = new Point(400, 350);

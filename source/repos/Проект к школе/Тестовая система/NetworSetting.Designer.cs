@@ -36,11 +36,12 @@
             this.Done = new System.Windows.Forms.Button();
             this.TitleLabel = new System.Windows.Forms.Label();
             this.GetIP = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // CheckConnections
             // 
-            this.CheckConnections.Location = new System.Drawing.Point(22, 53);
+            this.CheckConnections.Location = new System.Drawing.Point(12, 56);
             this.CheckConnections.Name = "CheckConnections";
             this.CheckConnections.Size = new System.Drawing.Size(140, 21);
             this.CheckConnections.TabIndex = 0;
@@ -50,7 +51,7 @@
             // 
             // IPsetup
             // 
-            this.IPsetup.Location = new System.Drawing.Point(247, 54);
+            this.IPsetup.Location = new System.Drawing.Point(209, 60);
             this.IPsetup.Name = "IPsetup";
             this.IPsetup.Size = new System.Drawing.Size(125, 20);
             this.IPsetup.TabIndex = 1;
@@ -58,7 +59,7 @@
             // IPLabel
             // 
             this.IPLabel.AutoSize = true;
-            this.IPLabel.Location = new System.Drawing.Point(180, 60);
+            this.IPLabel.Location = new System.Drawing.Point(170, 63);
             this.IPLabel.Name = "IPLabel";
             this.IPLabel.Size = new System.Drawing.Size(20, 13);
             this.IPLabel.TabIndex = 2;
@@ -67,7 +68,7 @@
             // Statys
             // 
             this.Statys.AutoSize = true;
-            this.Statys.Location = new System.Drawing.Point(19, 117);
+            this.Statys.Location = new System.Drawing.Point(12, 109);
             this.Statys.Name = "Statys";
             this.Statys.Size = new System.Drawing.Size(44, 13);
             this.Statys.TabIndex = 3;
@@ -76,7 +77,7 @@
             // NetworkStatys
             // 
             this.NetworkStatys.AutoSize = true;
-            this.NetworkStatys.Location = new System.Drawing.Point(94, 117);
+            this.NetworkStatys.Location = new System.Drawing.Point(78, 109);
             this.NetworkStatys.Name = "NetworkStatys";
             this.NetworkStatys.Size = new System.Drawing.Size(35, 13);
             this.NetworkStatys.TabIndex = 4;
@@ -84,18 +85,18 @@
             // 
             // Done
             // 
-            this.Done.Location = new System.Drawing.Point(12, 148);
+            this.Done.Location = new System.Drawing.Point(15, 143);
             this.Done.Name = "Done";
-            this.Done.Size = new System.Drawing.Size(101, 39);
+            this.Done.Size = new System.Drawing.Size(101, 33);
             this.Done.TabIndex = 5;
-            this.Done.Text = "Завершить";
+            this.Done.Text = "Сохранить";
             this.Done.UseVisualStyleBackColor = true;
             this.Done.Click += new System.EventHandler(this.Done_Click);
             // 
             // TitleLabel
             // 
             this.TitleLabel.AutoSize = true;
-            this.TitleLabel.Location = new System.Drawing.Point(19, 19);
+            this.TitleLabel.Location = new System.Drawing.Point(12, 19);
             this.TitleLabel.Name = "TitleLabel";
             this.TitleLabel.Size = new System.Drawing.Size(173, 13);
             this.TitleLabel.TabIndex = 6;
@@ -103,13 +104,17 @@
             // 
             // GetIP
             // 
-            this.GetIP.Location = new System.Drawing.Point(128, 154);
+            this.GetIP.Location = new System.Drawing.Point(134, 143);
             this.GetIP.Name = "GetIP";
             this.GetIP.Size = new System.Drawing.Size(141, 33);
             this.GetIP.TabIndex = 7;
             this.GetIP.Text = "Начать получение IP ";
             this.GetIP.UseVisualStyleBackColor = true;
             this.GetIP.Click += new System.EventHandler(this.GetIP_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // NetworSetting
             // 
@@ -129,7 +134,6 @@
             this.Name = "NetworSetting";
             this.Text = "NetworSetting";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NetworSetting_FormClosing);
-            this.Load += new System.EventHandler(this.NetworSetting_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -145,5 +149,6 @@
         private System.Windows.Forms.Button Done;
         private System.Windows.Forms.Label TitleLabel;
         private System.Windows.Forms.Button GetIP;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

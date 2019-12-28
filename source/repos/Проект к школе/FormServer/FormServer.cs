@@ -11,6 +11,7 @@ using Microsoft.Office.Interop.Excel;
 using System.Diagnostics;
 using System.IO;
 using AnalysisLibrary;
+using ClassLibrary2.Security;
 
 namespace FormServer
 {
@@ -19,6 +20,7 @@ namespace FormServer
         static List<Pupil> ListOfPupil = new List<Pupil>();
         static int NumOfSendingIPPackages = 0, IPChecking = 0 , PupilsData = 0;
         static string SendingIP;
+        static byte[] Key = new byte[256];
         Thread IPsender = null, DataListener = null;
 
         public FormServer()
@@ -29,7 +31,7 @@ namespace FormServer
         void WriteInExel(List<Pupil> pupList , String ExcelName)
         {
             int n = 0;
-            
+            string[] MarkMass;
 
 
             FileTools.Log("Choosen show on Exel");
@@ -40,9 +42,7 @@ namespace FormServer
             try
             {
                 foreach (Process item in Process.GetProcessesByName("EXCEL"))
-                {
                     item.Kill();
-                }
             }
             catch { }
             /////////////////////////
@@ -51,7 +51,7 @@ namespace FormServer
             Worksheet WorkSheet;
 
             WorkBook = ex.Workbooks.Add();
-            WorkSheet = ex.Worksheets[1];
+            WorkSheet = ex.Worksheets[2];
 
             //ListOfPupil.Add(new Pupil(
             //     15,2,"awd","awd","awd"
@@ -87,7 +87,7 @@ namespace FormServer
                 }
                 if (item.MarkForTest != null)
                 {
-                    string[] MarkMass = item.MarkForTest.Split(';');
+                    MarkMass = item.MarkForTest.Split(';');
                     
                     WorkSheet.Cells[j * 7 + 1, item.AnswerList.Count + 6] = "Результаты анализа:";
 
@@ -101,7 +101,33 @@ namespace FormServer
                 j++;
 
             }
+            if (pupList[0].MarkForTest != null)
+            {
+                WorkSheet = ex.Worksheets[1];
+                j = 2;
+                //////////like a test
+                pupList[0].args[3] = "Познавательная активность;Мотивация достижения;Тревожность;Гнев";
+                ////////////
+                WorkSheet.Cells[1, 1] = "ФИО:";
 
+                string[] Title = pupList[0].args[3].Split(';');
+
+                for (int i = 0; i < Title.Length; i++)
+                {
+                    WorkSheet.Cells[1, i + 2] = Title[i];
+                }
+
+                foreach (var item in pupList)
+                {
+                    MarkMass = item.MarkForTest.Split(';');
+                    WorkSheet.Cells[j, 1] = $"{item.Surname} {item.Name} {item.Patronymic}";
+
+                    for (int i = 0; i < MarkMass.Length; i++)
+                        WorkSheet.Cells[j, i + 2] = MarkMass[i];
+
+                    j++;
+                }
+            }
             DialogResult d = MessageBox.Show("Сохранить файл Exel в папку приложения?", "Сохранить", MessageBoxButtons.YesNo);
             if (d == DialogResult.Yes)
             {
@@ -125,11 +151,6 @@ namespace FormServer
 
         }
 
-        private void FormServer_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void SendingIPStart_Click(object sender, EventArgs e)
         {
             if (IsDefaulIP.Checked)
@@ -139,7 +160,7 @@ namespace FormServer
 
             IPsender = new Thread(new ParameterizedThreadStart(SendIP));
             IPsender.Start(Convert.ToInt32(NumPackagesSetup.Value.ToString()));
-
+            FileTools.Log("Sending IP started");
             IsSendingAlive.Text = "Выполняется рассылка IP...";
             SendingIPGroupbox.Enabled = false;
         }
@@ -185,7 +206,8 @@ namespace FormServer
             openFileDialog1.InitialDirectory = Environment.CurrentDirectory;
             openFileDialog1.ShowDialog();
             FileSetup.Text = openFileDialog1.SafeFileName;
-           
+            FileTools.Log("File choosen:" + openFileDialog1.FileName);
+
         }
 
         void Analysis(String FileForAnalysisPath)
@@ -211,10 +233,18 @@ namespace FormServer
             switch(TypeOfAnalis.SelectedIndex)
             {
                 case 0:
-                     AnalysisClass.MotivationAnalysis(pupList);
+                    if (AnalysisClass.MotivationAnalysis(pupList) == 1)
+                    {
+                        MessageBox.Show("Ошибка обработки , смените дамп");
+                        //return;
+                    }
                     break;
                 case 1:
-                    AnalysisClass.ShcoolCognitiveActivityTestAnalysis(pupList);
+                    if (AnalysisClass.ShcoolCognitiveActivityTestAnalysis(pupList) == 1)
+                    {
+                        MessageBox.Show("Ошибка обработки , смените дамп");
+                        return;
+                    }
                     break;
             }
 
@@ -241,7 +271,9 @@ namespace FormServer
                 /////////////////
                 DataListener.Abort();
             }
-            FileTools.Save(ListOfPupil);
+            if (ListOfPupil.Count > 0)
+                FileTools.Save(ListOfPupil);
+            FileTools.Log("Form server is close");
         }
 
         private void FromTxt_Click(object sender, EventArgs e)
@@ -264,6 +296,8 @@ namespace FormServer
             r.Close();
             ListOfPupil.Add(p);
         }
+
+        private void FormServer_Load(object sender, EventArgs e) => FileTools.Clear();
 
         static void SendIP(object b)
         {
@@ -289,22 +323,34 @@ namespace FormServer
         private void ListenStart_Click(object sender, EventArgs e)
         {
             DataListener = new Thread(new ParameterizedThreadStart(WaitForConnection));
+
             DataListener.Start(Convert.ToInt32(NumOfPupils.Value.ToString()));
 
             IsListenAlive.Text = "Ожидаются данные...";
             ListeningDataGroupBox.Enabled = false;
             BeginAnalysis.Enabled = false;
             FileSetupButton.Enabled = false;
-        }
 
+            FileTools.Log("Listen data is start");
+        }
+        static int IntFromBytes(byte[] Bytes)
+        {
+            int Out = 1;
+            foreach (var i in Bytes)
+                Out *= (int)i;
+            return Out;
+        }
         static void WaitForConnection(object many)
         {
             TcpListener l = new TcpListener(9090);
+            Random r = new Random();
+            BinaryFormatter b = new BinaryFormatter();
             NetworkStream stream;
+            List<Pupil> BufList = new List<Pupil>();
             int dones = 0;
             FileTools.Log("Wait connection started , pupils - " + (int)many);
-            try
-            {
+            //try
+            //{
                 while (true)
                 {
                     l.Start();
@@ -327,13 +373,29 @@ namespace FormServer
                     }
                     else if (data[0] == 1)
                     {
-
-                        BinaryFormatter f = new BinaryFormatter();
                         Pupil pup;
+                        int NumOfBytes;
 
-                        pup = (Pupil)f.Deserialize(stream);
+                       for (int i = 0; i < 256; i++)
+                            Key[i] = (byte)r.Next(0, 128);
 
-                        ListOfPupil.Add(pup);
+                        stream.Write(Key,0,256);
+
+                        for (int i = 0; i < 256; i++)
+                            Key[i] = (byte)(127 - Key[i]);
+
+                        data = new byte[4];
+                        stream.Read(data,0,data.Length);
+                        NumOfBytes = BitConverter.ToInt32(data,0);
+
+                        data = new byte[NumOfBytes];
+                        stream.Read(data,0,NumOfBytes);
+
+                        pup = (Pupil)DecryptClass.Decrypt(data,Key);
+                        
+                        //pup = (Pupil)b.Deserialize(read.GetStream());
+
+                        BufList.Add(pup);
 
                         FileTools.Log($"Pupil {dones} data is get");
                         Console.WriteLine("Получены данные ученика");
@@ -352,14 +414,15 @@ namespace FormServer
                                     break;
                             }
                             if (!Directory.Exists("Saves\\")) Directory.CreateDirectory("Saves\\");
-
-                            FileTools.Save(ListOfPupil, Environment.CurrentDirectory + "\\Saves\\Save" + n.ToString() + ".sav");
+                            ListOfPupil = BufList;
+                            FileTools.Save(BufList, Environment.CurrentDirectory + "\\Saves\\Save" + n.ToString() + ".sav");
                             break;
                         }
+
                     }
                 }
-            }
-            catch {  }
+            //}
+            //catch { }
         }
     }
 }

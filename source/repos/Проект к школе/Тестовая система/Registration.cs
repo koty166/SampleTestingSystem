@@ -37,7 +37,7 @@ namespace Проект_к_школе
                 {
                     Age = (byte)FormSetup.Value,
                     Form = (byte)FormSetup.Value,
-                    Name = NameSetup.Text,
+                    Name =  NameSetup.Text,
                     Surname = SurnameSetup.Text,
                     Patronymic = PatronymicSetup.Text,
                     IsMale = IsMale.Checked ? true : false,

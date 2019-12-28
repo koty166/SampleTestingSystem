@@ -48,6 +48,7 @@
             this.NumOfPupils = new System.Windows.Forms.NumericUpDown();
             this.ListenStart = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.FromTxt = new System.Windows.Forms.Button();
             this.BeginAnalysis = new System.Windows.Forms.Button();
             this.FileSetupButton = new System.Windows.Forms.Button();
             this.FileSetup = new System.Windows.Forms.TextBox();
@@ -58,7 +59,6 @@
             this.IsSendingAlive = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.FromTxt = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Statistic.SuspendLayout();
@@ -222,9 +222,9 @@
             this.ListeningDataGroupBox.Controls.Add(this.LabelNumPupils);
             this.ListeningDataGroupBox.Controls.Add(this.NumOfPupils);
             this.ListeningDataGroupBox.Controls.Add(this.ListenStart);
-            this.ListeningDataGroupBox.Location = new System.Drawing.Point(6, 171);
+            this.ListeningDataGroupBox.Location = new System.Drawing.Point(6, 154);
             this.ListeningDataGroupBox.Name = "ListeningDataGroupBox";
-            this.ListeningDataGroupBox.Size = new System.Drawing.Size(474, 61);
+            this.ListeningDataGroupBox.Size = new System.Drawing.Size(474, 78);
             this.ListeningDataGroupBox.TabIndex = 3;
             this.ListeningDataGroupBox.TabStop = false;
             this.ListeningDataGroupBox.Text = "Получение данных";
@@ -232,7 +232,7 @@
             // LabelNumPupils
             // 
             this.LabelNumPupils.AutoSize = true;
-            this.LabelNumPupils.Location = new System.Drawing.Point(182, 27);
+            this.LabelNumPupils.Location = new System.Drawing.Point(182, 22);
             this.LabelNumPupils.Name = "LabelNumPupils";
             this.LabelNumPupils.Size = new System.Drawing.Size(96, 13);
             this.LabelNumPupils.TabIndex = 2;
@@ -240,7 +240,7 @@
             // 
             // NumOfPupils
             // 
-            this.NumOfPupils.Location = new System.Drawing.Point(295, 25);
+            this.NumOfPupils.Location = new System.Drawing.Point(295, 20);
             this.NumOfPupils.Minimum = new decimal(new int[] {
             1,
             0,
@@ -280,6 +280,17 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Анализ данных";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // FromTxt
+            // 
+            this.FromTxt.Location = new System.Drawing.Point(14, 194);
+            this.FromTxt.Name = "FromTxt";
+            this.FromTxt.Size = new System.Drawing.Size(103, 52);
+            this.FromTxt.TabIndex = 5;
+            this.FromTxt.Text = "из txt";
+            this.FromTxt.UseVisualStyleBackColor = true;
+            this.FromTxt.Visible = false;
+            this.FromTxt.Click += new System.EventHandler(this.FromTxt_Click);
             // 
             // BeginAnalysis
             // 
@@ -360,16 +371,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Saved data files|*.sav";
-            // 
-            // FromTxt
-            // 
-            this.FromTxt.Location = new System.Drawing.Point(14, 194);
-            this.FromTxt.Name = "FromTxt";
-            this.FromTxt.Size = new System.Drawing.Size(103, 52);
-            this.FromTxt.TabIndex = 5;
-            this.FromTxt.Text = "из txt";
-            this.FromTxt.UseVisualStyleBackColor = true;
-            this.FromTxt.Click += new System.EventHandler(this.FromTxt_Click);
             // 
             // FormServer
             // 

@@ -78,7 +78,6 @@
             this.ImageExample.Size = new System.Drawing.Size(550, 300);
             this.ImageExample.TabIndex = 37;
             this.ImageExample.TabStop = false;
-            this.ImageExample.Visible = false;
             // 
             // ImageExampleLabel
             // 
@@ -141,7 +140,7 @@
             // ImageChooseDialog
             // 
             this.ImageChooseDialog.FileName = "openFileDialog1";
-            this.ImageChooseDialog.Filter = "\"PNG |*.png\"";
+            this.ImageChooseDialog.Filter = "PNG |*.png| Все файлы |*.*";
             this.ImageChooseDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.ImageChooseDialog_FileOk);
             // 
             // ImageQuestionSetupForm

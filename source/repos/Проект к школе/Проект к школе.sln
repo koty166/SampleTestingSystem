@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalysisLibrary", "Analysis
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Проект к школе", "Тестовая система\Проект к школе.csproj", "{D5FDD57F-503E-42E6-9413-567893DF84BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{FD159CE9-BA05-4BE7-9BB8-F480026E8E82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{D5FDD57F-503E-42E6-9413-567893DF84BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5FDD57F-503E-42E6-9413-567893DF84BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5FDD57F-503E-42E6-9413-567893DF84BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD159CE9-BA05-4BE7-9BB8-F480026E8E82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD159CE9-BA05-4BE7-9BB8-F480026E8E82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD159CE9-BA05-4BE7-9BB8-F480026E8E82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD159CE9-BA05-4BE7-9BB8-F480026E8E82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

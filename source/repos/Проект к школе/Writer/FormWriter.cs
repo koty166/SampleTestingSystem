@@ -29,10 +29,8 @@ namespace Проект_к_школе
 
         }
 
-        internal void AddToQuestionChoose(object Question)
-        {
-            QuestionChoose.Nodes.Add(new TreeNode(Question.ToString()));
-        }
+        internal void AddToQuestionChoose(object Question) 
+            => QuestionChoose.Nodes.Add(new TreeNode(Question.ToString()));
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -61,9 +59,16 @@ namespace Проект_к_школе
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            
             if (Lesson_mass.Count != 0) 
                 foreach (var i in Lesson_mass)
                 {
+                    i.args[0] = arg0.Text;
+                    i.args[1] = arg1.Text;
+                    i.args[2] = arg2.Text;
+                    i.args[3] = arg3.Text;
+                    i.args[4] = arg4.Text;
+
                     File.Delete($"{directory}\\{i.Name}.dat");
 
                     BinaryFormatter Formatted = new BinaryFormatter();
@@ -100,14 +105,28 @@ namespace Проект_к_школе
 
         private void LessonChoose_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (LessonChoose.SelectedItem != null)
+
+            Lesson_mass[ChoosenLesson].args[0] = arg0.Text;
+            Lesson_mass[ChoosenLesson].args[1] = arg1.Text;
+            Lesson_mass[ChoosenLesson].args[2] = arg2.Text;
+            Lesson_mass[ChoosenLesson].args[3] = arg3.Text;
+            Lesson_mass[ChoosenLesson].args[4] = arg4.Text;
+
+            if (LessonChoose.SelectedItem != null && LessonChoose.SelectedIndex >= 0 && LessonChoose.SelectedIndex < LessonChoose.Items.Count)
                 ChoosenLesson = LessonChoose.SelectedIndex;
             QuestionChoose.Nodes.Clear();
-            foreach (var i in Lesson_mass[LessonChoose.SelectedIndex].QuestionList)
+            foreach (var i in Lesson_mass[ChoosenLesson].QuestionList)
             {
                 AddToQuestionChoose(i);
             }
-            FileTools.Log("List of question rewrited");
+
+            arg0.Text = (string)Lesson_mass[ChoosenLesson].args[0];
+            arg1.Text = (string)Lesson_mass[ChoosenLesson].args[1];
+            arg2.Text = (string)Lesson_mass[ChoosenLesson].args[2];
+            arg3.Text = (string)Lesson_mass[ChoosenLesson].args[3];
+            arg4.Text = (string)Lesson_mass[ChoosenLesson].args[4];
+
+            FileTools.Log("Lesson choose is change");
         }
 
         private void AddImageQiestion_Click(object sender, EventArgs e)
