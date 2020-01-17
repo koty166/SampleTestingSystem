@@ -58,6 +58,12 @@
     <Compile Include="FormWriter.Designer.cs">
       <DependentUpon>FormWriter.cs</DependentUpon>
     </Compile>
+    <Compile Include="LessonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LessonForm.Designer.cs">
+      <DependentUpon>LessonForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImageQuestionSetupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormWriter.resx">
       <DependentUpon>FormWriter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LessonForm.resx">
+      <DependentUpon>LessonForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImageQuestionSetupForm.resx">
       <DependentUpon>ImageQuestionSetupForm.cs</DependentUpon>

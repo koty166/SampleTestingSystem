@@ -1,0 +1,6 @@
+C:\Users\я\source\repos\Проект к школе\AnalysisLibrary\bin\Debug\AnalysisLibrary.dll
+C:\Users\я\source\repos\Проект к школе\AnalysisLibrary\bin\Debug\AnalysisLibrary.pdb
+C:\Users\я\source\repos\Проект к школе\AnalysisLibrary\obj\Debug\AnalysisLibrary.csproj.CoreCompileInputs.cache
+C:\Users\я\source\repos\Проект к школе\AnalysisLibrary\obj\Debug\AnalysisLibrary.dll
+C:\Users\я\source\repos\Проект к школе\AnalysisLibrary\obj\Debug\AnalysisLibrary.pdb
+C:\Users\я\source\repos\Проект к школе\AnalysisLibrary\obj\Debug\AnalysisLibrary.csprojAssemblyReference.cache

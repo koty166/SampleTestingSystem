@@ -68,10 +68,10 @@
             // 
             // ExplanationLabel
             // 
-            this.ExplanationLabel.AutoEllipsis = true;
             this.ExplanationLabel.AutoSize = true;
-            this.ExplanationLabel.BackColor = System.Drawing.Color.Transparent;
-            this.ExplanationLabel.Location = new System.Drawing.Point(22, 26);
+            this.ExplanationLabel.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.ExplanationLabel.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ExplanationLabel.Location = new System.Drawing.Point(25, 26);
             this.ExplanationLabel.Name = "ExplanationLabel";
             this.ExplanationLabel.Size = new System.Drawing.Size(201, 13);
             this.ExplanationLabel.TabIndex = 27;
@@ -89,7 +89,7 @@
             // Next
             // 
             this.Next.BackColor = System.Drawing.Color.Transparent;
-            this.Next.Location = new System.Drawing.Point(170, 220);
+            this.Next.Location = new System.Drawing.Point(250, 250);
             this.Next.Name = "Next";
             this.Next.Size = new System.Drawing.Size(86, 20);
             this.Next.TabIndex = 24;
@@ -117,7 +117,7 @@
             this.groupBox1.Controls.Add(this.Answer1);
             this.groupBox1.Location = new System.Drawing.Point(25, 43);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(431, 171);
+            this.groupBox1.Size = new System.Drawing.Size(550, 171);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Visible = false;

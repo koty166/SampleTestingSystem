@@ -5,7 +5,7 @@ using System.IO;
 
 namespace AnalysisLibrary
 {
-    public class AnalysisClass
+    static public class AnalysisClass
     {
         static int Spin(int Answer)
         {
@@ -22,12 +22,12 @@ namespace AnalysisLibrary
             }
             return 0;
         }
-        
+
         static void Save(List<Pupil> PupList)
         {
             int n = 0;
-            
-;            while (true)
+
+            ; while (true)
             {
                 n++;
                 if (!File.Exists(Environment.CurrentDirectory + $"\\Saves\\ModifiedSav{n}.sav"))
@@ -49,7 +49,7 @@ namespace AnalysisLibrary
 
                 int CognitiveActivity = 0, AchievementMotivation = 0, Anxiety = 0, Anger = 0, Summ;
                 string CognitiveMark = null, AchivementMark = null, AnxietyMark = null, AngerMark = null, LevelMark = null;
-               
+
                 ////////////checking for no answering
                 foreach (var m in i.AnswerList)
                     if (m == "NO")
@@ -354,9 +354,9 @@ namespace AnalysisLibrary
         {
             StreamReader r;
             if (IsA)
-                r = new StreamReader(Environment.CurrentDirectory + "RigthAnswersSettingA.txt");
+                r = new StreamReader(Environment.CurrentDirectory + "RigthAnswersSettingA.ini");
             else
-                r = new StreamReader(Environment.CurrentDirectory + "RigthAnswersSettingB.txt");
+                r = new StreamReader(Environment.CurrentDirectory + "RigthAnswersSettingB.ini");
 
             List<string> OutString = new List<string>();
             while (true)
@@ -408,18 +408,18 @@ namespace AnalysisLibrary
                     }
 
 
-                
+
                 try
                 {
-                    if(i.args[3] == "A")
-                       RightAnswers = GetRightAnswers(true);
+                    if (i.args[3] == "A")
+                        RightAnswers = GetRightAnswers(true);
                     else
                         RightAnswers = GetRightAnswers(false);
                 }
                 catch { }
 
                 ///////////////  A - variant
-                if(i.args[3] == "A")
+                if (i.args[3] == "A")
                 {
                     ////////////////////setting at math / gum / nature
                     for (int j = 1; j <= i.AnswerList.Count; j++)
@@ -578,7 +578,7 @@ namespace AnalysisLibrary
                             ///////////////////////Obobshenie
                             ///////gum
                             case 88:
-                               Gum += MarkForTest(i.AnswerList[j], RightAnswers[j]);
+                                Gum += MarkForTest(i.AnswerList[j], RightAnswers[j]);
                                 break;
                             case 89:
                                 Gum += MarkForTest(i.AnswerList[j], RightAnswers[j]);
@@ -887,7 +887,7 @@ namespace AnalysisLibrary
                 }
 
                 PersentOfTestComplete = (Double)(Knowledge + Analogy + Classification + Oboshenie + NumberLines + Space) / 129 * 100;
-              
+
                 /////////Setting Level of keeping test;
                 String Level;
                 {
@@ -905,11 +905,11 @@ namespace AnalysisLibrary
 
                     else Level = "Средний";
                 }
-                
-                i.MarkForTest = $"Обший процент выполнения - {PersentOfTestComplete}%;"+
-                    $"Уровень выполнения - {Level};" + $"Общая осведомлённость - {Knowledge / 40 * 100}%;" + $"Аналогии - {Analogy / 25 * 100}%;"+
-                    $"Классификации - {Classification / 20 * 100}%;" + $"Обобшения - {Oboshenie / 19 * 100}%;" + $"Обшественно-гуманитарный цикл - {Gum / 33 * 100}%;"+
-                    $"Естственно-научный цикл - {Nature / 31 * 100}%;" + $"Физико-математический цикл - {Math / 30 * 100}%;" + $"Числовые ряды - {NumberLines / 15 * 100}%;"+
+
+                i.MarkForTest = $"Обший процент выполнения - {PersentOfTestComplete}%;" +
+                    $"Уровень выполнения - {Level};" + $"Общая осведомлённость - {Knowledge / 40 * 100}%;" + $"Аналогии - {Analogy / 25 * 100}%;" +
+                    $"Классификации - {Classification / 20 * 100}%;" + $"Обобшения - {Oboshenie / 19 * 100}%;" + $"Обшественно-гуманитарный цикл - {Gum / 33 * 100}%;" +
+                    $"Естственно-научный цикл - {Nature / 31 * 100}%;" + $"Физико-математический цикл - {Math / 30 * 100}%;" + $"Числовые ряды - {NumberLines / 15 * 100}%;" +
                     $"Пространственные представления - {Space / 10 * 100}%";
 
                 Save(PupList);

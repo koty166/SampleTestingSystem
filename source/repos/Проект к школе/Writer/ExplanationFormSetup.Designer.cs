@@ -37,11 +37,14 @@
             // 
             // TextOfExplanation
             // 
+            this.TextOfExplanation.ImeMode = System.Windows.Forms.ImeMode.On;
             this.TextOfExplanation.Location = new System.Drawing.Point(12, 25);
             this.TextOfExplanation.Multiline = true;
             this.TextOfExplanation.Name = "TextOfExplanation";
-            this.TextOfExplanation.Size = new System.Drawing.Size(454, 275);
+            this.TextOfExplanation.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.TextOfExplanation.Size = new System.Drawing.Size(550, 275);
             this.TextOfExplanation.TabIndex = 0;
+            this.TextOfExplanation.WordWrap = false;
             // 
             // AddExplanation
             // 
@@ -82,13 +85,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(507, 416);
+            this.ClientSize = new System.Drawing.Size(582, 416);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.TimeSetup);
             this.Controls.Add(this.ExplanationTextLabel);
             this.Controls.Add(this.AddExplanation);
             this.Controls.Add(this.TextOfExplanation);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "ExplanationFormSetup";
             this.Text = "ExplanationFormSetup";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ExplanationFormSetup_FormClosing);

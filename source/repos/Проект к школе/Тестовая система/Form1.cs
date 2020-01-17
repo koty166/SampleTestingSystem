@@ -130,6 +130,7 @@ namespace Проект_к_школе
         {
             TcpClient Sender = new TcpClient();
             BinaryFormatter b = new BinaryFormatter();
+            MemoryStream s = new MemoryStream();
             NetworkStream stream;
             Sender.Client.SendTimeout = 3000;
             this.Enabled = false;
@@ -144,6 +145,8 @@ namespace Проект_к_школе
             if (Sender.Connected)
             {
                 byte[] Key = new byte[256];
+                byte BufByte;
+                int DataLenght = 0;
                 this.Text = "Подключение завершено.Сброс данных...";
 
                 stream = Sender.GetStream();
@@ -156,20 +159,30 @@ namespace Проект_к_школе
 
                 stream.Read(Key, 0, 256);
 
-                for (int i = 0; i < 256; i++)
-                    Key[i] = (byte)(127 - Key[i]);
+                b.Serialize(s, pupil);
+                DataLenght = s.ToArray().Length * 64;
 
-                data = (byte[])EncryptClass.Encrypt(pupil, Key);
+               
+                for (int i = 0; i < 256; i++)
+                {
+                    BufByte = (byte)(63 - Key[i]);
+
+                   // if (BufByte + DataLenght % 100 > 63) BufByte = (byte)(BufByte + DataLenght % 100 - 63);
+                   // else BufByte += (byte)(data.Length % 100);
+                    Key[i] = BufByte;
+                   // FileTools.Log(BufByte.ToString());
+                }
+
+                data = (byte[])EncryptClass.Encrypt(pupil, Key , ref DataLenght);
 
                 Key = BitConverter.GetBytes(data.Length);
-                stream.Write(Key, 0, 3);
 
-                MessageBox.Show((data.Length / 128).ToString());
+                
 
+                stream.Write(Key, 0, 4);
                 stream.Write( data , 0 , data.Length );
                 
     
-                //b.Serialize(Sender.GetStream(),pupil);
                 Sender.Close();
                 
                 this.Text = "Сброс данных завершён успешно";
@@ -210,6 +223,8 @@ namespace Проект_к_школе
         int time = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
+            String LabelOfForm;
+
             if (!(CurrentExplanationIndex >= 0)) return;
             Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentExplanationIndex];
             if (ex.TimerValue == 0)
@@ -217,8 +232,12 @@ namespace Проект_к_школе
                 this.Text = "Тестовая система";
                 return;
             }
+            if(((ex.TimerValue - time) % 100 > 4 && (ex.TimerValue - time) % 100 < 20) || (ex.TimerValue - time) % 10 == 0 
+                || ((ex.TimerValue - time) % 10 > 4 && (ex.TimerValue - time) % 10 < 10) ) LabelOfForm = $"Осталось {ex.TimerValue - time} секунд";
+            else if ((ex.TimerValue - time) % 10 == 1) LabelOfForm = $"Осталось {ex.TimerValue - time} секунда";
+            else LabelOfForm = $"Осталось {ex.TimerValue - time} секунды";
+            this.Text = LabelOfForm;
 
-            this.Text = $"Осталось {ex.TimerValue - time} секунд";
             if (ex.TimerValue == time)
                 EndOfTime();
             time++;
@@ -249,7 +268,10 @@ namespace Проект_к_школе
                     UserAnswer = (AnswerTextSetup.Text != "" ? AnswerTextSetup.Text : "no").ToLowerInvariant();
                     for (int i = 0; i < UserAnswer.Length; i++)
                         if (UserAnswer[i] == '.' || UserAnswer[i] == ' ')
-                           UserAnswer =  UserAnswer.Remove(i,1);
+                        {
+                            UserAnswer = UserAnswer.Remove(i, 1);
+                            i--;
+                        }
 
                     pupil.AnswerList.Add(UserAnswer);
                     FileTools.Log($"Added to pupil list:{UserAnswer}");
@@ -319,7 +341,7 @@ namespace Проект_к_школе
                 AnswerTextSetup.Visible = false;
                 pictureBox.Visible = false;
                 Next.Visible = true;
-                Next.Location = new Point(180, 230);
+                Next.Location = new Point(250, 250);
 
 
                 if ((string)CurrentLesson.args[3] == "1") Answer5.Visible = true;

@@ -46,7 +46,7 @@ namespace Проект_к_школе
         }
         private void ImageQuestionSetupForm_Load(object sender, EventArgs e)
         {
-            if (Directory.Exists(directory + "\\Images"))
+            if (!Directory.Exists(directory + "\\Images"))
                 Directory.CreateDirectory(directory + "\\Images");
             try
             {
@@ -57,10 +57,7 @@ namespace Проект_к_школе
 
                 ImageExample.Image = Image.FromFile(directory + "\\Images\\" + LocalQuestion.image_name);
             }
-            catch
-            {
-
-            }
+            catch { }
         }
 
         private void button1_Click(object sender, EventArgs e)

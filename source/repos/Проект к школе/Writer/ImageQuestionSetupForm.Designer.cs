@@ -155,6 +155,7 @@
             this.Controls.Add(this.QuestionSetupLabel);
             this.Controls.Add(this.QuestionSetup);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MinimizeBox = false;
             this.Name = "ImageQuestionSetupForm";
             this.Text = "ImageQuestionSetupForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ImageQuestionSetupForm_FormClosing);

@@ -19,18 +19,35 @@ namespace Проект_к_школе
         internal int ChoosenLesson;
         internal int ChoosenQuestion;
 
-
-        void AddToLessonChoose()
+        void AddToLessonChoose() 
         {
+            LessonChoose.Items.Clear();
             foreach (var i in Lesson_mass)
-            {
                 LessonChoose.Items.Add(i.Name);
-            }
 
         }
 
-        internal void AddToQuestionChoose(object Question) 
-            => QuestionChoose.Nodes.Add(new TreeNode(Question.ToString()));
+        internal void AddToQuestionChoose(object Question)
+        {
+            if (Question.GetType() == new Explanation().GetType())
+            {
+                Explanation q = (Explanation)Question;
+                QuestionChoose.Nodes.Add(new TreeNode(q.Text));
+            }
+
+            if (Question.GetType() == new Question().GetType())
+            {
+                Question q = (Question)Question;
+                QuestionChoose.Nodes.Add(new TreeNode(q.Question_s));
+            }
+
+            if (Question.GetType() == new ImageQuestion().GetType())
+            {
+                ImageQuestion q = (ImageQuestion)Question;
+                QuestionChoose.Nodes.Add(new TreeNode(q.Question));
+            }
+
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -59,92 +76,34 @@ namespace Проект_к_школе
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
-            if (Lesson_mass.Count != 0) 
-                foreach (var i in Lesson_mass)
-                {
-                    i.args[0] = arg0.Text;
-                    i.args[1] = arg1.Text;
-                    i.args[2] = arg2.Text;
-                    i.args[3] = arg3.Text;
-                    i.args[4] = arg4.Text;
+            string[] FilePaths = Directory.GetFiles($"{directory}\\", "*.dat");
 
-                    File.Delete($"{directory}\\{i.Name}.dat");
+            foreach (var item in FilePaths)
+                File.Delete(item);
 
-                    BinaryFormatter Formatted = new BinaryFormatter();
-                    FileStream stream = new FileStream($"{directory}\\{i.Name}.dat",FileMode.Create);                       
-
-                    Formatted.Serialize(stream, i);
-
-                    stream.Close();
-                }
-            FileTools.Log("Tests saved sucsseed");
-        }
-
-        private void CreateNewLesson_Click(object sender, EventArgs e)
-        {
-            Lesson_mass.Add(new Lesson()
+            foreach (var i in Lesson_mass)
             {
-                Name = textBox6.Text != "" ? textBox6.Text : "Тест"
-            });
+                BinaryFormatter Formatted = new BinaryFormatter();
+                FileStream stream = new FileStream($"{directory}\\{i.Name}.dat", FileMode.Create);
 
-            LessonChoose.Items.Clear();
+                Formatted.Serialize(stream, i);
 
-            AddToLessonChoose();
-            FileTools.Log("New lesson created");
-        }
-
-        private void AddQuestion_Click(object sender, EventArgs e)
-        {
-            QuestionSetupForm form = new QuestionSetupForm();
-            form.Text = "Индекс: " + QuestionChoose.Nodes.Count;
-            FileTools.Log("Question setup opened");
-            form.Show();
-            this.Enabled = false;
+                stream.Close();
+            }
+            FileTools.Log("Tests saved sucsseed");
         }
 
         private void LessonChoose_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            Lesson_mass[ChoosenLesson].args[0] = arg0.Text;
-            Lesson_mass[ChoosenLesson].args[1] = arg1.Text;
-            Lesson_mass[ChoosenLesson].args[2] = arg2.Text;
-            Lesson_mass[ChoosenLesson].args[3] = arg3.Text;
-            Lesson_mass[ChoosenLesson].args[4] = arg4.Text;
-
             if (LessonChoose.SelectedItem != null && LessonChoose.SelectedIndex >= 0 && LessonChoose.SelectedIndex < LessonChoose.Items.Count)
                 ChoosenLesson = LessonChoose.SelectedIndex;
             QuestionChoose.Nodes.Clear();
-            foreach (var i in Lesson_mass[ChoosenLesson].QuestionList)
-            {
-                AddToQuestionChoose(i);
-            }
 
-            arg0.Text = (string)Lesson_mass[ChoosenLesson].args[0];
-            arg1.Text = (string)Lesson_mass[ChoosenLesson].args[1];
-            arg2.Text = (string)Lesson_mass[ChoosenLesson].args[2];
-            arg3.Text = (string)Lesson_mass[ChoosenLesson].args[3];
-            arg4.Text = (string)Lesson_mass[ChoosenLesson].args[4];
+            foreach (var i in Lesson_mass[ChoosenLesson].QuestionList)
+                AddToQuestionChoose(i);
 
             FileTools.Log("Lesson choose is change");
-        }
-
-        private void AddImageQiestion_Click(object sender, EventArgs e)
-        {
-            ImageQuestionSetupForm form = new ImageQuestionSetupForm();
-            form.Text = "Индекс: " + QuestionChoose.Nodes.Count;
-            FileTools.Log("Image question setup opened");
-            form.Show();
-            this.Enabled = false;
-        }
-
-        private void AddInstraction_Click(object sender, EventArgs e)
-        {
-            ExplanationFormSetup form = new ExplanationFormSetup();
-            form.Text = "Индекс: " + QuestionChoose.Nodes.Count;
-            FileTools.Log("Explanation setup opened");
-            form.Show();
-            this.Enabled = false;
         }
 
         private void QuestionChoose_AfterSelect(object sender, TreeViewEventArgs e)
@@ -220,15 +179,135 @@ namespace Проект_к_школе
             MessageBox.Show("Done");
         }
 
-        private void DeleteQuestion_Click(object sender, EventArgs e)
+        private void добавитьИнструктажToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (LessonChoose.SelectedIndex == -1)
+            {
+                MessageBox.Show("Выберите урок");
+                return;
+            }
+            
+            ExplanationFormSetup form = new ExplanationFormSetup();
+            form.Text = "Индекс: " + QuestionChoose.Nodes.Count;
+            FileTools.Log("Explanation setup opened");
+            form.Show();
+            this.Enabled = false;
+        }
+
+        private void удалитьToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (LessonChoose.SelectedIndex == -1)
+            {
+                MessageBox.Show("Выберите урок");
+                return;
+            }
             if (MessageBox.Show("Внимание , это действие не обратимо!", "Удалить?", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
-            if (QuestionChoose.SelectedNode == null) return;
+            if (QuestionChoose.SelectedNode == null)
+            {
+                MessageBox.Show("Выбери задание");
+                return;
+            }
 
             Lesson_mass[ChoosenLesson].QuestionList.RemoveAt(ChoosenQuestion);
 
-            LessonChoose_SelectedIndexChanged(LessonChoose,null);
+            LessonChoose_SelectedIndexChanged(LessonChoose, null);
+        }
+
+        private void добавитьВопросСКартинкойToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (LessonChoose.SelectedIndex == -1)
+            {
+                MessageBox.Show("Выберите урок");
+                return;
+            }
+            ImageQuestionSetupForm form = new ImageQuestionSetupForm();
+            form.Text = "Индекс: " + QuestionChoose.Nodes.Count;
+            FileTools.Log("Image question setup opened");
+            form.Show();
+            this.Enabled = false;
+        }
+
+        private void добавитьПростойВопросToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (LessonChoose.SelectedIndex == -1)
+            {
+                MessageBox.Show("Выберите урок");
+                return;
+            }
+            QuestionSetupForm form = new QuestionSetupForm();
+            form.Text = "Индекс: " + QuestionChoose.Nodes.Count;
+            FileTools.Log("Question setup opened");
+            form.Show();
+            this.Enabled = false;
+        }
+
+        internal void ChangeLesson(string _Name, string[] _args , int _index)
+        {
+            Lesson CurrentLesson = Lesson_mass[_index];
+            CurrentLesson.Name = _Name;
+            CurrentLesson.args = _args;
+            AddToLessonChoose();
+        }
+
+        internal void CreateLesson(string Name, string[] _args)
+        {
+            Lesson_mass.Add(new Lesson()
+            {
+                Name = Name != "" ? Name : "Тест",
+                args = _args
+            });
+
+            LessonChoose.Items.Clear();
+
+            AddToLessonChoose();
+            FileTools.Log("New lesson created");
+        }
+
+        private void добавитьУрокToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (Application.OpenForms.Count == 1)
+            {
+                this.Enabled = false;
+                LessonForm Get = new LessonForm();
+                Get.Show();
+            }
+        }
+
+        private void слияниеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void изменитьУрокToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Application.OpenForms.Count == 1 && LessonChoose.SelectedIndex != -1)
+            {
+                this.Enabled = false;
+                string[] args = new string[5];
+                for (int i = 0; i < Lesson_mass[ChoosenLesson].args.Length; i++)
+                    args[i] = (string)Lesson_mass[ChoosenLesson].args[i];
+
+                LessonForm Get = new LessonForm(args , Lesson_mass[ChoosenLesson].Name,ChoosenLesson);
+                Get.Show();
+            }
+        }
+
+        private void удалитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LessonChoose.SelectedIndex == -1)
+            {
+                MessageBox.Show("Выберите урок");
+                return;
+            }
+            if (MessageBox.Show("Внимание , это действие не обратимо!", "Удалить?", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+
+            Lesson_mass.RemoveAt(ChoosenLesson);
+
+            ChoosenLesson = 0;
+            QuestionChoose.Nodes.Clear();
+            AddToLessonChoose();
         }
     }
 }

@@ -34,11 +34,17 @@ namespace FormServer
             string[] MarkMass;
 
 
+            ListOfPupil.Add(new Pupil(
+                 15, 2, "awd", "awd", "awd"
+                 ));
+            for (int i = 0; i < 10; i++)
+                ListOfPupil[0].AnswerList.Add(i.ToString());
+
             FileTools.Log("Choosen show on Exel");
             
             if (pupList.Count == 0) return;
 
-            ///////////////garbage collectiong.Killing exel process
+            ///////////////garbage collecting.Killing exel proceses
             try
             {
                 foreach (Process item in Process.GetProcessesByName("EXCEL"))
@@ -51,13 +57,10 @@ namespace FormServer
             Worksheet WorkSheet;
 
             WorkBook = ex.Workbooks.Add();
-            WorkSheet = ex.Worksheets[2];
-
-            //ListOfPupil.Add(new Pupil(
-            //     15,2,"awd","awd","awd"
-            //     ));
-            //  for (int i = 0; i < 10; i++)
-            //      ListOfPupil[0].AnswerList.Add(i.ToString());
+            WorkSheet = ex.Worksheets[1];
+            if (ex.Worksheets.Count == 1)
+                ex.Worksheets.Add(After: ex.Worksheets[1]);          
+           
             int j = 0;
 
             foreach (var item in pupList)
@@ -103,7 +106,7 @@ namespace FormServer
             }
             if (pupList[0].MarkForTest != null)
             {
-                WorkSheet = ex.Worksheets[1];
+                WorkSheet = ex.Worksheets[2];
                 j = 2;
                 //////////like a test
                 pupList[0].args[3] = "Познавательная активность;Мотивация достижения;Тревожность;Гнев";
@@ -158,6 +161,8 @@ namespace FormServer
             else
                 SendingIP = Dns.GetHostEntry(Dns.GetHostName().ToString()).AddressList[1].ToString();
 
+            IPSetup.Text = SendingIP.ToString();
+
             IPsender = new Thread(new ParameterizedThreadStart(SendIP));
             IPsender.Start(Convert.ToInt32(NumPackagesSetup.Value.ToString()));
             FileTools.Log("Sending IP started");
@@ -198,6 +203,7 @@ namespace FormServer
         {
             try { if (DataListener.IsAlive) return; }
             catch { }
+
             WriteInExel(ListOfPupil,"Excel");
         }
 
@@ -349,7 +355,7 @@ namespace FormServer
             List<Pupil> BufList = new List<Pupil>();
             int dones = 0;
             FileTools.Log("Wait connection started , pupils - " + (int)many);
-            //try
+          //  try
             //{
                 while (true)
                 {
@@ -375,25 +381,39 @@ namespace FormServer
                     {
                         Pupil pup;
                         int NumOfBytes;
+                        byte BufByte;
 
                        for (int i = 0; i < 256; i++)
-                            Key[i] = (byte)r.Next(0, 128);
+                            Key[i] = (byte)r.Next(0, 64);
 
                         stream.Write(Key,0,256);
 
-                        for (int i = 0; i < 256; i++)
-                            Key[i] = (byte)(127 - Key[i]);
+                        
 
                         data = new byte[4];
                         stream.Read(data,0,data.Length);
                         NumOfBytes = BitConverter.ToInt32(data,0);
 
-                        data = new byte[NumOfBytes];
+                    foreach (var item in Key)
+                    {
+                        FileTools.Log(item.ToString());
+                    }
+                    FileTools.Log("  ");
+                        for (int i = 0; i < 256; i++)
+                        {
+                            BufByte = (byte)(63 - Key[i]);
+                            //if (BufByte + NumOfBytes % 100 > 63) BufByte = (byte)(BufByte + NumOfBytes % 100 - 63);
+                        //else BufByte += (byte)(data.Length % 100);
+                        Key[i] = BufByte;
+                        //FileTools.Log(BufByte.ToString());
+                        }
+
+
+                    data = new byte[NumOfBytes];
                         stream.Read(data,0,NumOfBytes);
 
                         pup = (Pupil)DecryptClass.Decrypt(data,Key);
                         
-                        //pup = (Pupil)b.Deserialize(read.GetStream());
 
                         BufList.Add(pup);
 
@@ -421,8 +441,8 @@ namespace FormServer
 
                     }
                 }
-            //}
-            //catch { }
+           // }
+          //  catch { }
         }
     }
 }

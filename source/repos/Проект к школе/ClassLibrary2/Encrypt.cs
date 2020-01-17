@@ -7,29 +7,29 @@ using System.Threading;
 
 namespace ClassLibrary2.Security
 {
-    public class EncryptClass
+    static public class EncryptClass
     {
-        static byte[] EncryptBlock(byte b, byte key , int seed)
+        static byte[] EncryptBlock(byte b, byte key, int seed)
         {
-            byte[] mas = new byte[128];
+            byte[] mas = new byte[64];
             Random r = new Random(seed);
 
-            for (int i = 0; i < 128; i++)
+            for (int i = 0; i < 64; i++)
                 mas[i] = (byte)r.Next(0, 256);
 
-            mas[key] = b;
+            mas[key] = (byte)(255 - b);
             return mas;
         }
 
-        public static byte[] Encrypt(Pupil p, byte[] key)
+        public static byte[] Encrypt(Pupil p, byte[] key ,ref int DataLenght)
         {
-            byte[] mas , Out;
+            byte[] mas, Out;
             int l = 0;
             List<byte[]> List = new List<byte[]>();
 
             BinaryFormatter b = new BinaryFormatter();
             MemoryStream s = new MemoryStream();
-            b.Serialize(s,p);
+            b.Serialize(s, p);
 
             mas = s.ToArray();
 
@@ -37,16 +37,16 @@ namespace ClassLibrary2.Security
             {
                 if (l == key.Length) l = 0;
 
-                List.Add( EncryptBlock(mas[i], key[l] , i) );
+                List.Add(EncryptBlock(mas[i], key[l], i));
 
                 l++;
             }
 
-            Out = new byte[128 * List.Count];
-            int k = 0,j = 0;
+            Out = new byte[64 * List.Count];
+            int k = 0, j = 0;
             for (int i = 0; i < Out.Length; i++)
             {
-                if(j  == 128)
+                if (j == 64)
                 {
                     k++;
                     j = 0;
@@ -55,7 +55,7 @@ namespace ClassLibrary2.Security
                 Out[i] = List[k][j];
                 j++;
             }
-
+            DataLenght = Out.Length;
             return Out;
         }
         public static string EncryptCesar(string _Message, int _key)
