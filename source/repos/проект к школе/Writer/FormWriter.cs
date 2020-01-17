@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
+using ClassLibrary2;
 
 namespace Проект_к_школе
 {
@@ -18,192 +14,61 @@ namespace Проект_к_школе
         {
             InitializeComponent();
         }
-        List<Lesson> Lesson_mass = new List<Lesson>();
+        internal List<Lesson> Lesson_mass = new List<Lesson>();
         String directory = @"Tests";
-        public  String Explanation;
+        internal int ChoosenLesson;
+        internal int ChoosenQuestion;
 
 
-        void Load_in_form()
+        void AddToLessonChoose()
         {
             foreach (var i in Lesson_mass)
             {
-                list_of_lessons.Items.Add(i.Name);
+                LessonChoose.Items.Add(i.Name);
             }
 
         }
-        void rename_list_of_questions()
-        {
-            for (int i = 0; i < list_of_questions.Nodes.Count; i++)
-            {
-                list_of_questions.Nodes[i].Text = "Задание: " + (i + 1) ;
-            }
-        }
+
+        internal void AddToQuestionChoose(object Question) 
+            => QuestionChoose.Nodes.Add(new TreeNode(Question.ToString()));
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            rename_list_of_questions();
-            if (Lesson_mass.Count != 0)
-            { Load_in_form(); }
-
-            String[] File_mass_date;
+            String[] FileNames;
 
             if (!Directory.Exists(directory))
-            {
                 Directory.CreateDirectory(directory);
-            }
             else
             {
-                File_mass_date = Directory.GetFiles(directory, "*.dat");
-                if (File_mass_date.Length != 0)
-                {
-                    for (int i = 0; i < File_mass_date.Length; i++)
+                FileNames = Directory.GetFiles(directory, "*.dat");
+                if (FileNames.Length != 0)
+                    for (int i = 0; i < FileNames.Length; i++)
                     {
-                        FileStream Stream = new FileStream(File_mass_date[i], FileMode.Open);
+                        FileStream Stream = new FileStream(FileNames[i], FileMode.Open);
                         BinaryFormatter Formated = new BinaryFormatter();
 
                         Lesson_mass.Add((Lesson)Formated.Deserialize(Stream));
 
                         Stream.Close();
                     }
-                }
             }
-            Load_in_form();
-
-            groupBox1.Visible = false;
-            groupBox2.Visible = false;
-            button3.Visible = false;
-            textBox5.Visible = false;
-            label2.Visible = false;
-
-        }
-
-        void save_to_mass()
-        {
-            int checed_radiobutton = -1;
-            if (list_of_questions.SelectedNode != null && list_of_lessons.SelectedItem != null)
-            {
-                Lesson_mass[list_of_lessons.SelectedIndex].Score = Convert.ToInt32(textBox10.Text);
-
-                if (list_of_questions.SelectedNode.Index < 20)
-                {
-                    Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Answers[0] = textBox1.Text;
-                    Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Answers[1] = textBox2.Text;
-                    Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Answers[2] = textBox3.Text;
-                    Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Answers[3] = textBox4.Text;
-
-                    if (radioButton1.Checked) checed_radiobutton = 0;
-                    else if (radioButton2.Checked) checed_radiobutton = 1;
-                    else if (radioButton3.Checked) checed_radiobutton = 2;
-                    else if (radioButton4.Checked) checed_radiobutton = 3;
-                    else checed_radiobutton = 0;
-
-                    Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Rigth_answer = checed_radiobutton;
-
-                    Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Question_s = textBox5.Text;
-
-                    Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Explanation = Explanation;
-
-                }
-                else
-                {
-                    Lesson_mass[list_of_lessons.SelectedIndex].mass_ImageQuestion[list_of_questions.SelectedNode.Index - 20].Rigth_answer = textBox8.Text;
-                    Lesson_mass[list_of_lessons.SelectedIndex].mass_ImageQuestion[list_of_questions.SelectedNode.Index - 20].Question = textBox5.Text;
-                    Lesson_mass[list_of_lessons.SelectedIndex].mass_ImageQuestion[list_of_questions.SelectedNode.Index - 20].Explanation = Explanation;
-                    Lesson_mass[list_of_lessons.SelectedIndex].mass_ImageQuestion[list_of_questions.SelectedNode.Index - 20].image_name = textBox9.Text;
-                }
-            }
-
-        }
-
-        private void list_of_questions_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            this.Text = list_of_questions.SelectedNode.Index.ToString();
-
-            textBox1.Clear();
-            textBox2.Clear();
-            textBox3.Clear();
-            textBox4.Clear();
-            textBox5.Clear();
-            Explanation = null;
-            textBox6.Clear();
-            textBox10.Clear();
-
-            radioButton1.Checked = false;
-            radioButton2.Checked = false;
-            radioButton3.Checked = false;
-            radioButton4.Checked = false;
-
-            if (list_of_questions.SelectedNode != null && list_of_lessons.SelectedItem != null)
-            {
-
-                textBox10.Text = Lesson_mass[list_of_lessons.SelectedIndex].Score.ToString();
-
-                if (list_of_questions.SelectedNode.Index >= 20)
-                {
-                    groupBox1.Visible = false;
-                    groupBox2.Visible = true;
-                    button3.Visible = true;
-                    textBox5.Visible = true;
-                    label2.Visible = true;
-                    {
-                        textBox8.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_ImageQuestion[list_of_questions.SelectedNode.Index - 20].Rigth_answer;
-                        textBox5.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_ImageQuestion[list_of_questions.SelectedNode.Index - 20].Question;
-                        Explanation = Lesson_mass[list_of_lessons.SelectedIndex].mass_ImageQuestion[list_of_questions.SelectedNode.Index - 20].Explanation;
-                        textBox9.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_ImageQuestion[list_of_questions.SelectedNode.Index - 20].image_name;
-                    }
-                }
-                else if (list_of_questions.SelectedNode.Index < 20)
-                {
-                    groupBox1.Visible = true;
-                    groupBox2.Visible = false;
-                    button3.Visible = true;
-                    textBox5.Visible = true;
-                    label2.Visible = true;
-
-                    {
-                        textBox1.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Answers[0];
-                        textBox2.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Answers[1];
-                        textBox3.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Answers[2];
-                        textBox4.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Answers[3];
-
-                        switch (Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Rigth_answer)
-                        {
-                            case 0:
-                                radioButton1.Checked = true;
-                                break;
-                            case 1:
-                                radioButton2.Checked = true;
-                                break;
-                            case 2:
-                                radioButton3.Checked = true;
-                                break;
-                            case 3:
-                                radioButton4.Checked = true;
-                                break;
-                        }
-                        textBox5.Text = Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Question_s;
-                        Explanation = Lesson_mass[list_of_lessons.SelectedIndex].mass_Question[list_of_questions.SelectedNode.Index].Explanation;
-                    }
-                }
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Lesson_mass.Add(new Lesson() { Name = textBox6.Text , Score = Convert.ToInt32(textBox10.Text) > 0 ? Convert.ToInt32(textBox10.Text) : 0 });
-
-            list_of_lessons.Items.Clear();
-
-            Load_in_form();
-
-            groupBox1.Visible = false;
-            groupBox2.Visible = false;
+            if (Lesson_mass.Count != 0)
+                AddToLessonChoose();
+            FileTools.Log("Test writer loaded");
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            
             if (Lesson_mass.Count != 0) 
                 foreach (var i in Lesson_mass)
                 {
+                    i.args[0] = arg0.Text;
+                    i.args[1] = arg1.Text;
+                    i.args[2] = arg2.Text;
+                    i.args[3] = arg3.Text;
+                    i.args[4] = arg4.Text;
+
                     File.Delete($"{directory}\\{i.Name}.dat");
 
                     BinaryFormatter Formatted = new BinaryFormatter();
@@ -213,38 +78,157 @@ namespace Проект_к_школе
 
                     stream.Close();
                 }
+            FileTools.Log("Tests saved sucsseed");
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void CreateNewLesson_Click(object sender, EventArgs e)
         {
-            if (list_of_questions.SelectedNode != null && list_of_lessons.SelectedItem != null)
-                if (list_of_questions.SelectedNode.Index >= 20)
-                    if (textBox9.Text.Contains('.') || !File.Exists($"Tests\\images\\{textBox9.Text}"))
-                    {
-                        String s;
-                        Form2 f = new Form2();
+            Lesson_mass.Add(new Lesson()
+            {
+                Name = textBox6.Text != "" ? textBox6.Text : "Тест"
+            });
 
-                        s = textBox9.Text;
+            LessonChoose.Items.Clear();
 
-                        f.pictureBox1.ImageLocation = $"Tests\\images\\{s}";
-                        f.Show();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Картинка не сушествует или неправельно введено имя");
-                        textBox9.Text = "Error.png";
-                    }
-                else;
-            else
-                MessageBox.Show("Выберите задание и урок");
-      
-            save_to_mass();
+            AddToLessonChoose();
+            FileTools.Log("New lesson created");
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void AddQuestion_Click(object sender, EventArgs e)
         {
-            FormForExplanation f = new FormForExplanation();
-            f.Show();
+            QuestionSetupForm form = new QuestionSetupForm();
+            form.Text = "Индекс: " + QuestionChoose.Nodes.Count;
+            FileTools.Log("Question setup opened");
+            form.Show();
+            this.Enabled = false;
+        }
+
+        private void LessonChoose_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            Lesson_mass[ChoosenLesson].args[0] = arg0.Text;
+            Lesson_mass[ChoosenLesson].args[1] = arg1.Text;
+            Lesson_mass[ChoosenLesson].args[2] = arg2.Text;
+            Lesson_mass[ChoosenLesson].args[3] = arg3.Text;
+            Lesson_mass[ChoosenLesson].args[4] = arg4.Text;
+
+            if (LessonChoose.SelectedItem != null && LessonChoose.SelectedIndex >= 0 && LessonChoose.SelectedIndex < LessonChoose.Items.Count)
+                ChoosenLesson = LessonChoose.SelectedIndex;
+            QuestionChoose.Nodes.Clear();
+            foreach (var i in Lesson_mass[ChoosenLesson].QuestionList)
+            {
+                AddToQuestionChoose(i);
+            }
+
+            arg0.Text = (string)Lesson_mass[ChoosenLesson].args[0];
+            arg1.Text = (string)Lesson_mass[ChoosenLesson].args[1];
+            arg2.Text = (string)Lesson_mass[ChoosenLesson].args[2];
+            arg3.Text = (string)Lesson_mass[ChoosenLesson].args[3];
+            arg4.Text = (string)Lesson_mass[ChoosenLesson].args[4];
+
+            FileTools.Log("Lesson choose is change");
+        }
+
+        private void AddImageQiestion_Click(object sender, EventArgs e)
+        {
+            ImageQuestionSetupForm form = new ImageQuestionSetupForm();
+            form.Text = "Индекс: " + QuestionChoose.Nodes.Count;
+            FileTools.Log("Image question setup opened");
+            form.Show();
+            this.Enabled = false;
+        }
+
+        private void AddInstraction_Click(object sender, EventArgs e)
+        {
+            ExplanationFormSetup form = new ExplanationFormSetup();
+            form.Text = "Индекс: " + QuestionChoose.Nodes.Count;
+            FileTools.Log("Explanation setup opened");
+            form.Show();
+            this.Enabled = false;
+        }
+
+        private void QuestionChoose_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            Lesson CurrentLesson = Lesson_mass[ChoosenLesson];
+            ChoosenQuestion = QuestionChoose.SelectedNode.Index;
+            if (CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index].GetType() == new Explanation().GetType())
+            {
+                ExplanationFormSetup form = new ExplanationFormSetup();
+                form.LocalQuestion = (Explanation)CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index];
+                form.Text = "Индекс: " + QuestionChoose.SelectedNode.Index.ToString();
+                FileTools.Log("Explanation setup opened as rewrite");
+                form.Show();
+                this.Enabled = false;
+            }
+            else if (CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index].GetType() == new Question().GetType())
+            {
+                QuestionSetupForm form = new QuestionSetupForm();
+                form.LocalQuestion = (Question)CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index];
+                form.Text = "Индекс: " + QuestionChoose.SelectedNode.Index.ToString();
+                FileTools.Log("Йquestion setup opened as rewrite");
+                form.Show();
+                this.Enabled = false;
+
+            }
+            else if (CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index].GetType() == new ImageQuestion().GetType())
+            {
+                ImageQuestionSetupForm form = new ImageQuestionSetupForm();
+                form.LocalQuestion = (ImageQuestion)CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index];
+                form.Text = "Индекс: " + QuestionChoose.SelectedNode.Index.ToString();
+                FileTools.Log("Image question setup opened as rewrite");
+                form.Show();
+                this.Enabled = false;
+            }
+            
+        }
+
+        private void FromTxt_Click(object sender, EventArgs e)
+        {
+            if (LessonChoose.SelectedItem == null) return;
+            openFileDialog1.InitialDirectory = Environment.CurrentDirectory;
+            openFileDialog1.ShowDialog();
+            StreamReader w = new StreamReader(openFileDialog1.FileName,Encoding.UTF8);
+            Lesson CurrentLesson = Lesson_mass[LessonChoose.SelectedIndex];
+            Question q;
+            string s;
+            int index = 0;
+            try
+            {
+                while(true)
+                {
+                    s = w.ReadLine();
+                    if (s == "0") break;
+                    if (s == "-1")
+                    {
+                        index++;
+                        continue;
+                    }
+
+                    q = (Question)CurrentLesson.QuestionList[index];
+
+                    q.Question_s = s;
+
+                    q.Answers[0] = w.ReadLine();
+                    q.Answers[1] = w.ReadLine();
+                    q.Answers[2] = w.ReadLine();
+                    q.Answers[3] = w.ReadLine();
+                    index++;
+                }
+            }
+            catch(Exception ex)
+            { MessageBox.Show(ex.Message); }
+            MessageBox.Show("Done");
+        }
+
+        private void DeleteQuestion_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Внимание , это действие не обратимо!", "Удалить?", MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
+            if (QuestionChoose.SelectedNode == null) return;
+
+            Lesson_mass[ChoosenLesson].QuestionList.RemoveAt(ChoosenQuestion);
+
+            LessonChoose_SelectedIndexChanged(LessonChoose,null);
         }
     }
 }

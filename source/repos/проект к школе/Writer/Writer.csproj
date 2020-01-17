@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,37 +46,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExplanationFormSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExplanationFormSetup.Designer.cs">
+      <DependentUpon>ExplanationFormSetup.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormWriter.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormWriter.Designer.cs">
       <DependentUpon>FormWriter.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form2.cs">
+    <Compile Include="ImageQuestionSetupForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="ImageQuestionSetupForm.Designer.cs">
+      <DependentUpon>ImageQuestionSetupForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormForExplanation.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormForExplanation.Designer.cs">
-      <DependentUpon>FormForExplanation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ImageQuestion.cs" />
-    <Compile Include="Lesson.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Question.cs" />
+    <Compile Include="QuestionSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuestionSetupForm.Designer.cs">
+      <DependentUpon>QuestionSetupForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ExplanationFormSetup.resx">
+      <DependentUpon>ExplanationFormSetup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormWriter.resx">
       <DependentUpon>FormWriter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormForExplanation.resx">
-      <DependentUpon>FormForExplanation.cs</DependentUpon>
+    <EmbeddedResource Include="ImageQuestionSetupForm.resx">
+      <DependentUpon>ImageQuestionSetupForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -86,6 +90,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="QuestionSetupForm.resx">
+      <DependentUpon>QuestionSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -98,6 +105,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary2\ClassLibrary2.csproj">
+      <Project>{feb2c1c9-e336-432b-b715-cc6b7041ba56}</Project>
+      <Name>ClassLibrary2</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
