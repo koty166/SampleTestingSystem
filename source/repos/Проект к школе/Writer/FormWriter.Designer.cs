@@ -38,16 +38,19 @@
             this.слияниеToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.добавитьУрокToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.изменитьУрокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.работаСЗаданиямиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьПростойВопросToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьПростойВопросToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.добавитьВопросСКартинкойToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.удалитьToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.изменитьУрокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChooseQuestionLabel = new System.Windows.Forms.Label();
-            this.удалитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.FirstLessonLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // QuestionChoose
@@ -56,7 +59,7 @@
             this.QuestionChoose.Name = "QuestionChoose";
             this.QuestionChoose.Scrollable = false;
             this.QuestionChoose.ShowRootLines = false;
-            this.QuestionChoose.Size = new System.Drawing.Size(268, 451);
+            this.QuestionChoose.Size = new System.Drawing.Size(268, 433);
             this.QuestionChoose.TabIndex = 11;
             this.QuestionChoose.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.QuestionChoose_AfterSelect);
             // 
@@ -119,21 +122,39 @@
             // слияниеToolStripMenuItem
             // 
             this.слияниеToolStripMenuItem.Name = "слияниеToolStripMenuItem";
-            this.слияниеToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.слияниеToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
+            this.слияниеToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.слияниеToolStripMenuItem.Text = "Слить";
             this.слияниеToolStripMenuItem.Click += new System.EventHandler(this.слияниеToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(192, 6);
             // 
             // добавитьУрокToolStripMenuItem1
             // 
             this.добавитьУрокToolStripMenuItem1.Name = "добавитьУрокToolStripMenuItem1";
-            this.добавитьУрокToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.добавитьУрокToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.N)));
+            this.добавитьУрокToolStripMenuItem1.Size = new System.Drawing.Size(195, 22);
             this.добавитьУрокToolStripMenuItem1.Text = "Добавить урок";
             this.добавитьУрокToolStripMenuItem1.Click += new System.EventHandler(this.добавитьУрокToolStripMenuItem1_Click);
+            // 
+            // изменитьУрокToolStripMenuItem
+            // 
+            this.изменитьУрокToolStripMenuItem.Name = "изменитьУрокToolStripMenuItem";
+            this.изменитьУрокToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
+            this.изменитьУрокToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.изменитьУрокToolStripMenuItem.Text = "Изменить урок";
+            this.изменитьУрокToolStripMenuItem.Click += new System.EventHandler(this.изменитьУрокToolStripMenuItem_Click);
+            // 
+            // удалитьToolStripMenuItem
+            // 
+            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
+            this.удалитьToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D)));
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.удалитьToolStripMenuItem.Text = "Удалить";
+            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
             // 
             // работаСЗаданиямиToolStripMenuItem
             // 
@@ -150,42 +171,39 @@
             // добавитьПростойВопросToolStripMenuItem
             // 
             this.добавитьПростойВопросToolStripMenuItem.Name = "добавитьПростойВопросToolStripMenuItem";
-            this.добавитьПростойВопросToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.добавитьПростойВопросToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D0)));
+            this.добавитьПростойВопросToolStripMenuItem.Size = new System.Drawing.Size(279, 22);
             this.добавитьПростойВопросToolStripMenuItem.Text = "Добавить инструктаж";
             this.добавитьПростойВопросToolStripMenuItem.Click += new System.EventHandler(this.добавитьИнструктажToolStripMenuItem_Click);
             // 
             // добавитьПростойВопросToolStripMenuItem1
             // 
             this.добавитьПростойВопросToolStripMenuItem1.Name = "добавитьПростойВопросToolStripMenuItem1";
-            this.добавитьПростойВопросToolStripMenuItem1.Size = new System.Drawing.Size(239, 22);
+            this.добавитьПростойВопросToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D1)));
+            this.добавитьПростойВопросToolStripMenuItem1.Size = new System.Drawing.Size(279, 22);
             this.добавитьПростойВопросToolStripMenuItem1.Text = "Добавить простой вопрос";
             this.добавитьПростойВопросToolStripMenuItem1.Click += new System.EventHandler(this.добавитьПростойВопросToolStripMenuItem1_Click);
             // 
             // добавитьВопросСКартинкойToolStripMenuItem1
             // 
             this.добавитьВопросСКартинкойToolStripMenuItem1.Name = "добавитьВопросСКартинкойToolStripMenuItem1";
-            this.добавитьВопросСКартинкойToolStripMenuItem1.Size = new System.Drawing.Size(239, 22);
+            this.добавитьВопросСКартинкойToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D2)));
+            this.добавитьВопросСКартинкойToolStripMenuItem1.Size = new System.Drawing.Size(279, 22);
             this.добавитьВопросСКартинкойToolStripMenuItem1.Text = "Добавить вопрос с картинкой";
             this.добавитьВопросСКартинкойToolStripMenuItem1.Click += new System.EventHandler(this.добавитьВопросСКартинкойToolStripMenuItem1_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(236, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(276, 6);
             // 
             // удалитьToolStripMenuItem1
             // 
             this.удалитьToolStripMenuItem1.Name = "удалитьToolStripMenuItem1";
-            this.удалитьToolStripMenuItem1.Size = new System.Drawing.Size(239, 22);
+            this.удалитьToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+            this.удалитьToolStripMenuItem1.Size = new System.Drawing.Size(279, 22);
             this.удалитьToolStripMenuItem1.Text = "Удалить";
             this.удалитьToolStripMenuItem1.Click += new System.EventHandler(this.удалитьToolStripMenuItem1_Click);
-            // 
-            // изменитьУрокToolStripMenuItem
-            // 
-            this.изменитьУрокToolStripMenuItem.Name = "изменитьУрокToolStripMenuItem";
-            this.изменитьУрокToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.изменитьУрокToolStripMenuItem.Text = "Изменить урок";
-            this.изменитьУрокToolStripMenuItem.Click += new System.EventHandler(this.изменитьУрокToolStripMenuItem_Click);
             // 
             // ChooseQuestionLabel
             // 
@@ -196,18 +214,27 @@
             this.ChooseQuestionLabel.TabIndex = 31;
             this.ChooseQuestionLabel.Text = "Выбери задание ниже";
             // 
-            // удалитьToolStripMenuItem
+            // statusStrip1
             // 
-            this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.удалитьToolStripMenuItem.Text = "Удалить";
-            this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.удалитьToolStripMenuItem_Click);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FirstLessonLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 477);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(536, 22);
+            this.statusStrip1.TabIndex = 32;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // FirstLessonLabel
+            // 
+            this.FirstLessonLabel.Name = "FirstLessonLabel";
+            this.FirstLessonLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // FormWriter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(536, 499);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.ChooseQuestionLabel);
             this.Controls.Add(this.FromTxt);
             this.Controls.Add(this.LessonChooseLabel);
@@ -223,6 +250,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -248,6 +277,8 @@
         private System.Windows.Forms.ToolStripMenuItem изменитьУрокToolStripMenuItem;
         private System.Windows.Forms.Label ChooseQuestionLabel;
         private System.Windows.Forms.ToolStripMenuItem удалитьToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel FirstLessonLabel;
     }
 }
 

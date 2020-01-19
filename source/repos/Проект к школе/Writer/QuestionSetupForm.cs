@@ -11,7 +11,7 @@ namespace Проект_к_школе
         {
             InitializeComponent();
         }
-        internal Question LocalQuestion;
+        internal Question LocalQuestion;    
         bool IsChange;
         private void AddQuestion_Click(object sender, EventArgs e)
         {

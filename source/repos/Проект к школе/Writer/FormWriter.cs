@@ -18,6 +18,16 @@ namespace Проект_к_школе
         String directory = @"Tests";
         internal int ChoosenLesson;
         internal int ChoosenQuestion;
+        bool IsMergeStart;
+        byte NumOfChoosenLessonForMerge = 0 , FirstLessonForMerge , SecoundLessonForMerge;
+
+        struct LessonStruct
+        {
+            public List<object> QuestionList;
+            public String Name;
+
+            public object[] args;
+        }
 
         void AddToLessonChoose() 
         {
@@ -93,6 +103,45 @@ namespace Проект_к_школе
             FileTools.Log("Tests saved sucsseed");
         }
 
+        void MergeLessons(Lesson _FirstLesson , Lesson _SecoundLesson)
+        {
+            LessonStruct LessonStruct1 = new LessonStruct()
+            {
+                QuestionList = _FirstLesson.QuestionList,
+                args = _FirstLesson.args,
+                Name = _FirstLesson.Name
+            };
+            LessonStruct LessonStruct2 = new LessonStruct()
+            {
+                QuestionList = _SecoundLesson.QuestionList,
+                args = _SecoundLesson.args,
+                Name = _SecoundLesson.Name
+            };
+
+            try
+            {
+                foreach (var i in _SecoundLesson.QuestionList)
+                    _FirstLesson.QuestionList.Add(i);
+            }
+            catch
+            {
+                MessageBox.Show("Операция копирования произведена с ошибкой, изменения будут отменены");
+
+                Lesson_mass[FirstLessonForMerge] = new Lesson()
+                {
+                    Name = LessonStruct1.Name,
+                    QuestionList = LessonStruct1.QuestionList,
+                    args = LessonStruct1.args
+                };
+                Lesson_mass[SecoundLessonForMerge] = new Lesson()
+                {
+                    Name = LessonStruct2.Name,
+                    QuestionList = LessonStruct2.QuestionList,
+                    args = LessonStruct2.args
+                };
+            }
+        }
+
         private void LessonChoose_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -104,6 +153,41 @@ namespace Проект_к_школе
                 AddToQuestionChoose(i);
 
             FileTools.Log("Lesson choose is change");
+
+            if (IsMergeStart)
+                switch(NumOfChoosenLessonForMerge)
+                {
+                    case 0:
+                        FirstLessonForMerge = (byte)ChoosenLesson;
+                        FirstLessonLabel.Text = Lesson_mass[ChoosenLesson].Name;
+                        NumOfChoosenLessonForMerge = 1;
+                        break;
+                    case 1:
+                        SecoundLessonForMerge = (byte)ChoosenLesson;
+                        DialogResult r = MessageBox.Show($"Вы уверены ,что хотите слить урок {Lesson_mass[FirstLessonForMerge].Name} " +
+                            $"с {Lesson_mass[SecoundLessonForMerge].Name}(все задания из урока 2 перейдут в урок 1) , это невозможно отменить, также это удалит второй урок(Cancel не удалит урок)", "", MessageBoxButtons.YesNoCancel);
+
+                        if (r == DialogResult.No)
+                        {
+                            NumOfChoosenLessonForMerge = 0;
+                            IsMergeStart = false;
+                            return;
+                        }
+
+                        MergeLessons(Lesson_mass[FirstLessonForMerge] , Lesson_mass[SecoundLessonForMerge]);
+                       
+                        NumOfChoosenLessonForMerge = 0;
+                        IsMergeStart = false;
+
+                        if(r == DialogResult.Yes)
+                            Lesson_mass.RemoveAt(ChoosenLesson);
+
+                        ChoosenLesson = 0;
+                        AddToLessonChoose();
+                        MessageBox.Show("Слияние завершено");
+
+                        break;
+                }
         }
 
         private void QuestionChoose_AfterSelect(object sender, TreeViewEventArgs e)
@@ -258,8 +342,6 @@ namespace Проект_к_школе
                 args = _args
             });
 
-            LessonChoose.Items.Clear();
-
             AddToLessonChoose();
             FileTools.Log("New lesson created");
         }
@@ -276,7 +358,16 @@ namespace Проект_к_школе
 
         private void слияниеToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (LessonChoose.SelectedIndex == -1)
+                MessageBox.Show("Выберите сначала первый урок , а затем второй");
+            else
+            {
+                MessageBox.Show("Выберите второй урок");
+                FirstLessonForMerge = (byte)ChoosenLesson;
+                NumOfChoosenLessonForMerge = 1;
+            }
 
+            IsMergeStart = true;
         }
 
         private void изменитьУрокToolStripMenuItem_Click(object sender, EventArgs e)
@@ -306,7 +397,6 @@ namespace Проект_к_школе
             Lesson_mass.RemoveAt(ChoosenLesson);
 
             ChoosenLesson = 0;
-            QuestionChoose.Nodes.Clear();
             AddToLessonChoose();
         }
     }

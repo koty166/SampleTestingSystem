@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Проект_к_школе
 {
     public partial class LessonForm : Form
     {
-        public LessonForm(string[] _args = null , string _Name = "" , int _index = 0)
+        public LessonForm(string[] _args = null , string _Name = "-1" , int _index = 0)
         {
             InitializeComponent();
             args = _args;
@@ -27,7 +20,7 @@ namespace Проект_к_школе
             FormWriter f = (FormWriter)Application.OpenForms[0];
             string[] args = new string[] { arg0.Text, arg1.Text, arg2.Text, arg3.Text, arg4.Text };
 
-            if (LessonNameIn == "")
+            if (LessonNameIn == "-1")
                 f.CreateLesson(LessonName.Text, args);
             else
                 f.ChangeLesson(LessonName.Text,args,index);
@@ -37,7 +30,7 @@ namespace Проект_к_школе
 
         private void LessonForm_Load(object sender, EventArgs e)
         {
-            if (LessonNameIn == "") return;
+            if (LessonNameIn == "-1") return;
 
             LessonName.Text = LessonNameIn;
             arg0.Text = args[0];
