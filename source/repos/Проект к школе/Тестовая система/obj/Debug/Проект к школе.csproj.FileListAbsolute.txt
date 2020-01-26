@@ -45,3 +45,18 @@ C:\Users\я\source\repos\Проект к школе\Тестовая систе�
 C:\Users\я\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект к школе.csproj.CopyComplete
 C:\Users\я\source\repos\Проект к школе\Тестовая система\obj\Debug\Тестовая система.exe
 C:\Users\я\source\repos\Проект к школе\Тестовая система\obj\Debug\Тестовая система.pdb
+C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\bin\Debug\Тестовая система.exe.config
+C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\bin\Debug\Тестовая система.exe
+C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\bin\Debug\Тестовая система.pdb
+C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\bin\Debug\ClassLibrary2.dll
+C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\bin\Debug\ClassLibrary2.pdb
+C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект к школе.csprojAssemblyReference.cache
+C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект_к_школе.Form1.resources
+C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект_к_школе.NetworSetting.resources
+C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект_к_школе.Properties.Resources.resources
+C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект_к_школе.Registration.resources
+C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект к школе.csproj.GenerateResource.cache
+C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект к школе.csproj.CoreCompileInputs.cache
+C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект к школе.csproj.CopyComplete
+C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Тестовая система.exe
+C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Тестовая система.pdb

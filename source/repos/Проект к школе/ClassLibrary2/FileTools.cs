@@ -12,14 +12,14 @@ namespace ClassLibrary2
             if(File.Exists( "log.log"))
                 File.Create("log.log").Close();
         }
-        static public void Log(String Message)
+        static public void Log(String Message, bool IsAddEnd = true)
         {
             try
             {
                 if (!File.Exists("log.log"))
                     File.Create("log.log").Close();
 
-                StreamWriter w = new StreamWriter("log.log", true);
+                StreamWriter w = new StreamWriter("log.log", IsAddEnd);
                 w.WriteLine(DateTime.Now + ":" + DateTime.Now.Millisecond + "\t\t" + Message);
                 w.Close();
             }

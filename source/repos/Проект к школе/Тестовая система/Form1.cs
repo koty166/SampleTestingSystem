@@ -135,6 +135,9 @@ namespace Проект_к_школе
             Sender.Client.SendTimeout = 3000;
             this.Enabled = false;
             this.Text = "Ending of test...";
+
+            EndLocal();
+
             for (int i = 0; i < 5; i++)
             {
                 this.Text = $"Попытка подкючения {i + 1} из 5";
@@ -166,11 +169,7 @@ namespace Проект_к_школе
                 for (int i = 0; i < 256; i++)
                 {
                     BufByte = (byte)(63 - Key[i]);
-
-                   // if (BufByte + DataLenght % 100 > 63) BufByte = (byte)(BufByte + DataLenght % 100 - 63);
-                   // else BufByte += (byte)(data.Length % 100);
                     Key[i] = BufByte;
-                   // FileTools.Log(BufByte.ToString());
                 }
 
                 data = (byte[])EncryptClass.Encrypt(pupil, Key , ref DataLenght);
@@ -194,12 +193,12 @@ namespace Проект_к_школе
             {
                 this.Text = "Подключение неудачно.Сохранение локально...";
                 FileTools.Log("Data send is failed");
-                EndLocal();
+
                 this.Text = "Сохранение локально завершено";
                 this.Close();
                 return;
             }
-            EndLocal();
+            
             this.Close();
             return;
         }

@@ -355,8 +355,8 @@ namespace FormServer
             List<Pupil> BufList = new List<Pupil>();
             int dones = 0;
             FileTools.Log("Wait connection started , pupils - " + (int)many);
-          //  try
-            //{
+            try
+            {
                 while (true)
                 {
                     l.Start();
@@ -402,14 +402,12 @@ namespace FormServer
                         for (int i = 0; i < 256; i++)
                         {
                             BufByte = (byte)(63 - Key[i]);
-                            //if (BufByte + NumOfBytes % 100 > 63) BufByte = (byte)(BufByte + NumOfBytes % 100 - 63);
-                        //else BufByte += (byte)(data.Length % 100);
-                        Key[i] = BufByte;
-                        //FileTools.Log(BufByte.ToString());
+                          
+                            Key[i] = BufByte;
                         }
 
 
-                    data = new byte[NumOfBytes];
+                        data = new byte[NumOfBytes];
                         stream.Read(data,0,NumOfBytes);
 
                         pup = (Pupil)DecryptClass.Decrypt(data,Key);
@@ -441,8 +439,8 @@ namespace FormServer
 
                     }
                 }
-           // }
-          //  catch { }
+            }
+            catch(Exception ex) { FileTools.Log(ex.Message); }
         }
     }
 }

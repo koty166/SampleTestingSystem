@@ -1,6 +1,67 @@
-15.01.2020 17:13:58:547		List of lesson is rewrited
-15.01.2020 17:13:58:549		Proggram load sucseed number of lesson - 4
-15.01.2020 17:14:00:150		Registration is began
-15.01.2020 17:14:00:229		Test ClassLibrary2.Lesson is started
-15.01.2020 17:14:04:353		Next clicked
-15.01.2020 17:14:04:357		Registration is done
+23.01.2020 19:11:28:734		List of lesson is rewrited
+23.01.2020 19:11:28:736		Proggram load sucseed number of lesson - 4
+23.01.2020 19:11:31:47		Network setting is opened
+23.01.2020 19:11:32:868		Try to get IP: 1 of 10
+23.01.2020 19:11:33:764		IP was get
+23.01.2020 19:11:36:206		Connection-try start
+23.01.2020 19:11:36:208		Connection try: 1 of 10
+23.01.2020 19:11:36:211		Connected sucsseed by address: 192.168.0.104
+23.01.2020 19:11:36:758		Network setting is closed
+23.01.2020 19:11:38:366		Registration is began
+23.01.2020 19:11:38:378		Test ClassLibrary2.Lesson is started
+23.01.2020 19:11:43:819		Next clicked
+23.01.2020 19:11:43:840		Registration is done
+23.01.2020 19:11:44:402		Next clicked
+23.01.2020 19:11:45:148		Next clicked
+23.01.2020 19:11:45:149		Added to pupil list:no
+23.01.2020 19:11:45:648		Next clicked
+23.01.2020 19:11:45:649		Added to pupil list:no
+23.01.2020 19:11:45:681		Next clicked
+23.01.2020 19:11:45:682		Added to pupil list:no
+23.01.2020 19:11:45:714		Next clicked
+23.01.2020 19:11:45:715		Added to pupil list:no
+23.01.2020 19:11:45:747		Next clicked
+23.01.2020 19:11:45:748		Added to pupil list:no
+23.01.2020 19:11:45:781		Next clicked
+23.01.2020 19:11:45:781		Added to pupil list:no
+23.01.2020 19:11:45:813		Next clicked
+23.01.2020 19:11:45:813		Added to pupil list:no
+23.01.2020 19:11:45:845		Next clicked
+23.01.2020 19:11:45:846		Added to pupil list:no
+23.01.2020 19:11:45:879		Next clicked
+23.01.2020 19:11:45:880		Added to pupil list:no
+23.01.2020 19:11:45:911		Next clicked
+23.01.2020 19:11:45:911		Added to pupil list:no
+23.01.2020 19:11:45:944		Next clicked
+23.01.2020 19:11:45:945		Added to pupil list:no
+23.01.2020 19:11:45:978		Next clicked
+23.01.2020 19:11:45:978		Added to pupil list:no
+23.01.2020 19:11:46:11		Next clicked
+23.01.2020 19:11:46:11		Added to pupil list:no
+23.01.2020 19:11:46:44		Next clicked
+23.01.2020 19:11:46:44		Added to pupil list:no
+23.01.2020 19:11:46:76		Next clicked
+23.01.2020 19:11:46:77		Added to pupil list:no
+23.01.2020 19:11:46:110		Next clicked
+23.01.2020 19:11:46:111		Added to pupil list:no
+23.01.2020 19:11:46:143		Next clicked
+23.01.2020 19:11:46:143		Added to pupil list:no
+23.01.2020 19:11:46:176		Next clicked
+23.01.2020 19:11:46:177		Added to pupil list:no
+23.01.2020 19:11:46:209		Next clicked
+23.01.2020 19:11:46:210		Added to pupil list:no
+23.01.2020 19:11:46:242		Next clicked
+23.01.2020 19:11:46:243		Added to pupil list:no
+23.01.2020 19:11:46:275		Next clicked
+23.01.2020 19:11:46:276		Added to pupil list:no
+23.01.2020 19:11:46:308		Next clicked
+23.01.2020 19:11:46:309		Added to pupil list:no
+23.01.2020 19:11:46:341		Next clicked
+23.01.2020 19:11:46:342		Added to pupil list:no
+23.01.2020 19:11:46:374		Next clicked
+23.01.2020 19:11:46:375		Added to pupil list:no
+23.01.2020 19:11:46:408		Next clicked
+23.01.2020 19:11:46:408		Added to pupil list:no
+23.01.2020 19:11:46:449		Save local end.Path: Tests\Save.sav
+23.01.2020 19:11:46:457		Data send is end sucseed
+23.01.2020 19:11:47:963		End of test

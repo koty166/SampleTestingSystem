@@ -44,10 +44,8 @@
             this.Answer2 = new System.Windows.Forms.RadioButton();
             this.Answer1 = new System.Windows.Forms.RadioButton();
             this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -69,7 +67,7 @@
             // ExplanationLabel
             // 
             this.ExplanationLabel.AutoSize = true;
-            this.ExplanationLabel.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.ExplanationLabel.BackColor = System.Drawing.Color.Transparent;
             this.ExplanationLabel.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.ExplanationLabel.Location = new System.Drawing.Point(25, 26);
             this.ExplanationLabel.Name = "ExplanationLabel";
@@ -138,7 +136,7 @@
             // QuestionLabel
             // 
             this.QuestionLabel.AutoSize = true;
-            this.QuestionLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.QuestionLabel.BackColor = System.Drawing.Color.Transparent;
             this.QuestionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.QuestionLabel.Location = new System.Drawing.Point(18, 16);
             this.QuestionLabel.Name = "QuestionLabel";
@@ -208,20 +206,12 @@
             this.pictureBox.TabStop = false;
             this.pictureBox.Visible = false;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(597, 418);
-            this.pictureBox1.TabIndex = 30;
-            this.pictureBox1.TabStop = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(597, 418);
             this.Controls.Add(this.Start);
             this.Controls.Add(this.ExplanationLabel);
@@ -230,7 +220,6 @@
             this.Controls.Add(this.AnswerTextSetup);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox);
-            this.Controls.Add(this.pictureBox1);
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
@@ -243,7 +232,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -265,7 +253,6 @@
         private System.Windows.Forms.RadioButton Answer1;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.RadioButton Answer5;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
