@@ -30,7 +30,6 @@ namespace Проект_к_школе
         }
         void CheckImage()
         {
-
             ImageName = ImageChooseDialog.SafeFileName;
             ImageNameSetup.Text = ImageName;
 
@@ -78,6 +77,7 @@ namespace Проект_к_школе
             }
 
             form.Enabled = true;
+            form.UpdateQuestions();
             this.Dispose();
         }
 
@@ -97,5 +97,6 @@ namespace Проект_к_школе
         { 
             toolTip1.Show("Для проверки нажми Enter",(IWin32Window)sender);
         }
+
     }
 }

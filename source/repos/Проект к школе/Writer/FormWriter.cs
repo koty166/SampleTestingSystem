@@ -21,14 +21,6 @@ namespace Проект_к_школе
         bool IsMergeStart;
         byte NumOfChoosenLessonForMerge = 0 , FirstLessonForMerge , SecoundLessonForMerge;
 
-        struct LessonStruct
-        {
-            public List<object> QuestionList;
-            public String Name;
-
-            public object[] args;
-        }
-
         void AddToLessonChoose() 
         {
             LessonChoose.Items.Clear();
@@ -103,21 +95,17 @@ namespace Проект_к_школе
             FileTools.Log("Tests saved sucsseed");
         }
 
+        List<object> CopyFromArrayToList(object[] Array)
+        {
+            List<object> l = new List<object>();
+            for (int i = 0; i < Array.Length; i++)
+                l.Add(Array[i]);
+            return l;
+        }
+
         void MergeLessons(Lesson _FirstLesson , Lesson _SecoundLesson)
         {
-            LessonStruct LessonStruct1 = new LessonStruct()
-            {
-                QuestionList = _FirstLesson.QuestionList,
-                args = _FirstLesson.args,
-                Name = _FirstLesson.Name
-            };
-            LessonStruct LessonStruct2 = new LessonStruct()
-            {
-                QuestionList = _SecoundLesson.QuestionList,
-                args = _SecoundLesson.args,
-                Name = _SecoundLesson.Name
-            };
-
+            object[] Array1 = _FirstLesson.QuestionList.ToArray(), Array2 = _SecoundLesson.QuestionList.ToArray();
             try
             {
                 foreach (var i in _SecoundLesson.QuestionList)
@@ -126,20 +114,27 @@ namespace Проект_к_школе
             catch
             {
                 MessageBox.Show("Операция копирования произведена с ошибкой, изменения будут отменены");
-
-                Lesson_mass[FirstLessonForMerge] = new Lesson()
+                 Lesson_mass[FirstLessonForMerge] = new Lesson()
                 {
-                    Name = LessonStruct1.Name,
-                    QuestionList = LessonStruct1.QuestionList,
-                    args = LessonStruct1.args
+                    Name = _FirstLesson.Name,
+                    QuestionList = CopyFromArrayToList(Array1),
+                    args = _FirstLesson.args
                 };
                 Lesson_mass[SecoundLessonForMerge] = new Lesson()
                 {
-                    Name = LessonStruct2.Name,
-                    QuestionList = LessonStruct2.QuestionList,
-                    args = LessonStruct2.args
+                    Name = _SecoundLesson.Name,
+                    QuestionList = CopyFromArrayToList(Array2),
+                    args = _SecoundLesson.args
                 };
             }
+        }
+
+        internal void UpdateQuestions()
+        {
+            QuestionChoose.Nodes.Clear();
+
+            foreach (var i in Lesson_mass[ChoosenLesson].QuestionList)
+                AddToQuestionChoose(i);
         }
 
         private void LessonChoose_SelectedIndexChanged(object sender, EventArgs e)
@@ -147,10 +142,8 @@ namespace Проект_к_школе
 
             if (LessonChoose.SelectedItem != null && LessonChoose.SelectedIndex >= 0 && LessonChoose.SelectedIndex < LessonChoose.Items.Count)
                 ChoosenLesson = LessonChoose.SelectedIndex;
-            QuestionChoose.Nodes.Clear();
 
-            foreach (var i in Lesson_mass[ChoosenLesson].QuestionList)
-                AddToQuestionChoose(i);
+            UpdateQuestions();
 
             FileTools.Log("Lesson choose is change");
 
@@ -190,39 +183,39 @@ namespace Проект_к_школе
                 }
         }
 
-        private void QuestionChoose_AfterSelect(object sender, TreeViewEventArgs e)
+        void CreateLessonForms()
         {
             Lesson CurrentLesson = Lesson_mass[ChoosenLesson];
-            ChoosenQuestion = QuestionChoose.SelectedNode.Index;
-            if (CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index].GetType() == new Explanation().GetType())
+            ChoosenQuestion = QuestionChoose.SelectedNode != null ? QuestionChoose.SelectedNode.Index : 0;
+            if (CurrentLesson.QuestionList[ChoosenQuestion].GetType() == new Explanation().GetType())
             {
                 ExplanationFormSetup form = new ExplanationFormSetup();
-                form.LocalQuestion = (Explanation)CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index];
-                form.Text = "Индекс: " + QuestionChoose.SelectedNode.Index.ToString();
+                form.LocalQuestion = (Explanation)CurrentLesson.QuestionList[ChoosenQuestion];
+                form.Text = "Индекс: " + ChoosenQuestion.ToString();
                 FileTools.Log("Explanation setup opened as rewrite");
                 form.Show();
                 this.Enabled = false;
             }
-            else if (CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index].GetType() == new Question().GetType())
+            else if (CurrentLesson.QuestionList[ChoosenQuestion].GetType() == new Question().GetType())
             {
                 QuestionSetupForm form = new QuestionSetupForm();
-                form.LocalQuestion = (Question)CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index];
-                form.Text = "Индекс: " + QuestionChoose.SelectedNode.Index.ToString();
+                form.LocalQuestion = (Question)CurrentLesson.QuestionList[ChoosenQuestion];
+                form.Text = "Индекс: " + ChoosenQuestion.ToString();
                 FileTools.Log("Йquestion setup opened as rewrite");
                 form.Show();
                 this.Enabled = false;
 
             }
-            else if (CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index].GetType() == new ImageQuestion().GetType())
+            else if (CurrentLesson.QuestionList[ChoosenQuestion].GetType() == new ImageQuestion().GetType())
             {
                 ImageQuestionSetupForm form = new ImageQuestionSetupForm();
-                form.LocalQuestion = (ImageQuestion)CurrentLesson.QuestionList[QuestionChoose.SelectedNode.Index];
-                form.Text = "Индекс: " + QuestionChoose.SelectedNode.Index.ToString();
+                form.LocalQuestion = (ImageQuestion)CurrentLesson.QuestionList[ChoosenQuestion];
+                form.Text = "Индекс: " + ChoosenQuestion.ToString();
                 FileTools.Log("Image question setup opened as rewrite");
                 form.Show();
                 this.Enabled = false;
             }
-            
+
         }
 
         private void FromTxt_Click(object sender, EventArgs e)
@@ -368,6 +361,18 @@ namespace Проект_к_школе
             }
 
             IsMergeStart = true;
+        }
+
+        private void QuestionChoose_DoubleClick(object sender, EventArgs e)
+        {
+            FileTools.Log("Double Click");
+            CreateLessonForms();
+        }
+
+        private void QuestionChoose_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+                CreateLessonForms();
         }
 
         private void изменитьУрокToolStripMenuItem_Click(object sender, EventArgs e)

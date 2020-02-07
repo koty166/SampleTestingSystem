@@ -170,6 +170,7 @@
             this.Controls.Add(this.QuestionSetupLabel);
             this.Controls.Add(this.QuestionSetup);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MinimizeBox = false;
             this.Name = "QuestionSetupForm";
             this.Text = "QuestionSetupForm";

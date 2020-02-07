@@ -18,7 +18,7 @@ namespace Проект_к_школе
             Question q = new Question();
             FormWriter form = (FormWriter)Application.OpenForms[0];
 
-            q.Question_s = QuestionSetup.Text;
+            q.Question_s = QuestionSetup.Text != "" ? QuestionSetup.Text : "  ";
             q.Answers[0] = AnswerSetup1.Text;
             q.Answers[1] = AnswerSetup2.Text;
             q.Answers[2] = AnswerSetup3.Text;
@@ -34,6 +34,7 @@ namespace Проект_к_школе
                 form.Lesson_mass[form.ChoosenLesson].QuestionList[form.ChoosenQuestion] = q;
             }
             form.Enabled = true;
+            form.UpdateQuestions();
             this.Dispose();
         }
 

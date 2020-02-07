@@ -57,11 +57,11 @@
             // 
             this.QuestionChoose.Location = new System.Drawing.Point(12, 41);
             this.QuestionChoose.Name = "QuestionChoose";
-            this.QuestionChoose.Scrollable = false;
             this.QuestionChoose.ShowRootLines = false;
             this.QuestionChoose.Size = new System.Drawing.Size(268, 433);
             this.QuestionChoose.TabIndex = 11;
-            this.QuestionChoose.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.QuestionChoose_AfterSelect);
+            this.QuestionChoose.DoubleClick += new System.EventHandler(this.QuestionChoose_DoubleClick);
+            this.QuestionChoose.KeyDown += new System.Windows.Forms.KeyEventHandler(this.QuestionChoose_KeyDown);
             // 
             // LessonChoose
             // 

@@ -32,6 +32,7 @@ namespace Проект_к_школе
                 form.Lesson_mass[form.ChoosenLesson].QuestionList[form.ChoosenQuestion] = ex;
             }
             form.Enabled = true;
+            form.UpdateQuestions();
             this.Dispose();
         }
 

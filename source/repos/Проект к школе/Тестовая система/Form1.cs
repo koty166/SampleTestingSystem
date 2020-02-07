@@ -55,7 +55,7 @@ namespace Проект_к_школе
             }
             catch
             {
-                NextImage = Image.FromFile(directory + $"//images//Error.png");
+                NextImage =File.Exists(directory + $"//images//Error.png") ? Image.FromFile(directory + $"//images//Error.png") : null ;
                 FileTools.Log("Picture load failed , load error picture");
             }
         }
@@ -64,7 +64,7 @@ namespace Проект_к_школе
         {
             String[] File_mass_date;
             FileTools.Clear();
-            File_mass_date = Directory.GetFiles(directory, "*.dat");
+            File_mass_date = Directory.GetFiles(directory, "*.dat",SearchOption.AllDirectories);
 
             if (File_mass_date.Length != 0)
             {
@@ -80,7 +80,7 @@ namespace Проект_к_школе
                 }
             }
             Load_in_form();
-            FileTools.Log($"Proggram load sucseed number of lesson - {Lesson_mass.Length.ToString()}");
+            FileTools.Log($"Proggram load sucseed number of lesson - {Lesson_mass.Length.ToString()}",true);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
