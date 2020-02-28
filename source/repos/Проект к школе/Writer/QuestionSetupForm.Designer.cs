@@ -57,14 +57,14 @@
             this.QuestionSetup.Location = new System.Drawing.Point(104, 11);
             this.QuestionSetup.Name = "QuestionSetup";
             this.QuestionSetup.Size = new System.Drawing.Size(267, 20);
-            this.QuestionSetup.TabIndex = 19;
+            this.QuestionSetup.TabIndex = 1;
             // 
             // AddQuestion
             // 
             this.AddQuestion.Location = new System.Drawing.Point(236, 138);
             this.AddQuestion.Name = "AddQuestion";
             this.AddQuestion.Size = new System.Drawing.Size(135, 25);
-            this.AddQuestion.TabIndex = 22;
+            this.AddQuestion.TabIndex = 7;
             this.AddQuestion.Text = "Добавить";
             this.AddQuestion.UseVisualStyleBackColor = true;
             this.AddQuestion.Click += new System.EventHandler(this.AddQuestion_Click);
@@ -110,28 +110,28 @@
             this.AnswerSetup4.Location = new System.Drawing.Point(288, 91);
             this.AnswerSetup4.Name = "AnswerSetup4";
             this.AnswerSetup4.Size = new System.Drawing.Size(83, 20);
-            this.AnswerSetup4.TabIndex = 29;
+            this.AnswerSetup4.TabIndex = 5;
             // 
             // AnswerSetup3
             // 
             this.AnswerSetup3.Location = new System.Drawing.Point(288, 43);
             this.AnswerSetup3.Name = "AnswerSetup3";
             this.AnswerSetup3.Size = new System.Drawing.Size(83, 20);
-            this.AnswerSetup3.TabIndex = 28;
+            this.AnswerSetup3.TabIndex = 3;
             // 
             // AnswerSetup2
             // 
             this.AnswerSetup2.Location = new System.Drawing.Point(104, 91);
             this.AnswerSetup2.Name = "AnswerSetup2";
             this.AnswerSetup2.Size = new System.Drawing.Size(83, 20);
-            this.AnswerSetup2.TabIndex = 27;
+            this.AnswerSetup2.TabIndex = 4;
             // 
             // AnswerSetup1
             // 
             this.AnswerSetup1.Location = new System.Drawing.Point(104, 45);
             this.AnswerSetup1.Name = "AnswerSetup1";
             this.AnswerSetup1.Size = new System.Drawing.Size(83, 20);
-            this.AnswerSetup1.TabIndex = 26;
+            this.AnswerSetup1.TabIndex = 2;
             // 
             // Answer5Label
             // 
@@ -148,7 +148,7 @@
             this.AnswerSetup5.Location = new System.Drawing.Point(104, 138);
             this.AnswerSetup5.Name = "AnswerSetup5";
             this.AnswerSetup5.Size = new System.Drawing.Size(83, 20);
-            this.AnswerSetup5.TabIndex = 34;
+            this.AnswerSetup5.TabIndex = 6;
             this.AnswerSetup5.Visible = false;
             // 
             // QuestionSetupForm
@@ -176,6 +176,7 @@
             this.Text = "QuestionSetupForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.QuestionSetupForm_FormClosing);
             this.Load += new System.EventHandler(this.QuestionSetupForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.QuestionSetupForm_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

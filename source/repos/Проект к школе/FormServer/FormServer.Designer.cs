@@ -289,7 +289,6 @@
             this.FromTxt.TabIndex = 5;
             this.FromTxt.Text = "из txt";
             this.FromTxt.UseVisualStyleBackColor = true;
-            this.FromTxt.Visible = false;
             this.FromTxt.Click += new System.EventHandler(this.FromTxt_Click);
             // 
             // BeginAnalysis
@@ -334,7 +333,8 @@
             this.TypeOfAnalis.FormattingEnabled = true;
             this.TypeOfAnalis.Items.AddRange(new object[] {
             "Бланк мотивации",
-            "ШТУР"});
+            "ШТУР",
+            "Отобразить в Exel"});
             this.TypeOfAnalis.Location = new System.Drawing.Point(8, 50);
             this.TypeOfAnalis.Name = "TypeOfAnalis";
             this.TypeOfAnalis.Size = new System.Drawing.Size(142, 108);

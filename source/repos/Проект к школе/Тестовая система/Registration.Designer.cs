@@ -146,10 +146,10 @@
             this.IsMale.BackColor = System.Drawing.SystemColors.Control;
             this.IsMale.Location = new System.Drawing.Point(15, 221);
             this.IsMale.Name = "IsMale";
-            this.IsMale.Size = new System.Drawing.Size(63, 17);
+            this.IsMale.Size = new System.Drawing.Size(51, 17);
             this.IsMale.TabIndex = 25;
             this.IsMale.TabStop = true;
-            this.IsMale.Text = "Парень";
+            this.IsMale.Text = "Жен.";
             this.IsMale.UseVisualStyleBackColor = false;
             // 
             // IsFemale
@@ -158,10 +158,10 @@
             this.IsFemale.BackColor = System.Drawing.SystemColors.Control;
             this.IsFemale.Location = new System.Drawing.Point(16, 198);
             this.IsFemale.Name = "IsFemale";
-            this.IsFemale.Size = new System.Drawing.Size(71, 17);
+            this.IsFemale.Size = new System.Drawing.Size(50, 17);
             this.IsFemale.TabIndex = 26;
             this.IsFemale.TabStop = true;
-            this.IsFemale.Text = "Девушка";
+            this.IsFemale.Text = "Муж.";
             this.IsFemale.UseVisualStyleBackColor = false;
             // 
             // AgeLabel

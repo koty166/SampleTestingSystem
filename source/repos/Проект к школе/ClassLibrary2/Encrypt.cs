@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Text;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
-using System.Threading;
 
 namespace ClassLibrary2.Security
 {
@@ -21,23 +17,17 @@ namespace ClassLibrary2.Security
             return mas;
         }
 
-        public static byte[] Encrypt(Pupil p, byte[] key ,ref int DataLenght)
+        public static byte[] Encrypt(byte[] SerilisedData, byte[] key ,ref int DataLenght)
         {
-            byte[] mas, Out;
+            byte[]  Out;
             int l = 0;
             List<byte[]> List = new List<byte[]>();
 
-            BinaryFormatter b = new BinaryFormatter();
-            MemoryStream s = new MemoryStream();
-            b.Serialize(s, p);
-
-            mas = s.ToArray();
-
-            for (int i = 0; i < mas.Length; i++)
+            for (int i = 0; i < SerilisedData.Length; i++)
             {
                 if (l == key.Length) l = 0;
 
-                List.Add(EncryptBlock(mas[i], key[l], i));
+                List.Add(EncryptBlock(SerilisedData[i], key[l], i));
 
                 l++;
             }

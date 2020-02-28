@@ -10,3 +10,9 @@ C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\AnalysisLibr
 C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\AnalysisLibrary\obj\Debug\AnalysisLibrary.csproj.CoreCompileInputs.cache
 C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\AnalysisLibrary\obj\Debug\AnalysisLibrary.dll
 C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\AnalysisLibrary\obj\Debug\AnalysisLibrary.pdb
+C:\Users\я\Desktop\Проект к школе\AnalysisLibrary\bin\Debug\AnalysisLibrary.dll
+C:\Users\я\Desktop\Проект к школе\AnalysisLibrary\bin\Debug\AnalysisLibrary.pdb
+C:\Users\я\Desktop\Проект к школе\AnalysisLibrary\obj\Debug\AnalysisLibrary.csprojAssemblyReference.cache
+C:\Users\я\Desktop\Проект к школе\AnalysisLibrary\obj\Debug\AnalysisLibrary.csproj.CoreCompileInputs.cache
+C:\Users\я\Desktop\Проект к школе\AnalysisLibrary\obj\Debug\AnalysisLibrary.dll
+C:\Users\я\Desktop\Проект к школе\AnalysisLibrary\obj\Debug\AnalysisLibrary.pdb

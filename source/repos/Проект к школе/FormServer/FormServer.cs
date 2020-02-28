@@ -33,13 +33,6 @@ namespace FormServer
             int n = 0;
             string[] MarkMass;
 
-
-            ListOfPupil.Add(new Pupil(
-                 15, 2, "awd", "awd", "awd"
-                 ));
-            for (int i = 0; i < 10; i++)
-                ListOfPupil[0].AnswerList.Add(i.ToString());
-
             FileTools.Log("Choosen show on Exel");
             
             if (pupList.Count == 0) return;
@@ -59,78 +52,80 @@ namespace FormServer
             WorkBook = ex.Workbooks.Add();
             WorkSheet = ex.Worksheets[1];
             if (ex.Worksheets.Count == 1)
-                ex.Worksheets.Add(After: ex.Worksheets[1]);          
-           
-            int j = 0;
+                ex.Worksheets.Add(After: ex.Worksheets[1]);
 
-            foreach (var item in pupList)
+            int j = 0, k = pupList[0].args[0] != null ? int.Parse(pupList[0].args[0]) : 7;
+            try
             {
-                for (int i = 0; i < item.AnswerList.Count; i++)
-                {
-                    WorkSheet.Cells[j * 7 + 1, i + 6] = "№" + (i + 1);
-                }
-                WorkSheet.Cells[7 * j + 1, 1] = "Данные";
-                WorkSheet.Cells[7 * j + 1, 4] = "Результаты";
-
-                WorkSheet.Cells[7 * j + 2, 1] = "Имя:";
-                WorkSheet.Cells[7 * j + 3, 1] = "Фамилия:";
-                WorkSheet.Cells[7 * j + 4, 1] = "Отчество:";
-                WorkSheet.Cells[7 * j + 5, 1] = "Возраст:";
-                WorkSheet.Cells[7 * j + 6, 1] = "Класс:";
-
-                WorkSheet.Cells[7 * j + 2, 2] = item.Name;
-                WorkSheet.Cells[7 * j + 3, 2] = item.Surname;
-                WorkSheet.Cells[7 * j + 4, 2] = item.Patronymic;
-                WorkSheet.Cells[7 * j + 5, 2] = item.Age;
-                WorkSheet.Cells[7 * j + 6, 2] = item.Form;
-
-                for (int i = 0; i < item.AnswerList.Count; i++)
-                {
-                    WorkSheet.Cells[j * 7 + 2, i + 6] = item.AnswerList[i];
-                }
-                if (item.MarkForTest != null)
-                {
-                    MarkMass = item.MarkForTest.Split(';');
-                    
-                    WorkSheet.Cells[j * 7 + 1, item.AnswerList.Count + 6] = "Результаты анализа:";
-
-                    int m = 1;
-                    foreach (var i in MarkMass)
-                    {
-                        WorkSheet.Cells[j * 7 + m, item.AnswerList.Count + 9] = i;
-                        m++;
-                    }
-                }
-                j++;
-
-            }
-            if (pupList[0].MarkForTest != null)
-            {
-                WorkSheet = ex.Worksheets[2];
-                j = 2;
-                //////////like a test
-                pupList[0].args[3] = "Познавательная активность;Мотивация достижения;Тревожность;Гнев";
-                ////////////
-                WorkSheet.Cells[1, 1] = "ФИО:";
-
-                string[] Title = pupList[0].args[3].Split(';');
-
-                for (int i = 0; i < Title.Length; i++)
-                {
-                    WorkSheet.Cells[1, i + 2] = Title[i];
-                }
-
                 foreach (var item in pupList)
                 {
-                    MarkMass = item.MarkForTest.Split(';');
-                    WorkSheet.Cells[j, 1] = $"{item.Surname} {item.Name} {item.Patronymic}";
+                    for (int i = 0; i < item.AnswerList.Count; i++)
+                    {
+                        WorkSheet.Cells[k * j + 1, i + 6] = "№" + (i + 1);
+                    }
+                    WorkSheet.Cells[k * j + 1, 1] = "Данные";
+                    WorkSheet.Cells[k * j + 1, 4] = "Результаты";
 
-                    for (int i = 0; i < MarkMass.Length; i++)
-                        WorkSheet.Cells[j, i + 2] = MarkMass[i];
+                    WorkSheet.Cells[k * j + 2, 1] = "Имя:";
+                    WorkSheet.Cells[k * j + 3, 1] = "Фамилия:";
+                    WorkSheet.Cells[k * j + 4, 1] = "Отчество:";
+                    WorkSheet.Cells[k * j + 5, 1] = "Возраст:";
+                    WorkSheet.Cells[k * j + 6, 1] = "Класс:";
 
+                    WorkSheet.Cells[k * j + 2, 2] = item.Name;
+                    WorkSheet.Cells[k * j + 3, 2] = item.Surname;
+                    WorkSheet.Cells[k * j + 4, 2] = item.Patronymic;
+                    WorkSheet.Cells[k * j + 5, 2] = item.Age;
+                    WorkSheet.Cells[k * j + 6, 2] = item.Form;
+
+                    for (int i = 0; i < item.AnswerList.Count; i++)
+                    {
+                        WorkSheet.Cells[k * j + 2, i + 6] = item.AnswerList[i];
+                    }
+                    if (item.MarkForTest != null)
+                    {
+                        MarkMass = item.MarkForTest.Split(';');
+
+                        WorkSheet.Cells[j * k + 1, item.AnswerList.Count + 6] = "Результаты анализа:";
+
+                        int m = 1;
+                        foreach (var i in MarkMass)
+                        {
+                            WorkSheet.Cells[j * k + m, item.AnswerList.Count + 9] = i;
+                            m++;
+                        }
+                    }
                     j++;
+
+                }
+
+                if (pupList[0].MarkForTest != null)
+                {
+                    WorkSheet = ex.Worksheets[2];
+                    j = 2;
+
+                    WorkSheet.Cells[1, 1] = "ФИО:";
+
+                    string[] Title = pupList[0].args[3].Split(';');
+
+                    for (int i = 0; i < Title.Length; i++)
+                    {
+                        WorkSheet.Cells[1, i + 2] = Title[i];
+                    }
+                    //////////////////
+                    foreach (var item in pupList)
+                    {
+                        MarkMass = item.args[2].Split(';');
+                        WorkSheet.Cells[j, 1] = $"{item.Surname} {item.Name} {item.Patronymic}";
+
+                        for (int i = 0; i < MarkMass.Length; i++)
+                            WorkSheet.Cells[j, i + 2] = MarkMass[i];
+
+                        j++;
+                    }
                 }
             }
+            catch(Exception exep) { FileTools.Log(exep.Message); }
             DialogResult d = MessageBox.Show("Сохранить файл Exel в папку приложения?", "Сохранить", MessageBoxButtons.YesNo);
             if (d == DialogResult.Yes)
             {
@@ -220,18 +215,17 @@ namespace FormServer
         {
             FileStream f = new FileStream(FileForAnalysisPath,FileMode.Open);
             BinaryFormatter b = new BinaryFormatter();
-            List<Pupil> pupList;
-
+            List<Pupil> pupList = null;
+            
             try
             {
               pupList = (List<Pupil>)b.Deserialize(f);
             }
             catch
             {
-                pupList = new List<Pupil>
-                {
-                    (Pupil)b.Deserialize(f)
-                };
+                f.Seek(0, SeekOrigin.Begin);
+                pupList = new List<Pupil>();
+                pupList.Add((Pupil)b.Deserialize(f));    
             }
 
             f.Close();
@@ -242,7 +236,7 @@ namespace FormServer
                     if (AnalysisClass.MotivationAnalysis(pupList) == 1)
                     {
                         MessageBox.Show("Ошибка обработки , смените дамп");
-                        //return;
+                        return;
                     }
                     break;
                 case 1:
@@ -252,6 +246,11 @@ namespace FormServer
                         return;
                     }
                     break;
+                case 2:
+                    {
+                        WriteInExel(pupList,"Showed exel");
+                        return;
+                    }
             }
 
             WriteInExel(pupList,"ModifiedExcel");
@@ -284,23 +283,30 @@ namespace FormServer
 
         private void FromTxt_Click(object sender, EventArgs e)
         {
-            StreamReader r = new StreamReader(Environment.CurrentDirectory + "\\read.txt");
-            Pupil p = new Pupil();
-            string[] mas = r.ReadLine().Split(' ');
-            p.Name = mas[0];
-            p.Surname = mas[1];
-            p.Patronymic = mas[2];
-            p.Age = byte.Parse(mas[3]);
-            p.Form = byte.Parse(mas[4]);
-            p.IsMale = bool.Parse(mas[5]);//////Need to write - "true"
-            while(true)
+           
+            Pupil p = null;
+            for (int i = 0; i < 2; i++)
             {
-                string s = r.ReadLine();
-                if (s == "0") break;
-                p.AnswerList.Add(s);
+                StreamReader r = new StreamReader(Environment.CurrentDirectory + "\\read.txt");
+                p = new Pupil();
+                string[] mas = r.ReadLine().Split(' ');
+                p.Name = mas[0];
+                p.Surname = mas[1];
+                p.Patronymic = mas[2];
+                p.Age = byte.Parse(mas[3]);
+                p.Form = byte.Parse(mas[4]);
+                p.IsMale = bool.Parse(mas[5]);//////Need to write - "true"
+                while (true)
+                {
+                    string s = r.ReadLine();
+                    if (s == "0") break;
+                    p.AnswerList.Add(s);
+                }
+                r.Close();
+                ListOfPupil.Add(p);
             }
-            r.Close();
-            ListOfPupil.Add(p);
+            
+            MessageBox.Show("Done");
         }
 
         private void FormServer_Load(object sender, EventArgs e) => FileTools.Clear();
@@ -339,6 +345,7 @@ namespace FormServer
 
             FileTools.Log("Listen data is start");
         }
+
         static int IntFromBytes(byte[] Bytes)
         {
             int Out = 1;
@@ -346,6 +353,7 @@ namespace FormServer
                 Out *= (int)i;
             return Out;
         }
+
         static void WaitForConnection(object many)
         {
             TcpListener l = new TcpListener(9090);
@@ -355,6 +363,7 @@ namespace FormServer
             List<Pupil> BufList = new List<Pupil>();
             int dones = 0;
             FileTools.Log("Wait connection started , pupils - " + (int)many);
+
             try
             {
                 while (true)
@@ -388,23 +397,23 @@ namespace FormServer
 
                         stream.Write(Key,0,256);
 
-                        
-
                         data = new byte[4];
                         stream.Read(data,0,data.Length);
                         NumOfBytes = BitConverter.ToInt32(data,0);
 
-                    foreach (var item in Key)
-                    {
-                        FileTools.Log(item.ToString());
-                    }
-                    FileTools.Log("  ");
+                       
+                         
                         for (int i = 0; i < 256; i++)
                         {
                             BufByte = (byte)(63 - Key[i]);
-                          
                             Key[i] = BufByte;
                         }
+
+                        foreach (var item in Key)
+                        {
+                            FileTools.Log(item.ToString());
+                        }
+                        FileTools.Log("  ");
 
 
                         data = new byte[NumOfBytes];

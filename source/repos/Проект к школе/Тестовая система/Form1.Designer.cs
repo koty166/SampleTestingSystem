@@ -213,10 +213,10 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(597, 418);
+            this.Controls.Add(this.Next);
             this.Controls.Add(this.Start);
             this.Controls.Add(this.ExplanationLabel);
             this.Controls.Add(this.list_of_lessons);
-            this.Controls.Add(this.Next);
             this.Controls.Add(this.AnswerTextSetup);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox);

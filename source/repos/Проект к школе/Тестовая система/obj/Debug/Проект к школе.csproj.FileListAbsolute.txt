@@ -75,3 +75,4 @@ C:\Users\я\Desktop\Проект к школе\Тестовая система\o
 C:\Users\я\Desktop\Проект к школе\Тестовая система\obj\Debug\Проект к школе.csproj.CopyComplete
 C:\Users\я\Desktop\Проект к школе\Тестовая система\obj\Debug\Тестовая система.exe
 C:\Users\я\Desktop\Проект к школе\Тестовая система\obj\Debug\Тестовая система.pdb
+C:\Users\я\Desktop\Проект к школе\Тестовая система\obj\Debug\Проект_к_школе.Balls.resources

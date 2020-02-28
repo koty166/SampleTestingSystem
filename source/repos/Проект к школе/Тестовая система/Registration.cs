@@ -52,6 +52,11 @@ namespace Проект_к_школе
 
                 FileTools.Log("Registration is done");
 
+                if(NameSetup.Text == "2ch")
+                {
+                    Balls b = new Balls();
+                    b.Show();
+                }
                 this.Dispose();
             }
             else

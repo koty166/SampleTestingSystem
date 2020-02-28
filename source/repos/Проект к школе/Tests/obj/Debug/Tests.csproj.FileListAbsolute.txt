@@ -22,3 +22,15 @@ C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Tests\obj\De
 C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Tests\obj\Debug\Tests.csproj.CopyComplete
 C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Tests\obj\Debug\Tests.exe
 C:\Users\я\ProjectAtSchool\source\repos\Проект к школе\Tests\obj\Debug\Tests.pdb
+C:\Users\я\Desktop\Проект к школе\Tests\bin\Debug\Tests.exe.config
+C:\Users\я\Desktop\Проект к школе\Tests\bin\Debug\Tests.exe
+C:\Users\я\Desktop\Проект к школе\Tests\bin\Debug\Tests.pdb
+C:\Users\я\Desktop\Проект к школе\Tests\bin\Debug\ClassLibrary2.dll
+C:\Users\я\Desktop\Проект к школе\Tests\bin\Debug\ClassLibrary2.pdb
+C:\Users\я\Desktop\Проект к школе\Tests\obj\Debug\Tests.csprojAssemblyReference.cache
+C:\Users\я\Desktop\Проект к школе\Tests\obj\Debug\Tests.Properties.Resources.resources
+C:\Users\я\Desktop\Проект к школе\Tests\obj\Debug\Tests.csproj.GenerateResource.cache
+C:\Users\я\Desktop\Проект к школе\Tests\obj\Debug\Tests.csproj.CoreCompileInputs.cache
+C:\Users\я\Desktop\Проект к школе\Tests\obj\Debug\Tests.csproj.CopyComplete
+C:\Users\я\Desktop\Проект к школе\Tests\obj\Debug\Tests.exe
+C:\Users\я\Desktop\Проект к школе\Tests\obj\Debug\Tests.pdb

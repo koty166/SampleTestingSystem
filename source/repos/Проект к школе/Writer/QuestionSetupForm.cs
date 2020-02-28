@@ -13,6 +13,8 @@ namespace Проект_к_школе
         }
         internal Question LocalQuestion;    
         bool IsChange;
+        int CurrentIndex = 0;
+
         private void AddQuestion_Click(object sender, EventArgs e)
         {
             Question q = new Question();
@@ -67,6 +69,36 @@ namespace Проект_к_школе
         {
             Application.OpenForms[0].Enabled = true;
             FileTools.Log("Question create is done");
+        }
+
+        private void QuestionSetupForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            CurrentIndex = CurrentIndex == 5 ? 0 : CurrentIndex + 1;
+            if(e.KeyCode == Keys.Enter)
+            {
+                switch(CurrentIndex)
+                {
+                    case 0:
+                        QuestionSetup.Focus();
+                        break;
+                    case 1:
+                        AnswerSetup1.Focus();
+                        break;
+                    case 2:
+                        AnswerSetup2.Focus();
+                        break;
+                    case 3:
+                        AnswerSetup3.Focus();
+                        break;
+                    case 4:
+                        AnswerSetup4.Focus();
+                        if (!AnswerSetup5.Visible) CurrentIndex = -1;
+                        break;
+                    case 5:
+                        AnswerSetup5.Focus();
+                        break;
+                }
+            }
         }
     }
 }

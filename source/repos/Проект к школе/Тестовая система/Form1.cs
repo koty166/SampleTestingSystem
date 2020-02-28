@@ -100,7 +100,6 @@ namespace Проект_к_школе
         {
             if (list_of_lessons.SelectedItem != null)
             {
-                
                 IsTestStar = true;
 
                 Start.Visible = false;
@@ -116,27 +115,39 @@ namespace Проект_к_школе
             }
         }
 
-        void EndLocal()
+        void EndLocal(byte[] _PupilData)
         {
             if (File.Exists(directory + "\\Save.sav")) File.Delete(directory + "\\Save.sav");
-            BinaryFormatter b = new BinaryFormatter();
+
             FileStream s = new FileStream(directory + "\\Save.sav", FileMode.Create);
-            b.Serialize(s, pupil);
+
+            s.Write(_PupilData, 0, _PupilData.Length);
             s.Close();
+
             FileTools.Log($"Save local end.Path: {directory + "\\Save.sav"}");
         }
 
         void EndTest()
         {
+            byte[] PupilData;
             TcpClient Sender = new TcpClient();
             BinaryFormatter b = new BinaryFormatter();
             MemoryStream s = new MemoryStream();
             NetworkStream stream;
+
             Sender.Client.SendTimeout = 3000;
             this.Enabled = false;
             this.Text = "Ending of test...";
 
-            EndLocal();
+            ////////Set Admin arg
+            if (IsAdmin)
+                pupil.args[4] = "1";
+
+            b.Serialize(s, pupil);
+            PupilData = s.ToArray();
+            s.Dispose();
+
+            EndLocal(PupilData);
 
             for (int i = 0; i < 5; i++)
             {
@@ -148,7 +159,6 @@ namespace Проект_к_школе
             if (Sender.Connected)
             {
                 byte[] Key = new byte[256];
-                byte BufByte;
                 int DataLenght = 0;
                 this.Text = "Подключение завершено.Сброс данных...";
 
@@ -156,27 +166,20 @@ namespace Проект_к_школе
                 byte[] data = new byte[1] { 1 };
 
                 stream.Write(data, 0, data.Length);
-                ////////Set Admin arg
-                if (IsAdmin)
-                    pupil.args[4] = "1";
+                
 
                 stream.Read(Key, 0, 256);
 
-                b.Serialize(s, pupil);
-                DataLenght = s.ToArray().Length * 64;
+                DataLenght = PupilData.Length * 64;
 
                
                 for (int i = 0; i < 256; i++)
-                {
-                    BufByte = (byte)(63 - Key[i]);
-                    Key[i] = BufByte;
-                }
+                    Key[i] = (byte)(63 - Key[i]);
 
-                data = (byte[])EncryptClass.Encrypt(pupil, Key , ref DataLenght);
-
+                data = (byte[])EncryptClass.Encrypt(PupilData, Key , ref DataLenght);
+                PupilData = Key;
                 Key = BitConverter.GetBytes(data.Length);
 
-                
 
                 stream.Write(Key, 0, 4);
                 stream.Write( data , 0 , data.Length );
@@ -198,7 +201,7 @@ namespace Проект_к_школе
                 this.Close();
                 return;
             }
-            
+           
             this.Close();
             return;
         }
@@ -325,7 +328,7 @@ namespace Проект_к_школе
                 ExplanationLabel.Visible = true;
                 Next.Visible = true;
 
-                Next.Location = new Point(220, 230);
+                Next.Location = new Point(240, 320);
 
                 ExplanationLabel.Text = ex.Text;
 

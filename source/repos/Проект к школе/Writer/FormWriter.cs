@@ -34,19 +34,19 @@ namespace Проект_к_школе
             if (Question.GetType() == new Explanation().GetType())
             {
                 Explanation q = (Explanation)Question;
-                QuestionChoose.Nodes.Add(new TreeNode(q.Text));
+                QuestionChoose.Nodes.Add(new TreeNode(q.Text == "" ? "NO NAME" : q.Text));
             }
 
             if (Question.GetType() == new Question().GetType())
             {
                 Question q = (Question)Question;
-                QuestionChoose.Nodes.Add(new TreeNode(q.Question_s));
+                QuestionChoose.Nodes.Add(new TreeNode(q.Question_s == "" ? "NO NAME" : q.Question_s));
             }
 
             if (Question.GetType() == new ImageQuestion().GetType())
             {
                 ImageQuestion q = (ImageQuestion)Question;
-                QuestionChoose.Nodes.Add(new TreeNode(q.Question));
+                QuestionChoose.Nodes.Add(new TreeNode(q.Question == "" ? "NO NAME" : q.Question));
             }
 
         }
@@ -145,7 +145,7 @@ namespace Проект_к_школе
 
             UpdateQuestions();
 
-            FileTools.Log("Lesson choose is change");
+            FileTools.Log("Lesson choose is changed");
 
             if (IsMergeStart)
                 switch(NumOfChoosenLessonForMerge)
