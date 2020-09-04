@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Runtime.Serialization.Formatters.Binary;
 using ClassLibrary2;
+using Tools;
 
 namespace Проект_к_школе
 {
@@ -26,12 +27,11 @@ namespace Проект_к_школе
             LessonChoose.Items.Clear();
             foreach (var i in Lesson_mass)
                 LessonChoose.Items.Add(i.Name);
-
         }
 
         internal void AddToQuestionChoose(object Question)
         {
-            if (Question.GetType() == new Explanation().GetType())
+            /*if (Question.GetType() == new Explanation().GetType())
             {
                 Explanation q = (Explanation)Question;
                 QuestionChoose.Nodes.Add(new TreeNode(q.Text == "" ? "NO NAME" : q.Text));
@@ -47,7 +47,7 @@ namespace Проект_к_школе
             {
                 ImageQuestion q = (ImageQuestion)Question;
                 QuestionChoose.Nodes.Add(new TreeNode(q.Question == "" ? "NO NAME" : q.Question));
-            }
+            }*/
 
         }
 
@@ -187,10 +187,10 @@ namespace Проект_к_школе
         {
             Lesson CurrentLesson = Lesson_mass[ChoosenLesson];
             ChoosenQuestion = QuestionChoose.SelectedNode != null ? QuestionChoose.SelectedNode.Index : 0;
-            if (CurrentLesson.QuestionList[ChoosenQuestion].GetType() == new Explanation().GetType())
+           /* if (CurrentLesson.QuestionList[ChoosenQuestion].GetType() == new Explanation().GetType())
             {
                 ExplanationFormSetup form = new ExplanationFormSetup();
-                form.LocalQuestion = (Explanation)CurrentLesson.QuestionList[ChoosenQuestion];
+                //form.LocalQuestion = (Explanation)CurrentLesson.QuestionList[ChoosenQuestion];
                 form.Text = "Индекс: " + ChoosenQuestion.ToString();
                 FileTools.Log("Explanation setup opened as rewrite");
                 form.Show();
@@ -214,7 +214,7 @@ namespace Проект_к_школе
                 FileTools.Log("Image question setup opened as rewrite");
                 form.Show();
                 this.Enabled = false;
-            }
+            }*/
 
         }
 
@@ -242,7 +242,7 @@ namespace Проект_к_школе
 
                     q = (Question)CurrentLesson.QuestionList[index];
 
-                    q.Question_s = s;
+                    //q.Question_s = s;
 
                     q.Answers[0] = w.ReadLine();
                     q.Answers[1] = w.ReadLine();

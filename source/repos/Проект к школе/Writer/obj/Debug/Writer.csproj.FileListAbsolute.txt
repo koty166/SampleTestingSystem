@@ -59,3 +59,14 @@ C:\Users\я\Desktop\Проект к школе\Writer\obj\Debug\Writer.csproj.Co
 C:\Users\я\Desktop\Проект к школе\Writer\obj\Debug\Writer.csproj.CopyComplete
 C:\Users\я\Desktop\Проект к школе\Writer\obj\Debug\Writer.exe
 C:\Users\я\Desktop\Проект к школе\Writer\obj\Debug\Writer.pdb
+C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Writer\obj\Debug\Writer.csprojAssemblyReference.cache
+C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Writer\obj\Debug\Проект_к_школе.ExplanationFormSetup.resources
+C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Writer\obj\Debug\Проект_к_школе.FormWriter.resources
+C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Writer\obj\Debug\Проект_к_школе.LessonForm.resources
+C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Writer\obj\Debug\Проект_к_школе.ImageQuestionSetupForm.resources
+C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Writer\obj\Debug\Writer.Properties.Resources.resources
+C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Writer\obj\Debug\Проект_к_школе.QuestionSetupForm.resources
+C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Writer\obj\Debug\Writer.csproj.GenerateResource.cache
+C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Writer\obj\Debug\Writer.csproj.CoreCompileInputs.cache
+C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Writer\obj\Debug\Writer.exe
+C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Writer\obj\Debug\Writer.pdb

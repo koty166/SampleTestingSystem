@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using ClassLibrary2;
 using System.IO;
+using Tools;
 
 namespace Проект_к_школе
 {

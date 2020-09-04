@@ -6,7 +6,9 @@ namespace ClassLibrary2
     public class Question
     {
         public String[] Answers = new String[4];
-        public String Question_s;
-        public string arg;
+        public String QuestionStr;
+        public String image_name;
+        public bool IsImage;
+        public object arg;
     }
 }

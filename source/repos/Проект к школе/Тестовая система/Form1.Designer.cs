@@ -33,7 +33,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.Start = new System.Windows.Forms.Button();
             this.ExplanationLabel = new System.Windows.Forms.Label();
-            this.list_of_lessons = new System.Windows.Forms.ListBox();
+            this.LB_Lessons = new System.Windows.Forms.ListBox();
             this.Next = new System.Windows.Forms.Button();
             this.AnswerTextSetup = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -75,14 +75,14 @@
             this.ExplanationLabel.TabIndex = 27;
             this.ExplanationLabel.Text = "Выбери урок , который хочешь пройти";
             // 
-            // list_of_lessons
+            // LB_Lessons
             // 
-            this.list_of_lessons.FormattingEnabled = true;
-            this.list_of_lessons.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.list_of_lessons.Location = new System.Drawing.Point(137, 134);
-            this.list_of_lessons.Name = "list_of_lessons";
-            this.list_of_lessons.Size = new System.Drawing.Size(294, 56);
-            this.list_of_lessons.TabIndex = 25;
+            this.LB_Lessons.FormattingEnabled = true;
+            this.LB_Lessons.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.LB_Lessons.Location = new System.Drawing.Point(137, 134);
+            this.LB_Lessons.Name = "LB_Lessons";
+            this.LB_Lessons.Size = new System.Drawing.Size(294, 56);
+            this.LB_Lessons.TabIndex = 25;
             // 
             // Next
             // 
@@ -216,7 +216,7 @@
             this.Controls.Add(this.Next);
             this.Controls.Add(this.Start);
             this.Controls.Add(this.ExplanationLabel);
-            this.Controls.Add(this.list_of_lessons);
+            this.Controls.Add(this.LB_Lessons);
             this.Controls.Add(this.AnswerTextSetup);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox);
@@ -242,7 +242,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button Start;
         private System.Windows.Forms.Label ExplanationLabel;
-        private System.Windows.Forms.ListBox list_of_lessons;
+        private System.Windows.Forms.ListBox LB_Lessons;
         private System.Windows.Forms.Button Next;
         private System.Windows.Forms.TextBox AnswerTextSetup;
         private System.Windows.Forms.GroupBox groupBox1;

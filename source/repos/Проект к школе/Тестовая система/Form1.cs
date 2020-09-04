@@ -7,11 +7,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 using ClassLibrary2;
 using System.Net;
 using System.Net.Sockets;
-using ClassLibrary2.Security;
+using System.Collections.Generic;
+using Tools;
 
 namespace Проект_к_школе
 {
-
 
     public partial class Form1 : Form
     {
@@ -19,31 +19,16 @@ namespace Проект_к_школе
         {
             InitializeComponent();
         }
-        String directory = @"Tests";
-        bool IsTestStar = false, IsAdmin = false;
+        String directory = "Tests";
+        bool IsTestStart = false, IsAdmin = false;
         byte CurrentQuestion = 0, CurrentExplanationIndex = 0;
         internal IPAddress IP;
         Image NextImage;
 
-        internal Lesson[] Lesson_mass;
+        internal List<Lesson> Lessons = new List<Lesson>();
 
         internal Lesson CurrentLesson;
         internal Pupil pupil;
-
-        void Load_in_form()
-        {
-            try
-            {
-                if (Lesson_mass.Length != 0)
-                    foreach (var i in Lesson_mass)
-                    {
-                        list_of_lessons.Items.Add(i.Name);
-                    }
-                FileTools.Log("List of lesson is rewrited");
-            }
-            catch { }
-
-        } 
 
         void LoadPicture(Object _q)
         {
@@ -59,60 +44,65 @@ namespace Проект_к_школе
                 FileTools.Log("Picture load failed , load error picture");
             }
         }
-
+        /////////////Как же меня бесит необходимость переписывать проект
         private void Form1_Load(object sender, EventArgs e)
         {
-            String[] File_mass_date;
-            FileTools.Clear();
-            File_mass_date = Directory.GetFiles(directory, "*.dat",SearchOption.AllDirectories);
+            BinaryFormatter Formated = new BinaryFormatter();
+            FileStream Stream;
+            Lesson BufLesson;
+            String[] LessonsDataStr = Directory.GetFiles(directory, "*.dat", SearchOption.AllDirectories);
 
-            if (File_mass_date.Length != 0)
+            if (LessonsDataStr.Length == 0)
             {
-                Lesson_mass = new Lesson[File_mass_date.Length];
-
-                for (int i = 0; i < File_mass_date.Length; i++)
-                {
-                    FileStream Stream = new FileStream(File_mass_date[i], FileMode.Open);
-                    BinaryFormatter Formated = new BinaryFormatter();
-
-                    Lesson_mass[i] = (Lesson)Formated.Deserialize(Stream);
-                    Stream.Close();
-                }
+                FileTools.Log("Не найдены фалы уроков, проверьте их наличие в соответствующей директории");
+                this.Enabled = false;
+                MessageBox.Show("Не найдены фалы уроков, проверьте их наличие в соответствующей директории", "Ощибка чтения", MessageBoxButtons.OK);
+                Application.Exit();
+                return;
             }
-            Load_in_form();
-            FileTools.Log($"Proggram load sucseed number of lesson - {Lesson_mass.Length.ToString()}",true);
+
+            foreach (var i in LessonsDataStr)
+            {
+                Stream = new FileStream(i, FileMode.Open);
+
+                BufLesson = (Lesson)Formated.Deserialize(Stream);
+                Lessons.Add(BufLesson);
+                LB_Lessons.Items.Add(BufLesson.Name);
+                Stream.Close();
+            }
+            FileTools.Log(String.Format("Программа загруженна с числом уроков - {0}", Lessons.Count.ToString()), true);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Control && e.KeyCode == Keys.S && !IsTestStar)
+            if (e.Control && e.KeyCode == Keys.S && !IsTestStart)
             {
                 NetworSetting n = new NetworSetting();
                 n.Show();
                 this.Enabled = false;
                 FileTools.Log("Network setting is opened");
             }
-            if (e.Control && e.KeyCode == Keys.A && !IsTestStar)
+            if (e.Control && e.KeyCode == Keys.A && !IsTestStart)
                 IsAdmin = true;
         }
 
         private void Start_Click(object sender, EventArgs e)
         {
-            if (list_of_lessons.SelectedItem != null)
+            if (LB_Lessons.SelectedItem != null)
             {
-                IsTestStar = true;
+                CurrentLesson = Lessons[LB_Lessons.SelectedIndex];
 
+                IsTestStart = true;
                 Start.Visible = false;
-                list_of_lessons.Visible = false;
+                LB_Lessons.Visible = false;
 
                 Registration r = new Registration();
                 r.Show();
-                FileTools.Log("Registration is began");
-                this.Enabled = false;
-
-                FileTools.Log($"Test {Lesson_mass[list_of_lessons.SelectedIndex]} is started");
-                CurrentLesson = Lesson_mass[list_of_lessons.SelectedIndex];     
+                FileTools.Log("Регистрация началась");
+                this.Enabled = false;  
             }
+            else
+                MessageBox.Show("Пожалуйста, выберите урок");
         }
 
         void EndLocal(byte[] _PupilData)
@@ -176,7 +166,7 @@ namespace Проект_к_школе
                 for (int i = 0; i < 256; i++)
                     Key[i] = (byte)(63 - Key[i]);
 
-                data = (byte[])EncryptClass.Encrypt(PupilData, Key , ref DataLenght);
+                data = (byte[])ToolsClass.Encrypt(PupilData, Key , ref DataLenght);
                 PupilData = Key;
                 Key = BitConverter.GetBytes(data.Length);
 
@@ -209,11 +199,11 @@ namespace Проект_к_школе
         void EndOfTime()
         {
             for (int i = CurrentQuestion + 1; i < CurrentLesson.QuestionList.Count; i++)
-                if (CurrentLesson.QuestionList[i].GetType() == new Explanation().GetType())
+                /*if (CurrentLesson.QuestionList[i].GetType() == new Explanation().GetType())
                 {
                     CurrentQuestion = (byte)i;
                     break;
-                }
+                }*/
 
              Next_Click(Next,null);
             timer1.Enabled = false;
@@ -227,7 +217,7 @@ namespace Проект_к_школе
         {
             String LabelOfForm;
 
-            if (!(CurrentExplanationIndex >= 0)) return;
+            /*if (!(CurrentExplanationIndex >= 0)) return;
             Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentExplanationIndex];
             if (ex.TimerValue == 0)
             {
@@ -242,7 +232,7 @@ namespace Проект_к_школе
 
             if (ex.TimerValue == time)
                 EndOfTime();
-            time++;
+            time++;*/
         }
 
         enum TypeOfQuestion : byte
@@ -288,12 +278,12 @@ namespace Проект_к_школе
             FileTools.Log("Next clicked");
 
             bool IsTimerTick = false;
-            if (CurrentQuestion != 0 && CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new Explanation().GetType())
-            {
-                Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentQuestion - 1];
+           // if (CurrentQuestion != 0 && CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new Explanation().GetType())
+           // {
+                //Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentQuestion - 1];
 
-                IsTimerTick = ex.TimerValue != 0 && !timer1.Enabled;
-            }
+              //  IsTimerTick = ex.TimerValue != 0 && !timer1.Enabled;
+           // }
 
             if (IsTimerTick)
             {
@@ -310,16 +300,16 @@ namespace Проект_к_школе
 
             if (CurrentQuestion == CurrentLesson.QuestionList.Count)
             {
-                IsTestStar = false;
+                IsTestStart = false;
                 EndTest();
                 FileTools.Log("End of test");
                 return;
             }
             
 
-            if (CurrentLesson.QuestionList[CurrentQuestion].GetType() == new Explanation().GetType())
+            /*if (CurrentLesson.QuestionList[CurrentQuestion].GetType() == new Explanation().GetType())
             {
-                Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentQuestion];
+                //Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentQuestion];
                 CurrentExplanationIndex = CurrentQuestion;
 
                 groupBox1.Visible = false;
@@ -333,7 +323,7 @@ namespace Проект_к_школе
                 ExplanationLabel.Text = ex.Text;
 
                 CurrentQuestion++;
-            }
+            }*/
             else if (CurrentLesson.QuestionList[CurrentQuestion].GetType() == new Question().GetType())
             {
                 Question q = (Question)CurrentLesson.QuestionList[CurrentQuestion];
@@ -352,9 +342,9 @@ namespace Проект_к_школе
                 Answer2.Text = q.Answers[1];
                 Answer3.Text = q.Answers[2];
                 Answer4.Text = q.Answers[3];
-                Answer5.Text = q.arg;
+               // Answer5.Text = q.arg;
 
-                QuestionLabel.Text = q.Question_s;
+                //QuestionLabel.Text = q.Question_s;
 
                 Answer1.Checked = false;
                 Answer2.Checked = false;
