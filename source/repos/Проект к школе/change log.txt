@@ -1,0 +1,27 @@
+Version 1.2.1.0
+-Add crypt protect
+-All analisys is correct
+-Time check is correct now
+------------------------------------
+Version 1.2.0.2
+-Optimise clisent application 
+-Optimise main-class-library
+-Reduce RAM demand
+------------------------------------
+Version 1.2.0.1
+-Motivation analysis is correct now
+------------------------------------
+Version 1.2.0.0
+-Add ивга2.0 Analysis 
+-Add delete question functional
+-Repaire old bags
+-Stable
+-------------------------------------
+Version 1.0.0.1
+-Add Analysis Functional
+-Add Form Server
+-Add "From txt" button
+-------------------------------------
+Version 1.0.0.0
+-Basic Functional
+-Stable

@@ -1,0 +1,12 @@
+C:\Users\я\source\repos\Проект к школе\ConsoleServer\bin\Debug\ConsoleServer.exe.config
+C:\Users\я\source\repos\Проект к школе\ConsoleServer\bin\Debug\ConsoleServer.exe
+C:\Users\я\source\repos\Проект к школе\ConsoleServer\bin\Debug\ConsoleServer.pdb
+C:\Users\я\source\repos\Проект к школе\ConsoleServer\obj\Debug\ConsoleServer.csproj.CoreCompileInputs.cache
+C:\Users\я\source\repos\Проект к школе\ConsoleServer\obj\Debug\ConsoleServer.exe
+C:\Users\я\source\repos\Проект к школе\ConsoleServer\obj\Debug\ConsoleServer.pdb
+C:\Users\я\source\repos\Проект к школе\ConsoleServer\bin\Debug\ClassLibrary2.dll
+C:\Users\я\source\repos\Проект к школе\ConsoleServer\bin\Debug\ClassLibrary2.pdb
+C:\Users\я\source\repos\Проект к школе\ConsoleServer\obj\Debug\ConsoleServer.csprojAssemblyReference.cache
+C:\Users\я\source\repos\Проект к школе\ConsoleServer\obj\Debug\ConsoleServer.csproj.CopyComplete
+C:\Users\я\source\repos\Проект к школе\ConsoleServer\bin\Debug\ConsoleServer.exe.CodeAnalysisLog.xml
+C:\Users\я\source\repos\Проект к школе\ConsoleServer\bin\Debug\ConsoleServer.exe.lastcodeanalysissucceeded

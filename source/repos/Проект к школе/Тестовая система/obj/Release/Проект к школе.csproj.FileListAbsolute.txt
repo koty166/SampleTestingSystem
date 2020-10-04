@@ -1,0 +1,30 @@
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Проект_к_школе.Form1.resources
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Проект_к_школе.Properties.Resources.resources
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Проект к школе.csproj.GenerateResource.cache
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Проект к школе.csproj.CoreCompileInputs.cache
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Проект к школе.csprojAssemblyReference.cache
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\bin\Release\ClassLibrary2.dll
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\bin\Release\ClassLibrary2.pdb
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Проект_к_школе.NetworSetting.resources
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Проект_к_школе.Registration.resources
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Проект к школе.csproj.CopyComplete
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\bin\Release\Тестовая система.exe.config
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\bin\Release\Тестовая система.exe
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\bin\Release\Тестовая система.pdb
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Тестовая система.exe
+C:\Users\я\source\repos\Проект к школе\Проект в е88нной школе\obj\Release\Тестовая система.pdb
+C:\Users\я\source\repos\Проект к школе\Тестовая система\bin\Release\Тестовая система.exe.config
+C:\Users\я\source\repos\Проект к школе\Тестовая система\bin\Release\Тестовая система.exe
+C:\Users\я\source\repos\Проект к школе\Тестовая система\bin\Release\Тестовая система.pdb
+C:\Users\я\source\repos\Проект к школе\Тестовая система\bin\Release\ClassLibrary2.dll
+C:\Users\я\source\repos\Проект к школе\Тестовая система\bin\Release\ClassLibrary2.pdb
+C:\Users\я\source\repos\Проект к школе\Тестовая система\obj\Release\Проект к школе.csprojAssemblyReference.cache
+C:\Users\я\source\repos\Проект к школе\Тестовая система\obj\Release\Проект_к_школе.Form1.resources
+C:\Users\я\source\repos\Проект к школе\Тестовая система\obj\Release\Проект_к_школе.NetworSetting.resources
+C:\Users\я\source\repos\Проект к школе\Тестовая система\obj\Release\Проект_к_школе.Properties.Resources.resources
+C:\Users\я\source\repos\Проект к школе\Тестовая система\obj\Release\Проект_к_школе.Registration.resources
+C:\Users\я\source\repos\Проект к школе\Тестовая система\obj\Release\Проект к школе.csproj.GenerateResource.cache
+C:\Users\я\source\repos\Проект к школе\Тестовая система\obj\Release\Проект к школе.csproj.CoreCompileInputs.cache
+C:\Users\я\source\repos\Проект к школе\Тестовая система\obj\Release\Проект к школе.csproj.CopyComplete
+C:\Users\я\source\repos\Проект к школе\Тестовая система\obj\Release\Тестовая система.exe
+C:\Users\я\source\repos\Проект к школе\Тестовая система\obj\Release\Тестовая система.pdb
