@@ -22,3 +22,9 @@ C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе
 C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\ClassLibrary2\obj\Debug\ClassLibrary2.csproj.CoreCompileInputs.cache
 C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\ClassLibrary2\obj\Debug\ClassLibrary2.dll
 C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\ClassLibrary2\obj\Debug\ClassLibrary2.pdb
+C:\Users\Я\Desktop\ProjectAtSchool\source\repos\Проект к школе\ClassLibrary2\bin\Debug\ClassLibrary2.dll
+C:\Users\Я\Desktop\ProjectAtSchool\source\repos\Проект к школе\ClassLibrary2\bin\Debug\ClassLibrary2.pdb
+C:\Users\Я\Desktop\ProjectAtSchool\source\repos\Проект к школе\ClassLibrary2\obj\Debug\ClassLibrary2.csprojAssemblyReference.cache
+C:\Users\Я\Desktop\ProjectAtSchool\source\repos\Проект к школе\ClassLibrary2\obj\Debug\ClassLibrary2.csproj.CoreCompileInputs.cache
+C:\Users\Я\Desktop\ProjectAtSchool\source\repos\Проект к школе\ClassLibrary2\obj\Debug\ClassLibrary2.dll
+C:\Users\Я\Desktop\ProjectAtSchool\source\repos\Проект к школе\ClassLibrary2\obj\Debug\ClassLibrary2.pdb

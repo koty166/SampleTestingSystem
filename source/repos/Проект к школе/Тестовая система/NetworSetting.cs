@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Sockets;
 using ClassLibrary2;
 using System.IO;
-using Tools;
 
 namespace Проект_к_школе
 {
@@ -52,7 +51,7 @@ namespace Проект_к_школе
             for (int i = 1; i <= 10; i++)
             {
                 NetworkStatys.Text = $"Попытка получить IP: {i} из 10";
-                FileTools.Log($"Try to get IP: {i} of 10");
+                //FileTools.Log($"Try to get IP: {i} of 10");
                 NetworkStatys.Refresh();
                 if (ListenIP())
                     break;
@@ -60,13 +59,13 @@ namespace Проект_к_школе
             if (IPS == null)
             {
                 NetworkStatys.Text = "Не удалось получить IP , введите самостоятельно";
-                FileTools.Log("IP wasn`t get");
+               // FileTools.Log("IP wasn`t get");
             }
             else
             {
                 NetworkStatys.Text = "IP получен";
                 IPsetup.Text = IPS.ToString();
-                FileTools.Log("IP was get");
+                //Log.Log("IP was get");
             }
         }
 
@@ -79,7 +78,7 @@ namespace Проект_к_школе
 
         bool TryConnect()
         {
-            FileTools.Log("Connection-try start");
+           // FileTools.Log("Connection-try start");
 
             TcpClient Sender = new TcpClient();
             NetworkStream stream;
@@ -88,7 +87,7 @@ namespace Проект_к_школе
             for (int i = 1; i <= 10; i++)
             {
                 NetworkStatys.Text = $"Попытка подключения: {i} из 10";
-                FileTools.Log($"Connection try: {i} of 10");
+                //FileTools.Log($"Connection try: {i} of 10");
                 NetworkStatys.Refresh();
                 try
                 {
@@ -114,12 +113,12 @@ namespace Проект_к_школе
                 stream.Close();
 
                 IPS = IPAddress.Parse(IPsetup.Text);
-                FileTools.Log($"Connected sucsseed by address: {IPS}");
+               // FileTools.Log($"Connected sucsseed by address: {IPS}");
 
                 return true;
             }
             NetworkStatys.Text = "Подключится не удалось";
-            FileTools.Log("Connection failed");
+           // FileTools.Log("Connection failed");
 
             Sender.Close();
             return false;
@@ -130,7 +129,7 @@ namespace Проект_к_школе
             Form1 f = (Form1)Application.OpenForms[0];
             f.Enabled = true;
             f.IP = IPsetup.Text != "" ? IPAddress.Parse(IPsetup.Text) : IPAddress.Parse("127.0.0.1");
-            FileTools.Log("Network setting is closed");
+           // FileTools.Log("Network setting is closed");
         }
     }
 }

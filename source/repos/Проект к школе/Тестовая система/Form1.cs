@@ -8,7 +8,7 @@ using ClassLibrary2;
 using System.Net;
 using System.Net.Sockets;
 using System.Collections.Generic;
-using Tools;
+using NLog;
 
 namespace Проект_к_школе
 {
@@ -24,6 +24,7 @@ namespace Проект_к_школе
         byte CurrentQuestion = 0, CurrentExplanationIndex = 0;
         internal IPAddress IP;
         Image NextImage;
+        Logger Log = LogManager.GetCurrentClassLogger();
 
         internal List<Lesson> Lessons = new List<Lesson>();
 
@@ -36,12 +37,12 @@ namespace Проект_к_школе
             try
             {
                 NextImage = Image.FromFile(directory + $"//images//{q.image_name}");
-                FileTools.Log("Picture load sucseed , path:" + directory + $"//images//{q.image_name}");
+                Log.Info("Picture load sucseed , path:" + directory + $"//images//{q.image_name}");
             }
             catch
             {
                 NextImage =File.Exists(directory + $"//images//Error.png") ? Image.FromFile(directory + $"//images//Error.png") : null ;
-                FileTools.Log("Picture load failed , load error picture");
+                Log.Info("Picture load failed , load error picture");
             }
         }
         /////////////Как же меня бесит необходимость переписывать проект
@@ -54,9 +55,13 @@ namespace Проект_к_школе
 
             if (LessonsDataStr.Length == 0)
             {
-                FileTools.Log("Не найдены фалы уроков, проверьте их наличие в соответствующей директории");
+                Log.Debug("Не найдены фалы уроков, проверьте их наличие в соответствующей директории");
+                Log.Info("Не найдены фалы уроков, проверьте их наличие в соответствующей директории");
+                Log.Trace("Не найдены фалы уроков, проверьте их наличие в соответствующей директории");
+                Log.Error("Не найдены фалы уроков, проверьте их наличие в соответствующей директории");
+                Log.Fatal("Не найдены фалы уроков, проверьте их наличие в соответствующей директории");
                 this.Enabled = false;
-                MessageBox.Show("Не найдены фалы уроков, проверьте их наличие в соответствующей директории", "Ощибка чтения", MessageBoxButtons.OK);
+                MessageBox.Show("Не найдены фалы уроков, проверьте их наличие в соответствующей директории", "Ошибка чтения", MessageBoxButtons.OK);
                 Application.Exit();
                 return;
             }
@@ -70,7 +75,7 @@ namespace Проект_к_школе
                 LB_Lessons.Items.Add(BufLesson.Name);
                 Stream.Close();
             }
-            FileTools.Log(String.Format("Программа загруженна с числом уроков - {0}", Lessons.Count.ToString()), true);
+            Log.Info(String.Format("Программа загруженна с числом уроков - {0}", Lessons.Count.ToString()), true);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -80,7 +85,7 @@ namespace Проект_к_школе
                 NetworSetting n = new NetworSetting();
                 n.Show();
                 this.Enabled = false;
-                FileTools.Log("Network setting is opened");
+                Log.Info("Network setting is opened");
             }
             if (e.Control && e.KeyCode == Keys.A && !IsTestStart)
                 IsAdmin = true;
@@ -98,7 +103,7 @@ namespace Проект_к_школе
 
                 Registration r = new Registration();
                 r.Show();
-                FileTools.Log("Регистрация началась");
+                Log.Info("Регистрация началась");
                 this.Enabled = false;  
             }
             else
@@ -114,7 +119,7 @@ namespace Проект_к_школе
             s.Write(_PupilData, 0, _PupilData.Length);
             s.Close();
 
-            FileTools.Log($"Save local end.Path: {directory + "\\Save.sav"}");
+            Log.Info($"Save local end.Path: {directory + "\\Save.sav"}");
         }
 
         void EndTest()
@@ -166,7 +171,7 @@ namespace Проект_к_школе
                 for (int i = 0; i < 256; i++)
                     Key[i] = (byte)(63 - Key[i]);
 
-                data = (byte[])ToolsClass.Encrypt(PupilData, Key , ref DataLenght);
+                data = (byte[])Encrypt(PupilData, Key , ref DataLenght);
                 PupilData = Key;
                 Key = BitConverter.GetBytes(data.Length);
 
@@ -178,14 +183,14 @@ namespace Проект_к_школе
                 Sender.Close();
                 
                 this.Text = "Сброс данных завершён успешно";
-                FileTools.Log("Data send is end sucseed");
+                Log.Info("Data send is end sucseed");
 
                 Thread.Sleep(1500);
             }
             else
             {
                 this.Text = "Подключение неудачно.Сохранение локально...";
-                FileTools.Log("Data send is failed");
+                Log.Info("Data send is failed");
 
                 this.Text = "Сохранение локально завершено";
                 this.Close();
@@ -209,7 +214,7 @@ namespace Проект_к_школе
             timer1.Enabled = false;
             MessageBox.Show("Время , отведённое на выполнение этого задания, истекло");
             this.Text = "Тестовая система";
-            FileTools.Log($"Timer is end , explanation number:{CurrentExplanationIndex}");
+            Log.Info($"Timer is end , explanation number:{CurrentExplanationIndex}");
         }
 
         int time = 0;
@@ -254,7 +259,7 @@ namespace Проект_к_школе
                     else UserAnswer = "no";
 
                     pupil.AnswerList.Add(UserAnswer);
-                    FileTools.Log($"Added to pupil list:{UserAnswer}");
+                    Log.Info($"Added to pupil list:{UserAnswer}");
                     break;
                 case 2:
                     UserAnswer = (AnswerTextSetup.Text != "" ? AnswerTextSetup.Text : "no").ToLowerInvariant();
@@ -266,7 +271,7 @@ namespace Проект_к_школе
                         }
 
                     pupil.AnswerList.Add(UserAnswer);
-                    FileTools.Log($"Added to pupil list:{UserAnswer}");
+                    Log.Info($"Added to pupil list:{UserAnswer}");
                     break;
             }
         }
@@ -275,7 +280,7 @@ namespace Проект_к_школе
 
         private void Next_Click(object sender, EventArgs e)
         {
-            FileTools.Log("Next clicked");
+            Log.Info("Next clicked");
 
             bool IsTimerTick = false;
            // if (CurrentQuestion != 0 && CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new Explanation().GetType())
@@ -302,7 +307,7 @@ namespace Проект_к_школе
             {
                 IsTestStart = false;
                 EndTest();
-                FileTools.Log("End of test");
+                Log.Info("End of test");
                 return;
             }
             
@@ -380,6 +385,88 @@ namespace Проект_к_школе
                     Thread f = new Thread(new ParameterizedThreadStart(LoadPicture));
                     f.Start(CurrentLesson.QuestionList[CurrentQuestion + 1]);
                 }
+        }
+        public static object Decrypt(byte[] Message, byte[] key)
+        {
+            byte[] Arry = new byte[Message.Length / 64];
+            byte l = 0;
+            MemoryStream s = new MemoryStream();
+            BinaryFormatter b = new BinaryFormatter();
+            for (int i = 0; i < Arry.Length; i++)
+            {
+                Arry[i] = (byte)(255 - Message[i * 64 + key[l]]);
+                l++;
+                if (l == key.Length)
+                    l = 0;
+            }
+            foreach (var i in Arry)
+                s.WriteByte(i);
+
+            s.Seek(0, SeekOrigin.Begin);
+
+            return b.Deserialize(s);
+        }
+        public static string DecryptCesar(string _CrypedMessage, int _key)
+        {
+            string OutString = "";
+            for (int i = 0; i < _CrypedMessage.Length; i++)
+            {
+                OutString += (Char)((int)_CrypedMessage[i] + _key);
+            }
+            return OutString;
+        }
+
+        static byte[] EncryptBlock(byte b, byte key, int seed)
+        {
+            byte[] mas = new byte[64];
+            Random r = new Random(seed);
+
+            for (int i = 0; i < 64; i++)
+                mas[i] = (byte)r.Next(0, 256);
+
+            mas[key] = (byte)(255 - b);
+            return mas;
+        }
+
+        public static byte[] Encrypt(byte[] SerilisedData, byte[] key, ref int DataLenght)
+        {
+            byte[] Out;
+            int l = 0;
+            List<byte[]> List = new List<byte[]>();
+
+            for (int i = 0; i < SerilisedData.Length; i++)
+            {
+                if (l == key.Length) l = 0;
+
+                List.Add(EncryptBlock(SerilisedData[i], key[l], i));
+
+                l++;
+            }
+
+            Out = new byte[64 * List.Count];
+            int k = 0, j = 0;
+            for (int i = 0; i < Out.Length; i++)
+            {
+                if (j == 64)
+                {
+                    k++;
+                    j = 0;
+                }
+
+                Out[i] = List[k][j];
+                j++;
+            }
+            DataLenght = Out.Length;
+            return Out;
+        }
+        public static string EncryptCesar(string _Message, int _key)
+        {
+            string OutString = "";
+            for (int i = 0; i < _Message.Length; i++)
+            {
+                OutString += (Char)((int)_Message[i] + _key);
+            }
+            return OutString;
         }
     }
 }

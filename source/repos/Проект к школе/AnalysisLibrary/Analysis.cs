@@ -25,17 +25,17 @@ namespace AnalysisLibrary
             }
             if (!Directory.Exists("Saves\\")) Directory.CreateDirectory("Saves\\");
 
-            FileTools.Save(PupList, $"{Environment.CurrentDirectory}\\Saves\\ModifiedSav{n}.sav");
+            //FileTools.Save(PupList, $"{Environment.CurrentDirectory}\\Saves\\ModifiedSav{n}.sav");
         }
 
         public static int MotivationAnalysis(List<Pupil> PupList)
         {
-            FileTools.Log("Analisys is begin");
+            //FileTools.Log("Analisys is begin");
             foreach (var i in PupList)
             {
                 if (i.MarkForTest != null) continue;
                 if (i.AnswerList.Count < 40) return 1;
-                FileTools.Log("Analis is begin on pupil " + i.Name);
+                //FileTools.Log("Analis is begin on pupil " + i.Name);
 
                 int CognitiveActivity = 0, AchievementMotivation = 0, Anxiety = 0, Anger = 0, Summ;
                 string CognitiveMark = null, AchivementMark = null, AnxietyMark = null, AngerMark = null, LevelMark = null;
@@ -263,7 +263,7 @@ namespace AnalysisLibrary
                         }
                         else
                         {
-                            FileTools.Log("Age error");
+                            //FileTools.Log("Age error");
                             return 1;
                         }
                     }
@@ -327,7 +327,7 @@ namespace AnalysisLibrary
                         }
                         else
                         {
-                            FileTools.Log("Age error");
+                            //FileTools.Log("Age error");
                             return 1;
                         }
                     }
@@ -344,7 +344,7 @@ namespace AnalysisLibrary
                 i.MarkForTest = $"{CognitiveMark};{AchivementMark};{AnxietyMark};{AngerMark};{LevelMark}";
                 Save(PupList);
 
-                FileTools.Log("Analis is end");
+                //FileTools.Log("Analis is end");
                 i.args[2] = i.MarkForTest;
             }
             PupList[0].args[3] = "Познавательная активность;Мотивация достижения;Тревожность;Гнев;Общая оценка за тест";
@@ -396,7 +396,7 @@ namespace AnalysisLibrary
 
         public static int ShcoolCognitiveActivityTestAnalysis(List<Pupil> PupList)
         {
-            FileTools.Log("Analis is begin");
+            //FileTools.Log("Analis is begin");
 
             List<string> RightAnswers = null;
 
@@ -423,12 +423,12 @@ namespace AnalysisLibrary
                         RightAnswers = GetRightAnswers(false);
                     else
                     {
-                        FileTools.Log(@"This answer list can`t be analised as ""ShcoolCognitiveActivityTest"" ");
+                        //FileTools.Log(@"This answer list can`t be analised as ""ShcoolCognitiveActivityTest"" ");
                         return 1;
                     }
 
                 }
-                catch { FileTools.Log("Error in loading Answers"); }
+                catch { /*FileTools.Log("Error in loading Answers");*/ }
 
                 ///////////////  A - variant
                 if (i.args[3] == "A")
@@ -927,7 +927,7 @@ namespace AnalysisLibrary
 
 
                 Save(PupList);
-                FileTools.Log("Analis is end");
+               // FileTools.Log("Analis is end");
             }
             PupList[0].args[3] = "Обший процент выполнения, %;Уровень выполнения;Общая осведомлённость, %;Аналогии, %;Классификации, %;" +
                     "Обобшения;Обшественно-гуманитарный цикл, %;Естственно-научный цикл, %;Физико-математический цикл, %;" +

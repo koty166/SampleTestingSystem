@@ -1,0 +1,6 @@
+C:\Users\Я\source\repos\Tools\Tools\bin\Release\Tools.dll
+C:\Users\Я\source\repos\Tools\Tools\bin\Release\Tools.pdb
+C:\Users\Я\source\repos\Tools\Tools\obj\Release\Tools.csproj.CoreCompileInputs.cache
+C:\Users\Я\source\repos\Tools\Tools\obj\Release\Tools.dll
+C:\Users\Я\source\repos\Tools\Tools\obj\Release\Tools.pdb
+C:\Users\Я\source\repos\Tools\Tools\obj\Release\Tools.csprojAssemblyReference.cache

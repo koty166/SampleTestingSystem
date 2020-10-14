@@ -118,10 +118,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Tools\Tools\Tools.csproj">
-      <Project>{311dc9b0-34cb-418e-b189-849ecd7512df}</Project>
-      <Name>Tools</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ClassLibrary2\ClassLibrary2.csproj">
       <Project>{feb2c1c9-e336-432b-b715-cc6b7041ba56}</Project>
       <Name>ClassLibrary2</Name>
