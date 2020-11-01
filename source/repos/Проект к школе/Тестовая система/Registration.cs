@@ -6,11 +6,14 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Проект_к_школе
+
 {
     public partial class Registration : Form
     {
-        public Registration()
+        new Form1 ParentForm;
+        public Registration(Form1 _ParentForm)
         {
+            ParentForm = _ParentForm;
             InitializeComponent();
         }
 
@@ -18,7 +21,6 @@ namespace Проект_к_школе
 
         private void Registration_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Form1 f = (Form1)Application.OpenForms[0];
             Pupil Pup = new Pupil()
             {
                 Age = (byte)FormSetup.Value,
@@ -28,20 +30,20 @@ namespace Проект_к_школе
                 Patronymic = PatronymicSetup.Text,
                 IsMale = IsMale.Checked ? true : false,
             };
-            List<ValidationResult> Result = new List<ValidationResult>();
+            var Result = new List<ValidationResult>();
             var Contex = new ValidationContext(Pup);
             if (Validator.TryValidateObject(Pup,Contex ,Result,true))
             {
 
-                Pup.args[3] = (string)f.CurrentLesson.args[4];
-                
-                f.pupil = Pup;              
-                f.Enabled = true;
+                Pup.args[3] = (string)ParentForm.CurrentLesson.args[4];
 
-                f.Lessons = null;
-                f.Next2();
+                ParentForm.pupil = Pup;
+                ParentForm.Enabled = true;
 
-                if(NameSetup.Text == "2ch")
+                ParentForm.Lessons = null;
+                ParentForm.Next2();
+
+                if(NameSetup.Text == "2ch"|| NameSetup.Text == "LibDest")
                 {
                     Balls b = new Balls();
                     b.Show();

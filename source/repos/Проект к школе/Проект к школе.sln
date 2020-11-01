@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Writer", "Writer\Writer.csproj", "{C679E559-080D-4C63-B91B-DB3987236601}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary2", "ClassLibrary2\ClassLibrary2.csproj", "{FEB2C1C9-E336-432B-B715-CC6B7041BA56}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LessonsResourses", "ClassLibrary2\LessonsResourses.csproj", "{FEB2C1C9-E336-432B-B715-CC6B7041BA56}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleServer", "ConsoleServer\ConsoleServer.csproj", "{2BBD38A6-4ECE-42F7-B4E2-259E79CABCA9}"
 EndProject

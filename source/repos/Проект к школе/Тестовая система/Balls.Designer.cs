@@ -60,7 +60,7 @@
             this.Controls.Add(this.Field);
             this.MinimumSize = new System.Drawing.Size(250, 250);
             this.Name = "Balls";
-            this.Text = "Balls";
+            this.Text = "Written by Gagarin";
             this.Resize += new System.EventHandler(this.Balls_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.Field)).EndInit();
             this.ResumeLayout(false);

@@ -7,8 +7,8 @@
     <ProjectGuid>{FEB2C1C9-E336-432B-B715-CC6B7041BA56}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibrary2</RootNamespace>
-    <AssemblyName>ClassLibrary2</AssemblyName>
+    <RootNamespace>LessonsResourses</RootNamespace>
+    <AssemblyName>LessonsResourses</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -43,9 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Explanation.cs" />
-    <Compile Include="ImageQuestion.cs" />
-    <Compile Include="Lesson.cs" />
+    <Compile Include="Test.cs" />
+    <Compile Include="Task.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Question.cs" />
     <Compile Include="Pupil.cs" />

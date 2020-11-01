@@ -89,9 +89,9 @@
       <Project>{5e576080-dd10-4e35-84ec-d6a573697ce6}</Project>
       <Name>AnalysisLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ClassLibrary2\ClassLibrary2.csproj">
+    <ProjectReference Include="..\ClassLibrary2\LessonsResourses.csproj">
       <Project>{feb2c1c9-e336-432b-b715-cc6b7041ba56}</Project>
-      <Name>ClassLibrary2</Name>
+      <Name>LessonsResourses</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

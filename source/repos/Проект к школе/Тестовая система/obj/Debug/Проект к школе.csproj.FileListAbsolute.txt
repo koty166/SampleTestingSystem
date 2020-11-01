@@ -86,14 +86,11 @@ C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе
 C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект_к_школе.Form1.resources
 C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект_к_школе.NetworSetting.resources
 C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект_к_школе.Properties.Resources.resources
-C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект_к_школе.Registration.resources
 C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект к школе.csproj.GenerateResource.cache
 C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект к школе.csproj.CoreCompileInputs.cache
 C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект к школе.csproj.CopyComplete
 C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Тестовая система.exe
 C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Тестовая система.pdb
-C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\bin\Debug\Tools.dll
-C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\bin\Debug\Tools.pdb
 C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\bin\Debug\System.ComponentModel.Annotations.dll
 C:\Users\Я\Desktop\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект к школе.csprojAssemblyReference.cache
 C:\Users\Я\Desktop\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект_к_школе.Balls.resources
@@ -114,3 +111,6 @@ C:\Users\Я\Desktop\ProjectAtSchool\source\repos\Проект к школе\Те
 C:\Users\Я\Desktop\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\bin\Debug\ClassLibrary2.pdb
 C:\Users\Я\Desktop\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\bin\Debug\NLog.xml
 C:\Users\Я\Desktop\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект к школе.csproj.CopyComplete
+C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\bin\Debug\NLog.dll
+C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\bin\Debug\NLog.xml
+C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\Тестовая система\obj\Debug\Проект_к_школе.Registration.resources

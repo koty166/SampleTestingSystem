@@ -33,9 +33,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.7.5\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,11 +55,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExplanationFormSetup.cs">
+    <Compile Include="TaskCreateForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExplanationFormSetup.Designer.cs">
-      <DependentUpon>ExplanationFormSetup.cs</DependentUpon>
+    <Compile Include="TaskCreateForm.Designer.cs">
+      <DependentUpon>TaskCreateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FormWriter.cs">
       <SubType>Form</SubType>
@@ -59,37 +67,31 @@
     <Compile Include="FormWriter.Designer.cs">
       <DependentUpon>FormWriter.cs</DependentUpon>
     </Compile>
-    <Compile Include="LessonForm.cs">
+    <Compile Include="TestCreateForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LessonForm.Designer.cs">
-      <DependentUpon>LessonForm.cs</DependentUpon>
+    <Compile Include="TestCreateForm.Designer.cs">
+      <DependentUpon>TestCreateForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImageQuestionSetupForm.cs">
+    <Compile Include="QuestionCreateForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImageQuestionSetupForm.Designer.cs">
-      <DependentUpon>ImageQuestionSetupForm.cs</DependentUpon>
+    <Compile Include="QuestionCreateForm.Designer.cs">
+      <DependentUpon>QuestionCreateForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuestionSetupForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="QuestionSetupForm.Designer.cs">
-      <DependentUpon>QuestionSetupForm.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="ExplanationFormSetup.resx">
-      <DependentUpon>ExplanationFormSetup.cs</DependentUpon>
+    <EmbeddedResource Include="TaskCreateForm.resx">
+      <DependentUpon>TaskCreateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormWriter.resx">
       <DependentUpon>FormWriter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LessonForm.resx">
-      <DependentUpon>LessonForm.cs</DependentUpon>
+    <EmbeddedResource Include="TestCreateForm.resx">
+      <DependentUpon>TestCreateForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImageQuestionSetupForm.resx">
-      <DependentUpon>ImageQuestionSetupForm.cs</DependentUpon>
+    <EmbeddedResource Include="QuestionCreateForm.resx">
+      <DependentUpon>QuestionCreateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -101,9 +103,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="QuestionSetupForm.resx">
-      <DependentUpon>QuestionSetupForm.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -118,9 +118,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary2\ClassLibrary2.csproj">
+    <ProjectReference Include="..\ClassLibrary2\LessonsResourses.csproj">
       <Project>{feb2c1c9-e336-432b-b715-cc6b7041ba56}</Project>
-      <Name>ClassLibrary2</Name>
+      <Name>LessonsResourses</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,7 +4,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using ClassLibrary2;
+using LessonsResourses;
 using System.Net;
 using System.Net.Sockets;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace Проект_к_школе
         {
             InitializeComponent();
         }
-        String directory = "Tests";
+        const String Directory = "Tests";
         bool IsTestStart = false, IsAdmin = false;
         byte CurrentQuestion = 0, CurrentExplanationIndex = 0;
         internal IPAddress IP;
@@ -31,17 +31,18 @@ namespace Проект_к_школе
         internal Lesson CurrentLesson;
         internal Pupil pupil;
 
+        //Грузит картинку с файла
         void LoadPicture(Object _q)
         {
             ImageQuestion q = (ImageQuestion)_q;
             try
             {
-                NextImage = Image.FromFile(directory + $"//images//{q.image_name}");
-                Log.Info("Picture load sucseed , path:" + directory + $"//images//{q.image_name}");
+                NextImage = Image.FromFile(Directory + $"//images//{q.image_name}");
+                Log.Info("Picture load sucseed , path:" + Directory + $"//images//{q.image_name}");
             }
             catch
             {
-                NextImage =File.Exists(directory + $"//images//Error.png") ? Image.FromFile(directory + $"//images//Error.png") : null ;
+                NextImage =File.Exists(Directory + $"//images//Error.png") ? Image.FromFile(Directory + $"//images//Error.png") : null ;
                 Log.Info("Picture load failed , load error picture");
             }
         }
@@ -51,15 +52,10 @@ namespace Проект_к_школе
             BinaryFormatter Formated = new BinaryFormatter();
             FileStream Stream;
             Lesson BufLesson;
-            String[] LessonsDataStr = Directory.GetFiles(directory, "*.dat", SearchOption.AllDirectories);
+            String[] LessonsDataStr = System.IO.Directory.GetFiles(Directory, "*.dat", SearchOption.AllDirectories);
 
             if (LessonsDataStr.Length == 0)
             {
-                Log.Debug("Не найдены фалы уроков, проверьте их наличие в соответствующей директории");
-                Log.Info("Не найдены фалы уроков, проверьте их наличие в соответствующей директории");
-                Log.Trace("Не найдены фалы уроков, проверьте их наличие в соответствующей директории");
-                Log.Error("Не найдены фалы уроков, проверьте их наличие в соответствующей директории");
-                Log.Fatal("Не найдены фалы уроков, проверьте их наличие в соответствующей директории");
                 this.Enabled = false;
                 MessageBox.Show("Не найдены фалы уроков, проверьте их наличие в соответствующей директории", "Ошибка чтения", MessageBoxButtons.OK);
                 Application.Exit();
@@ -75,7 +71,7 @@ namespace Проект_к_школе
                 LB_Lessons.Items.Add(BufLesson.Name);
                 Stream.Close();
             }
-            Log.Info(String.Format("Программа загруженна с числом уроков - {0}", Lessons.Count.ToString()), true);
+            Log.Info(String.Format("Программа загруженна с числом уроков - {0}", Lessons.Count.ToString()));
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -101,7 +97,7 @@ namespace Проект_к_школе
                 Start.Visible = false;
                 LB_Lessons.Visible = false;
 
-                Registration r = new Registration();
+                Registration r = new Registration(this);
                 r.Show();
                 Log.Info("Регистрация началась");
                 this.Enabled = false;  
@@ -112,14 +108,14 @@ namespace Проект_к_школе
 
         void EndLocal(byte[] _PupilData)
         {
-            if (File.Exists(directory + "\\Save.sav")) File.Delete(directory + "\\Save.sav");
+            if (File.Exists(Directory + "\\Save.sav")) File.Delete(Directory + "\\Save.sav");
 
-            FileStream s = new FileStream(directory + "\\Save.sav", FileMode.Create);
+            FileStream s = new FileStream(Directory + "\\Save.sav", FileMode.Create);
 
             s.Write(_PupilData, 0, _PupilData.Length);
             s.Close();
 
-            Log.Info($"Save local end.Path: {directory + "\\Save.sav"}");
+            Log.Info($"Save local end.Path: {Directory + "\\Save.sav"}");
         }
 
         void EndTest()
@@ -276,19 +272,19 @@ namespace Проект_к_школе
             }
         }
 
-        public void Next2() => Next_Click(Next, null);
+        public void Next2() => Next_Click(null, null);
 
         private void Next_Click(object sender, EventArgs e)
         {
             Log.Info("Next clicked");
 
             bool IsTimerTick = false;
-           // if (CurrentQuestion != 0 && CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new Explanation().GetType())
-           // {
-                //Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentQuestion - 1];
+            if (CurrentQuestion != 0 && CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new Explanation().GetType())
+            {
+                Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentQuestion - 1];
 
-              //  IsTimerTick = ex.TimerValue != 0 && !timer1.Enabled;
-           // }
+                IsTimerTick = ex.TimerValue != 0 && !timer1.Enabled;
+            }
 
             if (IsTimerTick)
             {
@@ -299,7 +295,6 @@ namespace Проект_к_школе
             if (CurrentQuestion > 0)
                 if (CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new Question().GetType())
                     AddToPupilList((byte)TypeOfQuestion.Question);
-
                 else if ((CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new ImageQuestion().GetType()))
                     AddToPupilList((byte)TypeOfQuestion.ImageQuestion);
 
@@ -406,15 +401,6 @@ namespace Проект_к_школе
 
             return b.Deserialize(s);
         }
-        public static string DecryptCesar(string _CrypedMessage, int _key)
-        {
-            string OutString = "";
-            for (int i = 0; i < _CrypedMessage.Length; i++)
-            {
-                OutString += (Char)((int)_CrypedMessage[i] + _key);
-            }
-            return OutString;
-        }
 
         static byte[] EncryptBlock(byte b, byte key, int seed)
         {
@@ -458,15 +444,6 @@ namespace Проект_к_школе
             }
             DataLenght = Out.Length;
             return Out;
-        }
-        public static string EncryptCesar(string _Message, int _key)
-        {
-            string OutString = "";
-            for (int i = 0; i < _Message.Length; i++)
-            {
-                OutString += (Char)((int)_Message[i] + _key);
-            }
-            return OutString;
         }
     }
 }

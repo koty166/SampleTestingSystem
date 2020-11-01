@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("ClassLibrary2")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("LessonsResourses")]
+[assembly: AssemblyDescription("Хули ты тут смотришь?")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ClassLibrary2")]
