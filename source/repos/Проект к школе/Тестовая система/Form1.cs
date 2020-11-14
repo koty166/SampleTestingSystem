@@ -24,82 +24,54 @@ namespace Проект_к_школе
         byte CurrentQuestion = 0, CurrentExplanationIndex = 0;
         internal IPAddress IP;
         Image NextImage;
-        Logger Log = LogManager.GetCurrentClassLogger();
 
-        internal List<Lesson> Lessons = new List<Lesson>();
+        List<Test> Tests = new List<Test>();
 
-        internal Lesson CurrentLesson;
-        internal Pupil pupil;
-
-        //Грузит картинку с файла
-        void LoadPicture(Object _q)
-        {
-            ImageQuestion q = (ImageQuestion)_q;
-            try
-            {
-                NextImage = Image.FromFile(Directory + $"//images//{q.image_name}");
-                Log.Info("Picture load sucseed , path:" + Directory + $"//images//{q.image_name}");
-            }
-            catch
-            {
-                NextImage =File.Exists(Directory + $"//images//Error.png") ? Image.FromFile(Directory + $"//images//Error.png") : null ;
-                Log.Info("Picture load failed , load error picture");
-            }
-        }
-        /////////////Как же меня бесит необходимость переписывать проект
         private void Form1_Load(object sender, EventArgs e)
         {
             BinaryFormatter Formated = new BinaryFormatter();
             FileStream Stream;
-            Lesson BufLesson;
-            String[] LessonsDataStr = System.IO.Directory.GetFiles(Directory, "*.dat", SearchOption.AllDirectories);
+            String[] TestsStr = System.IO.Directory.GetFiles(Directory, "*.dat", SearchOption.AllDirectories);
 
-            if (LessonsDataStr.Length == 0)
-            {
-                this.Enabled = false;
+            if (TestsStr.Length == 0)
+            { 
                 MessageBox.Show("Не найдены фалы уроков, проверьте их наличие в соответствующей директории", "Ошибка чтения", MessageBoxButtons.OK);
                 Application.Exit();
                 return;
             }
 
-            foreach (var i in LessonsDataStr)
+            foreach (var i in TestsStr)
             {
                 Stream = new FileStream(i, FileMode.Open);
-
-                BufLesson = (Lesson)Formated.Deserialize(Stream);
-                Lessons.Add(BufLesson);
-                LB_Lessons.Items.Add(BufLesson.Name);
+                Tests.Add((Test)Formated.Deserialize(Stream));
                 Stream.Close();
             }
-            Log.Info(String.Format("Программа загруженна с числом уроков - {0}", Lessons.Count.ToString()));
+            foreach (var i in Tests)
+                TestsLB.Items.Add(i.Name);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.S && !IsTestStart)
             {
-                NetworSetting n = new NetworSetting();
+                NetworSetting n = new NetworSetting(this);
                 n.Show();
                 this.Enabled = false;
-                Log.Info("Network setting is opened");
             }
-            if (e.Control && e.KeyCode == Keys.A && !IsTestStart)
-                IsAdmin = true;
         }
 
         private void Start_Click(object sender, EventArgs e)
         {
-            if (LB_Lessons.SelectedItem != null)
+            if (TestsLB.SelectedItem != null)
             {
-                CurrentLesson = Lessons[LB_Lessons.SelectedIndex];
+                CurrentLesson = Lessons[TestsLB.SelectedIndex];
 
                 IsTestStart = true;
-                Start.Visible = false;
-                LB_Lessons.Visible = false;
+                StartButton.Visible = false;
+                TestsLB.Visible = false;
 
                 Registration r = new Registration(this);
                 r.Show();
-                Log.Info("Регистрация началась");
                 this.Enabled = false;  
             }
             else
@@ -114,8 +86,6 @@ namespace Проект_к_школе
 
             s.Write(_PupilData, 0, _PupilData.Length);
             s.Close();
-
-            Log.Info($"Save local end.Path: {Directory + "\\Save.sav"}");
         }
 
         void EndTest()
@@ -206,7 +176,7 @@ namespace Проект_к_школе
                     break;
                 }*/
 
-             Next_Click(Next,null);
+             Next_Click(NextButton,null);
             timer1.Enabled = false;
             MessageBox.Show("Время , отведённое на выполнение этого задания, истекло");
             this.Text = "Тестовая система";
@@ -329,11 +299,11 @@ namespace Проект_к_школе
                 Question q = (Question)CurrentLesson.QuestionList[CurrentQuestion];
 
                 groupBox1.Visible = true;
-                ExplanationLabel.Visible = false;
+                QuestionLabel.Visible = false;
                 AnswerTextSetup.Visible = false;
-                pictureBox.Visible = false;
-                Next.Visible = true;
-                Next.Location = new Point(250, 250);
+                QuestionPB.Visible = false;
+                NextButton.Visible = true;
+                NextButton.Location = new Point(250, 250);
 
 
                 if ((string)CurrentLesson.args[3] == "1") Answer5.Visible = true;
@@ -359,16 +329,16 @@ namespace Проект_к_школе
                 ImageQuestion q = (ImageQuestion)CurrentLesson.QuestionList[CurrentQuestion];
                 groupBox1.Visible = false;
                 AnswerTextSetup.Visible = true;
-                ExplanationLabel.Visible = true;
-                Next.Visible = true;
+                QuestionLabel.Visible = true;
+                NextButton.Visible = true;
 
-                Next.Location = new Point(400, 350);
+                NextButton.Location = new Point(400, 350);
 
-                ExplanationLabel.Text = q.Question;
+                QuestionLabel.Text = q.Question;
                 AnswerTextSetup.Text = "";
 
-                pictureBox.Visible = true;
-                pictureBox.Image = NextImage;
+                QuestionPB.Visible = true;
+                QuestionPB.Image = NextImage;
                // pictureBox.Refresh();
 
                 CurrentQuestion++;

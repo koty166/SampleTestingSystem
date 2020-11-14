@@ -48,5 +48,12 @@ namespace Проект_к_школе
                 TestTypeTB.Text = TestTochange.Type ?? "";
             }
         }
+
+        private void button1_Click(object sender, FormClosingEventArgs e)
+        {
+
+        }
+
+        private void TestCreateForm_FormClosing(object sender, FormClosingEventArgs e) => FWParent.Enabled = true;
     }
 }

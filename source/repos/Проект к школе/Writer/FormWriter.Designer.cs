@@ -43,6 +43,7 @@
             this.Exploer.Name = "Exploer";
             this.Exploer.Size = new System.Drawing.Size(268, 433);
             this.Exploer.TabIndex = 11;
+            this.Exploer.DragDrop += new System.Windows.Forms.DragEventHandler(this.Exploer_DragDrop);
             this.Exploer.DoubleClick += new System.EventHandler(this.Exploer_DoubleClick);
             // 
             // openFileDialog1
@@ -64,7 +65,7 @@
             this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(716, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(318, 25);
             this.toolStrip1.TabIndex = 32;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -76,19 +77,20 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(55, 22);
             this.toolStripButton1.Text = "Удалить";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // FormWriter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(716, 499);
+            this.ClientSize = new System.Drawing.Size(318, 499);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.ExploerLabel);
             this.Controls.Add(this.Exploer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "FormWriter";
-            this.Text = "Form1";
+            this.Text = "Изменение набора тестов";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.toolStrip1.ResumeLayout(false);

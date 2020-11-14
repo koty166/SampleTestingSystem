@@ -85,7 +85,7 @@
             this.TestTypeTB.Size = new System.Drawing.Size(164, 20);
             this.TestTypeTB.TabIndex = 3;
             // 
-            // LessonForm
+            // TestCreateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -97,9 +97,9 @@
             this.Controls.Add(this.TestNameTB);
             this.Controls.Add(this.EndButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "LessonForm";
+            this.Name = "TestCreateForm";
             this.Text = "Создать тест";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.button1_Click);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TestCreateForm_FormClosing);
             this.Load += new System.EventHandler(this.LessonForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

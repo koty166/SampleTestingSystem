@@ -99,7 +99,7 @@
             this.TaskNameTB.Size = new System.Drawing.Size(115, 20);
             this.TaskNameTB.TabIndex = 7;
             // 
-            // TaksCreateForm
+            // TaskCreateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -113,8 +113,9 @@
             this.Controls.Add(this.TaskDescriptionTB);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "TaksCreateForm";
+            this.Name = "TaskCreateForm";
             this.Text = "ExplanationFormSetup";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TaskCreateForm_FormClosing);
             this.Load += new System.EventHandler(this.ExplanationFormSetup_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

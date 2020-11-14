@@ -173,6 +173,7 @@
             this.MinimizeBox = false;
             this.Name = "QuestionCreateForm";
             this.Text = "ImageQuestionSetupForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.QuestionCreateForm_FormClosing);
             this.Load += new System.EventHandler(this.ImageQuestionSetupForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ImageExample)).EndInit();
             this.ResumeLayout(false);

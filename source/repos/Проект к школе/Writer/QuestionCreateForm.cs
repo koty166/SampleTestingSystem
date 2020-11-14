@@ -90,5 +90,7 @@ namespace Проект_к_школе
 
         private void QuestionPicturePathChooseButton_Click(object sender, EventArgs e) =>
             ImageChooseDialog.ShowDialog();
+
+        private void QuestionCreateForm_FormClosing(object sender, FormClosingEventArgs e) => FWParent.Enabled = true;
     }
 }

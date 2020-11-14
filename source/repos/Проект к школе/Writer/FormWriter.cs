@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using LessonsResourses;
 using NLog;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace Проект_к_школе
 {
@@ -14,24 +15,34 @@ namespace Проект_к_школе
     {
         public FormWriter() =>
             InitializeComponent();
-        internal enum ExploerType : byte
-        {
-            Tests = 0,
-            Tasks,
-            Questions
-        }
         internal List<Test> Tests = new List<Test>();
-        internal int CurrentTest = 0, CurrentTask = 0, CurrentQuestion = 0;
-        internal ExploerType CurrentType = ExploerType.Tests;
 
-        String directory = @"Tests";
+        const String directory = @"Tests";
 
 
         /// <summary>
         /// Обновляет содержание проводника.
         /// </summary>
-       internal void UpdateExploer()
+        internal void UpdateExploer()
         {
+            StringBuilder OpenedNodes = new StringBuilder(100);
+            foreach (TreeNode i in Exploer.Nodes)
+            {
+                if (i.IsExpanded)
+                {
+                    OpenedNodes.Append(i.Index + ",");
+
+                    foreach (TreeNode j in i.Nodes)
+                        if (j.IsExpanded)
+                            OpenedNodes.Append(j.Index + ",");
+                    OpenedNodes.Append(";");
+
+                }
+            }
+            String OpenedNodesStr = OpenedNodes.ToString();
+
+
+
             Exploer.Nodes.Clear();
             TreeNode CurrentNode, CurrentNodeN;
             foreach (var i in Tests)
@@ -43,13 +54,39 @@ namespace Проект_к_школе
                     CurrentNodeN = new TreeNode(j.Name);
                     CurrentNode.Nodes.Add(CurrentNodeN);
                     foreach (var k in j.Questions)
-                        CurrentNodeN.Nodes.Add("Question",k.Name);
+                        CurrentNodeN.Nodes.Add("Question", k.Name);
                     CurrentNodeN.Nodes.Add("Plus", "+");
                 }
                 CurrentNode.Nodes.Add("Plus", "+");
             }
             Exploer.Nodes.Add("Plus", "+");
-          
+
+
+
+            foreach (string i in OpenedNodesStr.Split(';'))
+            {
+                if (i == "")
+                    continue;
+
+                string[] BNodes = i.Split(',');
+                int ANode = int.Parse(BNodes[0]),BNode;
+
+                if (ANode >= Exploer.Nodes.Count)
+                    break;
+                Exploer.Nodes[ANode].Expand();
+                if (BNodes.Length > 1)
+                    for (int j = 1; j < BNodes.Length; j++)
+                    {
+                        if (BNodes[j] == "")
+                            continue;
+                        BNode = int.Parse(BNodes[j]);
+                        if (BNode >= Exploer.Nodes[ANode].Nodes.Count)
+                            break;
+                        
+                        Exploer.Nodes[ANode].Nodes[BNode].Expand();
+                    }
+            }
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -80,6 +117,7 @@ namespace Проект_к_школе
 
         private void Exploer_DoubleClick(object sender, EventArgs e)
         {
+            Exploer.SelectedNode.Toggle();
             if (Exploer.SelectedNode.Text == "+")
             {
                 switch (Exploer.SelectedNode.Level)
@@ -87,17 +125,14 @@ namespace Проект_к_школе
                     case 0:
                         new TestCreateForm(this,true,Tests).Show();
                         this.Enabled = false;
-                        CurrentType++;
                         break;
                     case 1:
-                        CurrentTask = Exploer.SelectedNode.Index-1;
-                        new TaskCreateForm(this, true,Tests[Exploer.SelectedNode.Index].Tasks).Show();
+                        new TaskCreateForm(this, true,Tests[Exploer.SelectedNode.Parent.Index].Tasks).Show();
                         this.Enabled = false;
-                        CurrentType++;
                         break;
                     case 2:
 
-                        new QuestionCreateForm(this, true,Tests[Exploer.SelectedNode.Parent.Index].Tasks[Exploer.SelectedNode.Index].Questions).Show();
+                        new QuestionCreateForm(this, true,Tests[Exploer.SelectedNode.Parent.Parent.Index].Tasks[Exploer.SelectedNode.Parent.Index].Questions).Show();
                         this.Enabled = false;
                         break;
                 }
@@ -108,18 +143,12 @@ namespace Проект_к_школе
                 {
                     case 0:
                         new TestCreateForm(this, false, Tests, Exploer.SelectedNode.Index).Show();
-                        this.Enabled = false;
-                        CurrentType++;
                         break;
                     case 1:
-                        CurrentTask = Exploer.SelectedNode.Index - 1;
-                        new TaskCreateForm(this, false, Tests[Exploer.SelectedNode.Index].Tasks, Exploer.SelectedNode.Index).Show();
-                        this.Enabled = false;
-                        CurrentType++;
+                        new TaskCreateForm(this, false, Tests[Exploer.SelectedNode.Parent.Index].Tasks, Exploer.SelectedNode.Index).Show();
                         break;
                     case 2:
-
-                        new QuestionCreateForm(this, false, Tests[Exploer.SelectedNode.Parent.Index].Tasks[Exploer.SelectedNode.Index].Questions, Exploer.SelectedNode.Index).Show();
+                        new QuestionCreateForm(this, false, Tests[Exploer.SelectedNode.Parent.Parent.Index].Tasks[Exploer.SelectedNode.Parent.Index].Questions, Exploer.SelectedNode.Index).Show();
                         this.Enabled = false;
                         break;
                 }
@@ -143,6 +172,32 @@ namespace Проект_к_школе
 
                 stream.Close();
             }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+          
+            switch (Exploer.SelectedNode.Level)
+            {
+                case 0:
+                    if (MessageBox.Show("Вы действительно хотите удалить данный тест?\nДанное действие необратимо.", "Удаление", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        Tests.RemoveAt(Exploer.SelectedNode.Index);
+                    break;
+                case 1:
+                    if (MessageBox.Show("Вы действительно хотите удалить данную задачу?\nДанное действие необратимо.", "Удаление", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        Tests[Exploer.SelectedNode.Parent.Index].Tasks.RemoveAt(Exploer.SelectedNode.Index);
+                    break;
+                case 2:
+                    if (MessageBox.Show("Вы действительно хотите удалить данный вопрос?\nДанное действие необратимо.", "Удаление", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                        Tests[Exploer.SelectedNode.Parent.Parent.Index].Tasks[Exploer.SelectedNode.Parent.Index].Questions.RemoveAt(Exploer.SelectedNode.Index);
+                    break;
+            }
+            UpdateExploer();
+        }
+
+        private void Exploer_DragDrop(object sender, DragEventArgs e)
+        {
+            
         }
     }
 }

@@ -52,5 +52,7 @@ namespace Проект_к_школе
             }
                 
         }
+
+        private void TaskCreateForm_FormClosing(object sender, FormClosingEventArgs e)=>FWParent.Enabled = true;
     }
 }
