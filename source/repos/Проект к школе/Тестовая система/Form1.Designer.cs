@@ -35,9 +35,8 @@
             this.QuestionLabel = new System.Windows.Forms.Label();
             this.TestsLB = new System.Windows.Forms.ListBox();
             this.NextButton = new System.Windows.Forms.Button();
-            this.AnswerTextSetup = new System.Windows.Forms.TextBox();
-            this.QuestionPB = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.QuestionPB)).BeginInit();
+            this.AnswerTextTB = new System.Windows.Forms.TextBox();
+            this.QuestionStr = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // timer1
@@ -87,23 +86,24 @@
             this.NextButton.Visible = false;
             this.NextButton.Click += new System.EventHandler(this.Next_Click);
             // 
-            // AnswerTextSetup
+            // AnswerTextTB
             // 
-            this.AnswerTextSetup.Location = new System.Drawing.Point(25, 350);
-            this.AnswerTextSetup.Name = "AnswerTextSetup";
-            this.AnswerTextSetup.Size = new System.Drawing.Size(350, 20);
-            this.AnswerTextSetup.TabIndex = 23;
-            this.AnswerTextSetup.Visible = false;
+            this.AnswerTextTB.Location = new System.Drawing.Point(25, 350);
+            this.AnswerTextTB.Name = "AnswerTextTB";
+            this.AnswerTextTB.Size = new System.Drawing.Size(350, 20);
+            this.AnswerTextTB.TabIndex = 23;
+            this.AnswerTextTB.Visible = false;
             // 
-            // QuestionPB
+            // QuestionStr
             // 
-            this.QuestionPB.BackColor = System.Drawing.Color.Transparent;
-            this.QuestionPB.Location = new System.Drawing.Point(25, 43);
-            this.QuestionPB.Name = "QuestionPB";
-            this.QuestionPB.Size = new System.Drawing.Size(550, 300);
-            this.QuestionPB.TabIndex = 28;
-            this.QuestionPB.TabStop = false;
-            this.QuestionPB.Visible = false;
+            this.QuestionStr.AutoSize = true;
+            this.QuestionStr.BackColor = System.Drawing.Color.Transparent;
+            this.QuestionStr.Location = new System.Drawing.Point(31, 26);
+            this.QuestionStr.Name = "QuestionStr";
+            this.QuestionStr.Size = new System.Drawing.Size(35, 13);
+            this.QuestionStr.TabIndex = 30;
+            this.QuestionStr.Text = "label1";
+            this.QuestionStr.Visible = false;
             // 
             // Form1
             // 
@@ -112,12 +112,12 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(597, 418);
+            this.Controls.Add(this.QuestionStr);
             this.Controls.Add(this.NextButton);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.QuestionLabel);
             this.Controls.Add(this.TestsLB);
-            this.Controls.Add(this.AnswerTextSetup);
-            this.Controls.Add(this.QuestionPB);
+            this.Controls.Add(this.AnswerTextTB);
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
@@ -127,7 +127,6 @@
             this.Text = "Тестовая система";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.QuestionPB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -140,8 +139,8 @@
         private System.Windows.Forms.Label QuestionLabel;
         private System.Windows.Forms.ListBox TestsLB;
         private System.Windows.Forms.Button NextButton;
-        private System.Windows.Forms.TextBox AnswerTextSetup;
-        private System.Windows.Forms.PictureBox QuestionPB;
+        private System.Windows.Forms.TextBox AnswerTextTB;
+        private System.Windows.Forms.Label QuestionStr;
     }
 }
 

@@ -8,6 +8,7 @@ using LessonsResourses;
 using System.Net;
 using System.Net.Sockets;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using NLog;
 
 namespace Проект_к_школе
@@ -20,13 +21,19 @@ namespace Проект_к_школе
             InitializeComponent();
         }
         const String Directory = "Tests";
-        bool IsTestStart = false, IsAdmin = false;
-        byte CurrentQuestion = 0, CurrentExplanationIndex = 0;
+        bool IsTestStart = false;
+        int CurrentQuestion = -1, CurrentTask = 0;
+
         internal IPAddress IP;
+        internal Pupil CurrentPup;
+        
+        
         Image NextImage;
-
+        Test CurrentTest;
         List<Test> Tests = new List<Test>();
+        List<CheckBox> Answers = new List<CheckBox>();
 
+        //Done
         private void Form1_Load(object sender, EventArgs e)
         {
             BinaryFormatter Formated = new BinaryFormatter();
@@ -50,6 +57,7 @@ namespace Проект_к_школе
                 TestsLB.Items.Add(i.Name);
         }
 
+        //Done
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.S && !IsTestStart)
@@ -60,12 +68,12 @@ namespace Проект_к_школе
             }
         }
 
+        //Done
         private void Start_Click(object sender, EventArgs e)
         {
             if (TestsLB.SelectedItem != null)
             {
-                CurrentLesson = Lessons[TestsLB.SelectedIndex];
-
+                CurrentTest = Tests[TestsLB.SelectedIndex];
                 IsTestStart = true;
                 StartButton.Visible = false;
                 TestsLB.Visible = false;
@@ -76,8 +84,13 @@ namespace Проект_к_школе
             }
             else
                 MessageBox.Show("Пожалуйста, выберите урок");
+            //TODO: добавить проверку корректности структуры урока
         }
 
+        /// <summary>
+        /// Сохраняет пользователя локально
+        /// </summary>
+        /// <param name="_PupilData"></param>
         void EndLocal(byte[] _PupilData)
         {
             if (File.Exists(Directory + "\\Save.sav")) File.Delete(Directory + "\\Save.sav");
@@ -88,6 +101,9 @@ namespace Проект_к_школе
             s.Close();
         }
 
+        /// <summary>
+        /// Завершает тест, выполняет отправку данных на сервер и сохранение локально
+        /// </summary>
         void EndTest()
         {
             byte[] PupilData;
@@ -98,322 +114,175 @@ namespace Проект_к_школе
 
             Sender.Client.SendTimeout = 3000;
             this.Enabled = false;
-            this.Text = "Ending of test...";
+            this.Text = "Завершение теста...";
 
-            ////////Set Admin arg
-            if (IsAdmin)
-                pupil.args[4] = "1";
-
-            b.Serialize(s, pupil);
+            b.Serialize(s, CurrentPup);
             PupilData = s.ToArray();
             s.Dispose();
 
             EndLocal(PupilData);
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 1; i <= 5; i++)
             {
-                this.Text = $"Попытка подкючения {i + 1} из 5";
+                this.Text = $"Попытка подкючения {i} из 5";
                 try { Sender.Connect(IP, 9090); break; }
                 catch { }
                 Thread.Sleep(1000);
             }
             if (Sender.Connected)
             {
-                byte[] Key = new byte[256];
-                int DataLenght = 0;
-                this.Text = "Подключение завершено.Сброс данных...";
+                byte[] RSAModulus=null, RSAExponent=null;
+                int RSAModulusLenght, RSAExponentLenght;
+                this.Text = "Подключение завершено. Отправка данных...";
 
                 stream = Sender.GetStream();
-                byte[] data = new byte[1] { 1 };
+                byte[] data = new byte[] { 1 };
 
+                stream.Write(data, 0, 1);
+
+                stream.Read(data,0,8);
+                RSAModulusLenght = BitConverter.ToInt32(data,0);
+                RSAExponentLenght = BitConverter.ToInt32(data, 4);
+
+                stream.Read(RSAModulus,0, RSAModulusLenght);
+                stream.Read(RSAExponent, 0, RSAExponentLenght);
+
+                data = Encrypt(PupilData, RSAModulus,RSAExponent);
+
+                stream.Write(BitConverter.GetBytes(data.Length), 0, 4);
                 stream.Write(data, 0, data.Length);
-                
 
-                stream.Read(Key, 0, 256);
-
-                DataLenght = PupilData.Length * 64;
-
-               
-                for (int i = 0; i < 256; i++)
-                    Key[i] = (byte)(63 - Key[i]);
-
-                data = (byte[])Encrypt(PupilData, Key , ref DataLenght);
-                PupilData = Key;
-                Key = BitConverter.GetBytes(data.Length);
-
-
-                stream.Write(Key, 0, 4);
-                stream.Write( data , 0 , data.Length );
-                
-    
                 Sender.Close();
                 
-                this.Text = "Сброс данных завершён успешно";
-                Log.Info("Data send is end sucseed");
+                this.Text = "передача данных завершёна успешно";
+              
 
                 Thread.Sleep(1500);
             }
             else
             {
-                this.Text = "Подключение неудачно.Сохранение локально...";
-                Log.Info("Data send is failed");
-
+                this.Text = "Подключение неудачно. Сохранение локально...";
+                Thread.Sleep(1000);
                 this.Text = "Сохранение локально завершено";
                 this.Close();
                 return;
             }
            
             this.Close();
-            return;
         }
 
         void EndOfTime()
         {
-            for (int i = CurrentQuestion + 1; i < CurrentLesson.QuestionList.Count; i++)
-                /*if (CurrentLesson.QuestionList[i].GetType() == new Explanation().GetType())
-                {
-                    CurrentQuestion = (byte)i;
-                    break;
-                }*/
-
-             Next_Click(NextButton,null);
-            timer1.Enabled = false;
-            MessageBox.Show("Время , отведённое на выполнение этого задания, истекло");
-            this.Text = "Тестовая система";
-            Log.Info($"Timer is end , explanation number:{CurrentExplanationIndex}");
         }
 
         int time = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            String LabelOfForm;
-
-            /*if (!(CurrentExplanationIndex >= 0)) return;
-            Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentExplanationIndex];
-            if (ex.TimerValue == 0)
-            {
-                this.Text = "Тестовая система";
-                return;
-            }
-            if(((ex.TimerValue - time) % 100 > 4 && (ex.TimerValue - time) % 100 < 20) || (ex.TimerValue - time) % 10 == 0 
-                || ((ex.TimerValue - time) % 10 > 4 && (ex.TimerValue - time) % 10 < 10) ) LabelOfForm = $"Осталось {ex.TimerValue - time} секунд";
-            else if ((ex.TimerValue - time) % 10 == 1) LabelOfForm = $"Осталось {ex.TimerValue - time} секунда";
-            else LabelOfForm = $"Осталось {ex.TimerValue - time} секунды";
-            this.Text = LabelOfForm;
-
-            if (ex.TimerValue == time)
-                EndOfTime();
-            time++;*/
+            
         }
 
-        enum TypeOfQuestion : byte
+        /// <summary>
+        /// Начинает тест, выводит описание первой задачи. Инициализирует счётчики
+        /// </summary>
+        internal void Next2()
         {
-            Question = 1,
-            ImageQuestion
+            CurrentPup.DoneTest.Add(CurrentTest);
+            QuestionStr.Text = CurrentPup.DoneTest[CurrentPup.DoneTest.Count - 1].Tasks[0].Description;
+
+            CurrentTask = 0;
+            CurrentQuestion = -1;
+
+            QuestionStr.Visible = true;
+            TestsLB.Visible = false;
+            StartButton.Visible = false;
+
         }
-        void AddToPupilList(byte t)
-        {
-            switch (t)
-            {
-                case 1:
-
-                    string UserAnswer;
-                    if (Answer1.Checked) UserAnswer = "1";
-                    else if (Answer2.Checked) UserAnswer = "2";
-                    else if (Answer3.Checked) UserAnswer = "3";
-                    else if (Answer4.Checked) UserAnswer = "4";
-                    else UserAnswer = "no";
-
-                    pupil.AnswerList.Add(UserAnswer);
-                    Log.Info($"Added to pupil list:{UserAnswer}");
-                    break;
-                case 2:
-                    UserAnswer = (AnswerTextSetup.Text != "" ? AnswerTextSetup.Text : "no").ToLowerInvariant();
-                    for (int i = 0; i < UserAnswer.Length; i++)
-                        if (UserAnswer[i] == '.' || UserAnswer[i] == ' ')
-                        {
-                            UserAnswer = UserAnswer.Remove(i, 1);
-                            i--;
-                        }
-
-                    pupil.AnswerList.Add(UserAnswer);
-                    Log.Info($"Added to pupil list:{UserAnswer}");
-                    break;
-            }
-        }
-
-        public void Next2() => Next_Click(null, null);
 
         private void Next_Click(object sender, EventArgs e)
         {
-            Log.Info("Next clicked");
+            int CurTest = CurrentPup.DoneTest.Count - 1;
+            string QuestionAnswer = CurrentPup.DoneTest[CurTest]?.Tasks[CurrentTask]?.Questions[0]?.Answer ?? "";
 
-            bool IsTimerTick = false;
-            if (CurrentQuestion != 0 && CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new Explanation().GetType())
-            {
-                Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentQuestion - 1];
+            if (CurrentQuestion != -1)
+            {              
+                 QuestionAnswer = CurrentPup.DoneTest[CurTest]?.Tasks[CurrentTask]?.Questions[CurrentQuestion]?.Answer ?? "";
 
-                IsTimerTick = ex.TimerValue != 0 && !timer1.Enabled;
+                if (Answers.Count > 0)
+                    foreach (CheckBox i in Answers)
+                    {
+                        if (i.Checked)
+                            CurrentPup.DoneTest[CurTest].Tasks[CurrentTask].Questions[CurrentQuestion].Answer += i.Text + " ";
+                    }
+                if (AnswerTextTB.Text != "")
+                    CurrentPup.DoneTest[CurTest].Tasks[CurrentTask].Questions[CurrentQuestion].Answer = AnswerTextTB.Text.ToLower().Trim();
+                Answers.Clear();
+                AnswerTextTB.Text = "";
             }
 
-            if (IsTimerTick)
-            {
-                time = 0;
-                timer1.Start();
-            }
 
-            if (CurrentQuestion > 0)
-                if (CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new Question().GetType())
-                    AddToPupilList((byte)TypeOfQuestion.Question);
-                else if ((CurrentLesson.QuestionList[CurrentQuestion - 1].GetType() == new ImageQuestion().GetType()))
-                    AddToPupilList((byte)TypeOfQuestion.ImageQuestion);
-
-            if (CurrentQuestion == CurrentLesson.QuestionList.Count)
-            {
-                IsTestStart = false;
+            if (CurrentQuestion == CurrentPup.DoneTest[CurTest].Tasks[CurrentTask].Questions.Count - 1 && CurrentTask == CurrentPup.DoneTest[CurTest].Tasks.Count - 1)
                 EndTest();
-                Log.Info("End of test");
+            else if(CurrentQuestion == CurrentPup.DoneTest[CurTest].Tasks[CurrentTask].Questions.Count - 1)
+            {
+                CurrentTask++;
+                QuestionStr.Text = CurrentPup.DoneTest[CurTest].Tasks[CurrentTask].Description;
+                CurrentQuestion = -1;
                 return;
             }
-            
-
-            /*if (CurrentLesson.QuestionList[CurrentQuestion].GetType() == new Explanation().GetType())
-            {
-                //Explanation ex = (Explanation)CurrentLesson.QuestionList[CurrentQuestion];
-                CurrentExplanationIndex = CurrentQuestion;
-
-                groupBox1.Visible = false;
-                AnswerTextSetup.Visible = false;
-                pictureBox.Visible = false;
-                ExplanationLabel.Visible = true;
-                Next.Visible = true;
-
-                Next.Location = new Point(240, 320);
-
-                ExplanationLabel.Text = ex.Text;
-
+            else
                 CurrentQuestion++;
-            }*/
-            else if (CurrentLesson.QuestionList[CurrentQuestion].GetType() == new Question().GetType())
+
+            if (QuestionAnswer == "")
             {
-                Question q = (Question)CurrentLesson.QuestionList[CurrentQuestion];
+                QuestionStr.Text = CurrentPup.DoneTest[CurTest].Tasks[CurrentTask].Questions[CurrentQuestion].QuestionText;
 
-                groupBox1.Visible = true;
-                QuestionLabel.Visible = false;
-                AnswerTextSetup.Visible = false;
-                QuestionPB.Visible = false;
-                NextButton.Visible = true;
-                NextButton.Location = new Point(250, 250);
-
-
-                if ((string)CurrentLesson.args[3] == "1") Answer5.Visible = true;
-                else Answer5.Visible = false;
-                Answer1.Text = q.Answers[0];
-                Answer2.Text = q.Answers[1];
-                Answer3.Text = q.Answers[2];
-                Answer4.Text = q.Answers[3];
-               // Answer5.Text = q.arg;
-
-                //QuestionLabel.Text = q.Question_s;
-
-                Answer1.Checked = false;
-                Answer2.Checked = false;
-                Answer3.Checked = false;
-                Answer4.Checked = false;
-                Answer5.Checked = false;
-
-                CurrentQuestion++;
+                AnswerTextTB.Visible = true;
+                QuestionStr.Visible = true;
             }
-            else if (CurrentLesson.QuestionList[CurrentQuestion].GetType() == new ImageQuestion().GetType())
+            else
             {
-                ImageQuestion q = (ImageQuestion)CurrentLesson.QuestionList[CurrentQuestion];
-                groupBox1.Visible = false;
-                AnswerTextSetup.Visible = true;
-                QuestionLabel.Visible = true;
-                NextButton.Visible = true;
+                QuestionStr.Text = CurrentPup.DoneTest[CurTest].Tasks[CurrentTask].Questions[CurrentQuestion].QuestionText;
 
-                NextButton.Location = new Point(400, 350);
+                AnswerTextTB.Visible = false;
+                QuestionStr.Visible = true;
 
-                QuestionLabel.Text = q.Question;
-                AnswerTextSetup.Text = "";
-
-                QuestionPB.Visible = true;
-                QuestionPB.Image = NextImage;
-               // pictureBox.Refresh();
-
-                CurrentQuestion++;
-            }
-
-            if (CurrentQuestion + 1 < CurrentLesson.QuestionList.Count)
-                if (CurrentLesson.QuestionList[CurrentQuestion + 1].GetType() == new ImageQuestion().GetType())
+                int LastX = 45, LastY = 60, Num = 0;
+                foreach (string i in QuestionAnswer.Split(' '))
                 {
-                    Thread f = new Thread(new ParameterizedThreadStart(LoadPicture));
-                    f.Start(CurrentLesson.QuestionList[CurrentQuestion + 1]);
+                    Answers.Add(new CheckBox()
+                    {
+                        Text = i,
+                        Checked = false,
+                        Parent = this,
+                        Location = new Point(LastX, LastY)
+                    });
+                    Num++;
+                    LastX += Num % 4 != 0 ? 0 : 200;
+                    LastY += 40;
                 }
-        }
-        public static object Decrypt(byte[] Message, byte[] key)
-        {
-            byte[] Arry = new byte[Message.Length / 64];
-            byte l = 0;
-            MemoryStream s = new MemoryStream();
-            BinaryFormatter b = new BinaryFormatter();
-            for (int i = 0; i < Arry.Length; i++)
-            {
-                Arry[i] = (byte)(255 - Message[i * 64 + key[l]]);
-                l++;
-                if (l == key.Length)
-                    l = 0;
-            }
-            foreach (var i in Arry)
-                s.WriteByte(i);
-
-            s.Seek(0, SeekOrigin.Begin);
-
-            return b.Deserialize(s);
-        }
-
-        static byte[] EncryptBlock(byte b, byte key, int seed)
-        {
-            byte[] mas = new byte[64];
-            Random r = new Random(seed);
-
-            for (int i = 0; i < 64; i++)
-                mas[i] = (byte)r.Next(0, 256);
-
-            mas[key] = (byte)(255 - b);
-            return mas;
-        }
-
-        public static byte[] Encrypt(byte[] SerilisedData, byte[] key, ref int DataLenght)
-        {
-            byte[] Out;
-            int l = 0;
-            List<byte[]> List = new List<byte[]>();
-
-            for (int i = 0; i < SerilisedData.Length; i++)
-            {
-                if (l == key.Length) l = 0;
-
-                List.Add(EncryptBlock(SerilisedData[i], key[l], i));
-
-                l++;
             }
 
-            Out = new byte[64 * List.Count];
-            int k = 0, j = 0;
-            for (int i = 0; i < Out.Length; i++)
+           
+        }
+
+        /// <summary>
+        /// Шифрует данные при помощи открытого ключа
+        /// </summary>
+        /// <param name="Data">Данные для шифрования</param>
+        /// <param name="RSAModulus">Модуль</param>
+        /// <param name="RSAExponent">Экспонента</param>
+        /// <returns>Зашифрованные данные</returns>
+        static byte[] Encrypt(byte[] Data, byte[] RSAModulus,byte[] RSAExponent)
+        {
+            try
             {
-                if (j == 64)
+                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
                 {
-                    k++;
-                    j = 0;
+                    RSA.ImportParameters(new RSAParameters() { Exponent = RSAExponent, Modulus = RSAModulus });
+                    return RSA.Encrypt(Data, true);
                 }
-
-                Out[i] = List[k][j];
-                j++;
             }
-            DataLenght = Out.Length;
-            return Out;
+            catch { /*лигоровать*/ return null; }
         }
     }
 }

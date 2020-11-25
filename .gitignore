@@ -1,6 +1,6 @@
-
 *.cache
 *.dat
 *.exe
 *.pdb
-*.sav*.dll
+*.sav
+*.dll
