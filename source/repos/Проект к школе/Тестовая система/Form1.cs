@@ -195,6 +195,7 @@ namespace Проект_к_школе
             QuestionStr.Visible = true;
             TestsLB.Visible = false;
             StartButton.Visible = false;
+            NextButton.Visible = true;
 
         }
 
@@ -235,9 +236,15 @@ namespace Проект_к_школе
             if (QuestionAnswer == "")
             {
                 QuestionStr.Text = CurrentPup.DoneTest[CurTest].Tasks[CurrentTask].Questions[CurrentQuestion].QuestionText;
-
+                try
+                {
+                    Picture.Image = Image.FromFile(CurrentPup.DoneTest[CurTest].Tasks[CurrentTask].Questions[CurrentQuestion].PicturePath ?? "\\Tests\\Images\\Error.png");
+                }
+                catch { }
+                Picture.Visible = true;
                 AnswerTextTB.Visible = true;
                 QuestionStr.Visible = true;
+                NextButton.Location = new Point(406, 357);
             }
             else
             {
@@ -245,6 +252,8 @@ namespace Проект_к_школе
 
                 AnswerTextTB.Visible = false;
                 QuestionStr.Visible = true;
+                Picture.Visible = false;
+                NextButton.Location = new Point(250, 250);
 
                 int LastX = 45, LastY = 60, Num = 0;
                 foreach (string i in QuestionAnswer.Split(' '))

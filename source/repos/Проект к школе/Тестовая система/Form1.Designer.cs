@@ -37,6 +37,8 @@
             this.NextButton = new System.Windows.Forms.Button();
             this.AnswerTextTB = new System.Windows.Forms.TextBox();
             this.QuestionStr = new System.Windows.Forms.Label();
+            this.Picture = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.Picture)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -88,7 +90,7 @@
             // 
             // AnswerTextTB
             // 
-            this.AnswerTextTB.Location = new System.Drawing.Point(25, 350);
+            this.AnswerTextTB.Location = new System.Drawing.Point(25, 357);
             this.AnswerTextTB.Name = "AnswerTextTB";
             this.AnswerTextTB.Size = new System.Drawing.Size(350, 20);
             this.AnswerTextTB.TabIndex = 23;
@@ -105,19 +107,29 @@
             this.QuestionStr.Text = "label1";
             this.QuestionStr.Visible = false;
             // 
+            // Picture
+            // 
+            this.Picture.Location = new System.Drawing.Point(25, 45);
+            this.Picture.Name = "Picture";
+            this.Picture.Size = new System.Drawing.Size(600, 300);
+            this.Picture.TabIndex = 31;
+            this.Picture.TabStop = false;
+            this.Picture.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(597, 418);
+            this.ClientSize = new System.Drawing.Size(664, 418);
             this.Controls.Add(this.QuestionStr);
             this.Controls.Add(this.NextButton);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.QuestionLabel);
             this.Controls.Add(this.TestsLB);
             this.Controls.Add(this.AnswerTextTB);
+            this.Controls.Add(this.Picture);
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
@@ -127,6 +139,7 @@
             this.Text = "Тестовая система";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            ((System.ComponentModel.ISupportInitialize)(this.Picture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,6 +154,7 @@
         private System.Windows.Forms.Button NextButton;
         private System.Windows.Forms.TextBox AnswerTextTB;
         private System.Windows.Forms.Label QuestionStr;
+        private System.Windows.Forms.PictureBox Picture;
     }
 }
 

@@ -1,210 +1,124 @@
 ﻿using System;
 using System.Collections.Generic;
-using ClassLibrary2;
 using System.IO;
+using LessonsResourses;
 
 
 namespace AnalysisLibrary
 {
     static public class AnalysisClass
     {
+        /// <summary>
+        /// Ивертирует ответ
+        /// </summary>
+        /// <param name="Answer"></param>
+        /// <returns></returns>
         static int Spin(int Answer) 
         {
             return Answer < 5 ? 5 - Answer : 0;
         }
 
-        static void Save(List<Pupil> PupList)
+        /// <summary>
+        /// Проводит анализ по типу теста мотивации.
+        /// </summary>
+        /// <param name="PupList">Список тестируемых с данными для анализа.</param>
+        public static void MotivationAnalysis(List<Pupil> PupList)
         {
-            int n = 0;
-
-             while (true)
-            {
-                n++;
-                if (!File.Exists(Environment.CurrentDirectory + $"\\Saves\\ModifiedSav{n}.sav"))
-                    break;
-            }
-            if (!Directory.Exists("Saves\\")) Directory.CreateDirectory("Saves\\");
-
-            //FileTools.Save(PupList, $"{Environment.CurrentDirectory}\\Saves\\ModifiedSav{n}.sav");
-        }
-
-        public static int MotivationAnalysis(List<Pupil> PupList)
-        {
-            //FileTools.Log("Analisys is begin");
             foreach (var i in PupList)
             {
-                if (i.MarkForTest != null) continue;
-                if (i.AnswerList.Count < 40) return 1;
-                //FileTools.Log("Analis is begin on pupil " + i.Name);
+                foreach (var Test in i.DoneTest)
+                {
+                    if (Test.MarkForTest != null || Test.Type != "Motivation" || Test.Tasks.Count > 1) continue;
 
-                int CognitiveActivity = 0, AchievementMotivation = 0, Anxiety = 0, Anger = 0, Summ;
-                string CognitiveMark = null, AchivementMark = null, AnxietyMark = null, AngerMark = null, LevelMark = null;
+                    int CognitiveActivity = 0, AchievementMotivation = 0, Anxiety = 0, Anger = 0, Summ,LoseIndex = -1;
+                    string CognitiveMark = null, AchivementMark = null, AnxietyMark = null, AngerMark = null, LevelMark = null;
 
-                ////////////checking for no answering
-                foreach (var m in i.AnswerList)
-                    if (m == "no")
+
+                    int index = 1;
+                    foreach (var j in Test.Tasks[0].Questions)
                     {
-                        i.MarkForTest = "no";
-                        break;
-                    }
-                if (i.MarkForTest == "no") continue;
-                ///////////////////////////
+                        if (j.Answer == "no" && LoseIndex == -1)
+                            LoseIndex = index;
+                        if(j.Answer == "no" && LoseIndex != -1)
+                        {
+                            Test.MarkForTest = "Невозможно провести оценку т.к. пропущено более одного вопроса";
+                            break;
+                        }
+                                
+                        switch (index)
+                        {
+                            case 1:
+                                Anxiety += Spin(int.Parse(j.Answer));
+                                continue;
+                            case 4:
+                                AchievementMotivation += Spin(int.Parse(j.Answer));
+                                continue;                  
+                            case 9:
+                                Anxiety += Spin(int.Parse(j.Answer));
+                                continue;
+                            case 14:
+                                CognitiveActivity += Spin(int.Parse(j.Answer));
+                                continue;
+                            case 20:
+                                AchievementMotivation += Spin(int.Parse(j.Answer));
+                                continue;
+                            case 25:
+                                Anxiety += Spin(int.Parse(j.Answer));
+                                continue;
+                            case 30:
+                                CognitiveActivity += Spin(int.Parse(j.Answer));
+                                continue;
+                            case 32:
+                                AchievementMotivation += Spin(int.Parse(j.Answer));
+                                continue;
+                            case 33:
+                                Anxiety += Spin(int.Parse(j.Answer));
+                                continue;
+                            case 38:
+                                CognitiveActivity += Spin(int.Parse(j.Answer));
+                                continue;
+                        }
 
-                int index = 1;
-                foreach (var j in i.AnswerList)
-                {
-                    switch (index)
+                        if(index %4 == 0)
+                            AchievementMotivation += int.Parse(j.Answer);
+                        else if((index + 1) % 4 == 0)
+                            Anger += int.Parse(j.Answer);
+                        else if((index + 2) % 4 == 0)
+                            CognitiveActivity += int.Parse(j.Answer);
+                        else
+                            Anxiety += int.Parse(j.Answer);
+
+                        index++;
+                    }
+
+                    if (Test.MarkForTest != null)
+                        continue;
+                    if(LoseIndex == -1)
                     {
-                        case 1:
-                            Anxiety += Spin(int.Parse(j));
-                            break;
-                        case 2:
-                            CognitiveActivity += int.Parse(j);
-                            break;
-                        case 3:
-                            Anger += int.Parse(j);
-                            break;
-                        case 4:
-                            AchievementMotivation += Spin(int.Parse(j));
-                            break;
-
-                        case 5:
-                            Anxiety += int.Parse(j);
-                            break;
-                        case 6:
-                            CognitiveActivity += int.Parse(j);
-                            break;
-                        case 7:
-                            Anger += int.Parse(j);
-                            break;
-                        case 8:
-                            AchievementMotivation += int.Parse(j);
-                            break;
-
-                        case 9:
-                            Anxiety += Spin(int.Parse(j));
-                            break;
-                        case 10:
-                            CognitiveActivity += int.Parse(j);
-                            break;
-                        case 11:
-                            Anger += int.Parse(j);
-                            break;
-                        case 12:
-                            AchievementMotivation += int.Parse(j);
-                            break;
-
-                        case 13:
-                            Anxiety += int.Parse(j);
-                            break;
-                        case 14:
-                            CognitiveActivity += Spin(int.Parse(j));
-                            break;
-                        case 15:
-                            Anger += int.Parse(j);
-                            break;
-                        case 16:
-                            AchievementMotivation += int.Parse(j);
-                            break;
-
-                        case 17:
-                            Anxiety += int.Parse(j);
-                            break;
-                        case 18:
-                            CognitiveActivity += int.Parse(j);
-                            break;
-                        case 19:
-                            Anger += int.Parse(j);
-                            break;
-                        case 20:
-                            AchievementMotivation += Spin(int.Parse(j));
-                            break;
-
-                        case 21:
-                            Anxiety += int.Parse(j);
-                            break;
-                        case 22:
-                            CognitiveActivity += int.Parse(j);
-                            break;
-                        case 23:
-                            Anger += int.Parse(j);
-                            break;
-                        case 24:
-                            AchievementMotivation += int.Parse(j);
-                            break;//////////////////////В жопу, нахуй бля, и ведь ничего лучше не придумать
-
-                        case 25:
-                            Anxiety += Spin(int.Parse(j));
-                            break;
-                        case 26:
-                            CognitiveActivity += int.Parse(j);
-                            break;
-                        case 27:
-                            Anger += int.Parse(j);
-                            break;
-                        case 28:
-                            AchievementMotivation += int.Parse(j);
-                            break;
-
-                        case 29:
-                            Anxiety += int.Parse(j);
-                            break;
-                        case 30:
-                            CognitiveActivity += Spin(int.Parse(j));
-                            break;
-                        case 31:
-                            Anger += int.Parse(j);
-                            break;
-                        case 32:
-                            AchievementMotivation += Spin(int.Parse(j));
-                            break;
-
-                        case 33:
-                            Anxiety += Spin(int.Parse(j));
-                            break;
-                        case 34:
-                            CognitiveActivity += int.Parse(j);
-                            break;
-                        case 35:
-                            Anger += int.Parse(j);
-                            break;
-                        case 36:
-                            AchievementMotivation += int.Parse(j);
-                            break;
-
-                        case 37:
-                            Anxiety += int.Parse(j);
-                            break;
-                        case 38:
-                            CognitiveActivity += Spin(int.Parse(j));
-                            break;
-                        case 39:
-                            Anger += int.Parse(j);
-                            break;
-                        case 40:
-                            AchievementMotivation += int.Parse(j);
-                            break;
+                        if (index % 4 == 0)
+                            AchievementMotivation = (int)(AchievementMotivation / 9 * 10) + 1;
+                        else if ((index + 1) % 4 == 0)
+                            Anger = (int)(Anger / 9 * 10) + 1;
+                        else if ((index + 2) % 4 == 0)
+                            CognitiveActivity = (int)(CognitiveActivity / 9 * 10) + 1;
+                        else
+                            Anxiety = (int)(Anxiety / 9 * 10) + 1;
                     }
-                    index++;
-                }
-                ///////////////setting mark for test
-                Summ = CognitiveActivity + AchievementMotivation + (-1 * Anxiety) + (-1 * Anger);
-                {
-                    if (Summ >= 45 && Summ <= 60)
-                        LevelMark = "Level 1";
-                    else if (Summ >= 29 && Summ <= 44)
-                        LevelMark = "Level 2";
-                    else if (Summ >= 13 && Summ <= 28)
-                        LevelMark = "Level 3";
-                    else if (Summ >= -2 && Summ <= 12)
-                        LevelMark = "Level 4";
-                    else if (Summ >= -60 && Summ <= -3)
-                        LevelMark = "Level 5";
-                    //////////////////////////////Как же я заебался это кодить
-                }
 
-                //////////////setting args
-                {
+                    Summ = CognitiveActivity + AchievementMotivation + (-1 * Anxiety) + (-1 * Anger);
+                    {
+                        if (Summ >= 45 && Summ <= 60)
+                            LevelMark = "Level 1";
+                        else if (Summ >= 29 && Summ <= 44)
+                            LevelMark = "Level 2";
+                        else if (Summ >= 13 && Summ <= 28)
+                            LevelMark = "Level 3";
+                        else if (Summ >= -2 && Summ <= 12)
+                            LevelMark = "Level 4";
+                        else if (Summ >= -60 && Summ <= -3)
+                            LevelMark = "Level 5";
+                    }
+
                     if (i.IsMale)
                     {
                         if (i.Age >= 10 && i.Age <= 11)
@@ -327,29 +241,14 @@ namespace AnalysisLibrary
                         }
                         else
                         {
-                            //FileTools.Log("Age error");
-                            return 1;
+                            return 1;///////////
                         }
                     }
-                }
-                /////////////Best results
-                if (i.args[4] == "1")
-                {
-                    CognitiveMark = "Познавательная активность - высокий";
-                    AchivementMark = "Мотивация достижения - высокий";
-                    AnxietyMark = "Тревожность - высокий";
-                    AngerMark = "Гнев - низкий";
-                }
+                    
 
-                i.MarkForTest = $"{CognitiveMark};{AchivementMark};{AnxietyMark};{AngerMark};{LevelMark}";
-                Save(PupList);
-
-                //FileTools.Log("Analis is end");
-                i.args[2] = i.MarkForTest;
+                    Test.MarkForTest = $"{CognitiveMark};{AchivementMark};{AnxietyMark};{AngerMark};{LevelMark}";
+                }
             }
-            PupList[0].args[3] = "Познавательная активность;Мотивация достижения;Тревожность;Гнев;Общая оценка за тест";
-            PupList[0].args[0] = "7";
-            return 0;
         }
 
         static List<string> GetRightAnswers(bool IsA)

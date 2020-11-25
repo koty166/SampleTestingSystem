@@ -1,6 +1,0 @@
-C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\ClassLibrary2\bin\Debug\LessonsResourses.dll
-C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\ClassLibrary2\bin\Debug\LessonsResourses.pdb
-C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\ClassLibrary2\obj\Debug\LessonsResourses.csprojAssemblyReference.cache
-C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\ClassLibrary2\obj\Debug\LessonsResourses.csproj.CoreCompileInputs.cache
-C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\ClassLibrary2\obj\Debug\LessonsResourses.dll
-C:\Users\Я\source\repos\ProjectAtSchool\source\repos\Проект к школе\ClassLibrary2\obj\Debug\LessonsResourses.pdb

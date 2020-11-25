@@ -21,7 +21,10 @@ namespace LessonsResourses
         /// Тип теста
         /// </summary>
         public string Type;
-
+        /// <summary>
+        /// Оценка за тест.
+        /// </summary>
+        public string MarkForTest;
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="Test"/>
         /// </summary>

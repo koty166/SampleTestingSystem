@@ -33,10 +33,7 @@ namespace LessonsResourses
         /// </summary>
         public string Surname { get; set; }
         public string Patronymic { get; set; }
-        /// <summary>
-        /// Оценка за тест.
-        /// </summary>
-        public string MarkForTest;
+       
         /// <summary>
         /// Половая принадлежность
         /// </summary>

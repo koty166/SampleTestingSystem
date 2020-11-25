@@ -1,6 +1,0 @@
-C:\Users\я\source\repos\Проект к школе\ClassLibrary2\bin\Release\ClassLibrary2.dll
-C:\Users\я\source\repos\Проект к школе\ClassLibrary2\bin\Release\ClassLibrary2.pdb
-C:\Users\я\source\repos\Проект к школе\ClassLibrary2\obj\Release\ClassLibrary2.csprojAssemblyReference.cache
-C:\Users\я\source\repos\Проект к школе\ClassLibrary2\obj\Release\ClassLibrary2.csproj.CoreCompileInputs.cache
-C:\Users\я\source\repos\Проект к школе\ClassLibrary2\obj\Release\ClassLibrary2.dll
-C:\Users\я\source\repos\Проект к школе\ClassLibrary2\obj\Release\ClassLibrary2.pdb

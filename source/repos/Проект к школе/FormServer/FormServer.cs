@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using ClassLibrary2;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -11,18 +10,18 @@ using Microsoft.Office.Interop.Excel;
 using System.Diagnostics;
 using System.IO;
 using AnalysisLibrary;
-using ClassLibrary2.Security;
+using LessonsResourses;
+using System.Security.Cryptography;
 
 namespace FormServer
 {
     public partial class FormServer : Form
     {
-        static List<Pupil> ListOfPupil = new List<Pupil>();
-        static int NumOfSendingIPPackages = 0, IPChecking = 0 , PupilsData = 0;
+        List<Pupil> ListOfPupil = new List<Pupil>(), AnaliseList = new List<Pupil>();
+        static int NumOfSendingIPPackages = 0, PupilsData = 0;
         static string SendingIP;
-        static byte[] Key = new byte[256];
-        Thread IPsender = null, DataListener = null;
 
+        Thread ListeningData, BroadCastSending;
         public FormServer()
         {
             InitializeComponent();
@@ -30,10 +29,9 @@ namespace FormServer
 
         void WriteInExel(List<Pupil> pupList , String ExcelName)
         {
-            int n = 0;
+           /* int n = 0;
             string[] MarkMass;
 
-            FileTools.Log("Choosen show on Exel");
             
             if (pupList.Count == 0) return;
 
@@ -145,102 +143,34 @@ namespace FormServer
                 FileTools.Log("Saved exel successfully");
             }
 
-            ex.Visible = true;
+            ex.Visible = true;*/
 
-        }
-
-        private void SendingIPStart_Click(object sender, EventArgs e)
-        {
-            if (IsDefaulIP.Checked)
-                SendingIP = IPSetup.Text;
-            else
-                SendingIP = Dns.GetHostEntry(Dns.GetHostName().ToString()).AddressList[1].ToString();
-
-            IPSetup.Text = SendingIP.ToString();
-
-            IPsender = new Thread(new ParameterizedThreadStart(SendIP));
-            IPsender.Start(Convert.ToInt32(NumPackagesSetup.Value.ToString()));
-            FileTools.Log("Sending IP started");
-            IsSendingAlive.Text = "Выполняется рассылка IP...";
-            SendingIPGroupbox.Enabled = false;
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!IPsender.IsAlive)
-                {
-                    SendingIPGroupbox.Enabled = true;
-                    IsSendingAlive.Text = "Рассылка IP закончена";
-                    SendingIPStatisticLabel.Text = "Отправленно IP - пакетов:" + NumOfSendingIPPackages.ToString();
-                }
-            }
-            catch { }
-            try
-            {
-                if (!DataListener.IsAlive)
-                {
-                    ListeningDataGroupBox.Enabled = true;
-                    IsListenAlive.Text = "Рассылка IP закончена";
-                    GetingDataStatistic.Text = "Полученно данных учеников:" + PupilsData.ToString();
-                    TryConeectionStatisticLabel.Text = "Проверок IP:" + IPChecking.ToString();
-                    BeginAnalysis.Enabled = true;
-                    FileSetupButton.Enabled = true;
-                }
-            }
-            catch { }
-
-            PupilsPackgesNumber.Text = "Данных полученно:" + ListOfPupil.Count.ToString();
-        }
-
-        private void ShowOnExel_Click(object sender, EventArgs e)
-        {
-            try { if (DataListener.IsAlive) return; }
-            catch { }
-
-            WriteInExel(ListOfPupil,"Excel");
         }
 
         private void FileSetupButton_Click(object sender, EventArgs e)
         {
             openFileDialog1.InitialDirectory = Environment.CurrentDirectory;
             openFileDialog1.ShowDialog();
-            FileSetup.Text = openFileDialog1.SafeFileName;
-            FileTools.Log("File choosen:" + openFileDialog1.FileName);
+            FileSetup.Text = openFileDialog1.SafeFileName; 
 
         }
 
-        void Analysis(String FileForAnalysisPath)
+        /// <summary>
+        /// Выполняет анализ, в зависимости от выбранного варианта
+        /// </summary>
+        void Analysis()
         {
-            FileStream f = new FileStream(FileForAnalysisPath,FileMode.Open);
-            BinaryFormatter b = new BinaryFormatter();
-            List<Pupil> pupList = null;
-            
-            try
-            {
-              pupList = (List<Pupil>)b.Deserialize(f);
-            }
-            catch
-            {
-                f.Seek(0, SeekOrigin.Begin);
-                pupList = new List<Pupil>();
-                pupList.Add((Pupil)b.Deserialize(f));    
-            }
-
-            f.Close();
-
             switch(TypeOfAnalis.SelectedIndex)
             {
                 case 0:
-                    if (AnalysisClass.MotivationAnalysis(pupList) == 1)
+                    if (AnalysisClass.MotivationAnalysis(AnaliseList) == 1)
                     {
                         MessageBox.Show("Ошибка обработки , смените дамп");
                         return;
                     }
                     break;
                 case 1:
-                    if (AnalysisClass.ShcoolCognitiveActivityTestAnalysis(pupList) == 1)
+                    if (AnalysisClass.ShcoolCognitiveActivityTestAnalysis(AnaliseList) == 1)
                     {
                         MessageBox.Show("Ошибка обработки , смените дамп");
                         return;
@@ -248,208 +178,133 @@ namespace FormServer
                     break;
                 case 2:
                     {
-                        WriteInExel(pupList,"Showed exel");
+                        WriteInExel(AnaliseList, "Showed exel");
                         return;
                     }
             }
-
-            WriteInExel(pupList,"ModifiedExcel");
-
         }
 
         private void BeginAnalysis_Click(object sender, EventArgs e)
         {
-            if (TypeOfAnalis.SelectedItem == null||FileSetup.Text == "" || FileSetup.Text == null) return;
-            Analysis(openFileDialog1.FileName);
+            if (TypeOfAnalis.SelectedItem == null||FileSetup.Text == "") return;
+            Analysis();
         }
 
         private void FormServer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (IPsender != null && IPsender.IsAlive)
-                IPsender.Abort();
-            if ( DataListener != null && DataListener.IsAlive)
-            {
-                ////Sending TCP connection need to rigth end of waiting connections
-                TcpClient t = new TcpClient();
-                t.Connect("localhost", 9090);
-                t.Close();
-                /////////////////
-                DataListener.Abort();
-            }
-            if (ListOfPupil.Count > 0)
-                FileTools.Save(ListOfPupil);
-            FileTools.Log("Form server is close");
-        }
-
-        private void FromTxt_Click(object sender, EventArgs e)
-        {
-           
-            Pupil p = null;
-            for (int i = 0; i < 2; i++)
-            {
-                StreamReader r = new StreamReader(Environment.CurrentDirectory + "\\read.txt");
-                p = new Pupil();
-                string[] mas = r.ReadLine().Split(' ');
-                p.Name = mas[0];
-                p.Surname = mas[1];
-                p.Patronymic = mas[2];
-                p.Age = byte.Parse(mas[3]);
-                p.Form = byte.Parse(mas[4]);
-                p.IsMale = bool.Parse(mas[5]);//////Need to write - "true"
+            string Path = $@"/Saves/{DateTime.Today}";
+            int i = 0;
+            if (File.Exists(Path))
                 while (true)
                 {
-                    string s = r.ReadLine();
-                    if (s == "0") break;
-                    p.AnswerList.Add(s);
+                    i++;
+                    if (!File.Exists($@"/Saves/{DateTime.Today}_{i}.sav"))
+                        break;
                 }
-                r.Close();
-                ListOfPupil.Add(p);
-            }
+
+            FileStream f = new FileStream(Path, FileMode.Create);
+            BinaryFormatter b = new BinaryFormatter();
+            b.Serialize(f, ListOfPupil);
+            f.Close();
             
-            MessageBox.Show("Done");
+
+            BroadCastSending.Abort();
+            ListeningData.Abort();
         }
 
-        private void FormServer_Load(object sender, EventArgs e) => FileTools.Clear();
+        private void FormServer_Load(object sender, EventArgs e)
+        {
+             BroadCastSending = new Thread(new ThreadStart(SendIP));
+            BroadCastSending.Start();
+             ListeningData = new Thread(new ParameterizedThreadStart(ReadConnection));
+            ListeningData.Start(ListOfPupil);
+        }
 
-        static void SendIP(object b)
+        private void AddData_Click(object sender, EventArgs e)
+        {
+            FileStream f = new FileStream(openFileDialog1.FileName, FileMode.Open);
+            BinaryFormatter b = new BinaryFormatter();
+            List<Pupil> pupList = null;
+
+            try
+            {
+                pupList = (List<Pupil>)b.Deserialize(f);
+            }
+            catch
+            {
+                f.Seek(0, SeekOrigin.Begin);
+                pupList = new List<Pupil>();
+                pupList.Add((Pupil)b.Deserialize(f));
+            }
+            AnaliseList.AddRange(pupList);
+        }
+
+        /// <summary>
+        /// Бродкастом рассылает свой IP
+        /// </summary>
+        static void SendIP()
         {
             UdpClient sender = new UdpClient();
             IPEndPoint ipend = new IPEndPoint(IPAddress.Parse("230.1.1.1"), 9091);
 
-            byte[] data = Encoding.UTF8.GetBytes(SendingIP);
+            byte[] data = Encoding.UTF8.GetBytes(SendingIP ?? Dns.GetHostAddresses(Dns.GetHostName())[0].ToString());
             sender.EnableBroadcast = true;
-
-            for (int i = 0; i < (int)b; i++)
+            while (true)
             {
                 Thread.Sleep(1000);
                 sender.Send(data, data.Length, ipend);
-                FileTools.Log($"Send ip {i + 1} of {(int)b + 1}");
                 NumOfSendingIPPackages++;
-            }
-
-            sender.Close();
-            FileTools.Log("Sending IP end");
- 
+            }         
         }
 
-        private void ListenStart_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Считывает и дешфрует данные ученика
+        /// </summary>
+        /// <param name="_Pupils">Список для добавления</param>
+        static void ReadConnection(object _Pupils)
         {
-            DataListener = new Thread(new ParameterizedThreadStart(WaitForConnection));
-
-            DataListener.Start(Convert.ToInt32(NumOfPupils.Value.ToString()));
-
-            IsListenAlive.Text = "Ожидаются данные...";
-            ListeningDataGroupBox.Enabled = false;
-            BeginAnalysis.Enabled = false;
-            FileSetupButton.Enabled = false;
-
-            FileTools.Log("Listen data is start");
-        }
-
-        static int IntFromBytes(byte[] Bytes)
-        {
-            int Out = 1;
-            foreach (var i in Bytes)
-                Out *= (int)i;
-            return Out;
-        }
-
-        static void WaitForConnection(object many)
-        {
-            TcpListener l = new TcpListener(9090);
-            Random r = new Random();
+            TcpListener TCPListener = new TcpListener(IPAddress.Loopback,9090);;
             BinaryFormatter b = new BinaryFormatter();
             NetworkStream stream;
-            List<Pupil> BufList = new List<Pupil>();
-            int dones = 0;
-            FileTools.Log("Wait connection started , pupils - " + (int)many);
+            MemoryStream Mem = new MemoryStream();
+            List<Pupil> Pupils =  (List<Pupil>)_Pupils;
 
+            int Length;
             try
             {
                 while (true)
                 {
-                    l.Start();
-                    TcpClient read = l.AcceptTcpClient();
+                    TCPListener.Start();
+                    TcpClient TCPCl = TCPListener.AcceptTcpClient();
 
-                    stream = read.GetStream();
+                    stream = TCPCl.GetStream();
                     byte[] data = new byte[1];
                     stream.Read(data, 0, data.Length);
 
-                    if (data[0] == 0)
+                    if (data[0] == 1)
                     {
-                        data = new byte[1] { 2 };
+                        RSACryptoServiceProvider RSA= new RSACryptoServiceProvider();
+                        RSAParameters RSAinfo= RSA.ExportParameters(false);
+                        stream.Write(BitConverter.GetBytes(RSAinfo.Modulus.Length),0,4);
+                        stream.Write(BitConverter.GetBytes(RSAinfo.Exponent.Length), 0, 4);
 
-                        stream.Write(data, 0, data.Length);
+                        stream.Write(RSAinfo.Modulus, 0, RSAinfo.Modulus.Length);
+                        stream.Write(RSAinfo.Exponent, 0, RSAinfo.Exponent.Length);
 
-                        stream.Close();
-                        read.Close();
-                        FileTools.Log("Send OK to try-connection request");
-                        IPChecking++;
-                    }
-                    else if (data[0] == 1)
-                    {
-                        Pupil pup;
-                        int NumOfBytes;
-                        byte BufByte;
+                        stream.Read(data, 0, 4);
+                        Length = BitConverter.ToInt32(data,0);
+                        stream.Read(data,0,Length);
+                        data = RSA.Decrypt(data, true);
+                        Mem.Write(data, 0, data.Length);
 
-                       for (int i = 0; i < 256; i++)
-                            Key[i] = (byte)r.Next(0, 64);
+                        lock(Pupils)
+                            Pupils.Add((Pupil)b.Deserialize(Mem));
 
-                        stream.Write(Key,0,256);
-
-                        data = new byte[4];
-                        stream.Read(data,0,data.Length);
-                        NumOfBytes = BitConverter.ToInt32(data,0);
-
-                       
-                         
-                        for (int i = 0; i < 256; i++)
-                        {
-                            BufByte = (byte)(63 - Key[i]);
-                            Key[i] = BufByte;
-                        }
-
-                        foreach (var item in Key)
-                        {
-                            FileTools.Log(item.ToString());
-                        }
-                        FileTools.Log("  ");
-
-
-                        data = new byte[NumOfBytes];
-                        stream.Read(data,0,NumOfBytes);
-
-                        pup = (Pupil)DecryptClass.Decrypt(data,Key);
-                        
-
-                        BufList.Add(pup);
-
-                        FileTools.Log($"Pupil {dones} data is get");
-                        Console.WriteLine("Получены данные ученика");
-
-                        dones++;
                         PupilsData++;
-                        if (dones == (int)many)
-                        {
-                            int n = 0;
-                            FileTools.Log("Wait connection end , all pupils send data");
-                            MessageBox.Show("Все данные получены");
-                            while (true)
-                            {
-                                n++;
-                                if (!File.Exists(Environment.CurrentDirectory + "\\Saves\\Save" + n.ToString() + ".sav"))
-                                    break;
-                            }
-                            if (!Directory.Exists("Saves\\")) Directory.CreateDirectory("Saves\\");
-                            ListOfPupil = BufList;
-                            FileTools.Save(BufList, Environment.CurrentDirectory + "\\Saves\\Save" + n.ToString() + ".sav");
-                            break;
-                        }
-
                     }
                 }
             }
-            catch(Exception ex) { FileTools.Log(ex.Message); }
+            catch(Exception ex) {  }
         }
     }
 }
