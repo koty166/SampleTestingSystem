@@ -79,6 +79,11 @@ namespace Проект_к_школе
                     Stream.Close();
                 }
             }
+            if(Lesson_mass == null || Lesson_mass?.Length == 0)
+            {
+                MessageBox.Show("Ошибка загрузки");
+                Close();
+            }
             Load_in_form();
             FileTools.Log($"Proggram load sucseed number of lesson - {Lesson_mass.Length.ToString()}",true);
         }

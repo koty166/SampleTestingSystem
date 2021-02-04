@@ -169,7 +169,7 @@ namespace FormServer
         {
             try
             {
-                if (!IPsender.IsAlive)
+                if (IPsender != null && !IPsender.IsAlive)
                 {
                     SendingIPGroupbox.Enabled = true;
                     IsSendingAlive.Text = "Рассылка IP закончена";
@@ -179,7 +179,7 @@ namespace FormServer
             catch { }
             try
             {
-                if (!DataListener.IsAlive)
+                if (DataListener != null && !DataListener.IsAlive)
                 {
                     ListeningDataGroupBox.Enabled = true;
                     IsListenAlive.Text = "Рассылка IP закончена";

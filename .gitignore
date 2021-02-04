@@ -1,6 +1,14 @@
 
-*.cache
-*.dat
-*.exe
+source/repos/Проект к школе/AnalysisLibrary/obj/
+
 *.pdb
-*.sav*.dll
+
+source/repos/Проект к школе/ClassLibrary2/obj/
+
+source/repos/Проект к школе/FormServer/obj/
+
+source/repos/Проект к школе/Tests/obj/
+
+source/repos/Проект к школе/Writer/obj/
+
+source/repos/Проект к школе/Тестовая система/obj/

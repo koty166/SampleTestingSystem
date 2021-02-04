@@ -53,24 +53,28 @@ namespace Проект_к_школе
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            String[] FileNames;
-
-            if (!Directory.Exists(directory))
-                Directory.CreateDirectory(directory);
-            else
+            try
             {
-                FileNames = Directory.GetFiles(directory, "*.dat");
-                if (FileNames.Length != 0)
-                    for (int i = 0; i < FileNames.Length; i++)
-                    {
-                        FileStream Stream = new FileStream(FileNames[i], FileMode.Open);
-                        BinaryFormatter Formated = new BinaryFormatter();
+                String[] FileNames;
 
-                        Lesson_mass.Add((Lesson)Formated.Deserialize(Stream));
+                if (!Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
+                else
+                {
+                    FileNames = Directory.GetFiles(directory, "*.dat");
+                    if (FileNames.Length != 0)
+                        for (int i = 0; i < FileNames.Length; i++)
+                        {
+                            FileStream Stream = new FileStream(FileNames[i], FileMode.Open);
+                            BinaryFormatter Formated = new BinaryFormatter();
 
-                        Stream.Close();
-                    }
+                            Lesson_mass.Add((Lesson)Formated.Deserialize(Stream));
+
+                            Stream.Close();
+                        }
+                }
             }
+            catch { MessageBox.Show("Ошибка загрузки файлов попробуйте переметить их или частично удалить"); }
             if (Lesson_mass.Count != 0)
                 AddToLessonChoose();
             FileTools.Log("Test writer loaded");

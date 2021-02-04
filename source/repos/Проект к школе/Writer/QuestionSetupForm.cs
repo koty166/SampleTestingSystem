@@ -50,12 +50,12 @@ namespace Проект_к_школе
             }
             try
             {
-                QuestionSetup.Text = LocalQuestion.Question_s;
-                AnswerSetup1.Text = LocalQuestion.Answers[0];
-                AnswerSetup2.Text = LocalQuestion.Answers[1];
-                AnswerSetup3.Text = LocalQuestion.Answers[2];
-                AnswerSetup4.Text = LocalQuestion.Answers[3];
-                AnswerSetup5.Text = LocalQuestion.arg;
+                QuestionSetup.Text = LocalQuestion?.Question_s;
+                AnswerSetup1.Text = LocalQuestion?.Answers[0];
+                AnswerSetup2.Text = LocalQuestion?.Answers[1];
+                AnswerSetup3.Text = LocalQuestion?.Answers[2];
+                AnswerSetup4.Text = LocalQuestion?.Answers[3];
+                AnswerSetup5.Text = LocalQuestion?.arg;
                 AddQuestion.Text = "Изменить";
                 IsChange = true;
             }

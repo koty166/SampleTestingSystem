@@ -49,12 +49,12 @@ namespace Проект_к_школе
                 Directory.CreateDirectory(directory + "\\Images");
             try
             {
-                QuestionSetup.Text = LocalQuestion.Question;
-                ImageNameSetup.Text = LocalQuestion.image_name;
+                QuestionSetup.Text = LocalQuestion?.Question;
+                ImageNameSetup.Text = LocalQuestion?.image_name;
                 AddImageQuestion.Text = "Изменить";
                 IsChange = true;
 
-                ImageExample.Image = Image.FromFile(directory + "\\Images\\" + LocalQuestion.image_name);
+                ImageExample.Image = Image.FromFile(directory + "\\Images\\" + LocalQuestion?.image_name);
             }
             catch { }
         }
