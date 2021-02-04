@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace LessonsResourses
 {
     /// <summary>
-    /// Предстваляет тест.
+    /// Предствляет тест.
     /// </summary>
     [Serializable]
     public class Test
@@ -25,6 +25,10 @@ namespace LessonsResourses
         /// Оценка за тест.
         /// </summary>
         public string MarkForTest;
+        /// <summary>
+        /// Время, потраченное на тест [c].
+        /// </summary>
+        public int TimeForTest;
         /// <summary>
         /// Инициализирует новый экземпляр <see cref="Test"/>
         /// </summary>

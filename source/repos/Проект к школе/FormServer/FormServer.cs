@@ -29,20 +29,20 @@ namespace FormServer
 
         void WriteInExel(List<Pupil> pupList , String ExcelName)
         {
-           /* int n = 0;
+            List<int> ExelIDs = new List<int>();
+            int n = 0;
             string[] MarkMass;
 
             
             if (pupList.Count == 0) return;
 
-            ///////////////garbage collecting.Killing exel proceses
             try
             {
                 foreach (Process item in Process.GetProcessesByName("EXCEL"))
-                    item.Kill();
+                    ExelIDs.Add(item.Id);
             }
             catch { }
-            /////////////////////////
+
             Microsoft.Office.Interop.Excel.Application ex = new Microsoft.Office.Interop.Excel.Application();
             Workbook WorkBook;
             Worksheet WorkSheet;
@@ -130,12 +130,12 @@ namespace FormServer
                 while (true)
                 {
                     n++;
-                    if (!File.Exists(Environment.CurrentDirectory + $"\\Saves\\{ExcelName}" + n.ToString() + ".xlsx"))
+                    if (!File.Exists(Environment.CurrentDirectory + $@"\Saves\Exel\{ExcelName}" + n.ToString() + ".xlsx"))
                         break;
                 }
-                if (!Directory.Exists("Saves\\")) Directory.CreateDirectory("Saves\\");
+                if (!Directory.Exists(@"\Saves\Exel\")) Directory.CreateDirectory(@"\Saves\Exel\");
 
-                WorkBook.SaveAs(Environment.CurrentDirectory + $"\\Saves\\{ExcelName}" + n + ".xlsx",
+                WorkBook.SaveAs(Environment.CurrentDirectory + $@"\Saves\Exel\{ExcelName}" + n + ".xlsx",
                   Type.Missing, Type.Missing, Type.Missing, Type.Missing,
                   Type.Missing, XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing,
                   Type.Missing, Type.Missing);
@@ -143,7 +143,20 @@ namespace FormServer
                 FileTools.Log("Saved exel successfully");
             }
 
-            ex.Visible = true;*/
+            WorkSheet = null;
+            ExelApp = null;
+
+            GC.Collect();
+
+            try
+            {
+                foreach (Process item in Process.GetProcessesByName("EXCEL"))
+                    if (!ExelIDs.Contains(item.Id))
+                        item.Kill();
+            }
+            catch { }
+
+            ex.Visible = true;
 
         }
 
@@ -154,6 +167,28 @@ namespace FormServer
             FileSetup.Text = openFileDialog1.SafeFileName; 
 
         }
+        /// <summary>
+        /// Созраняет список ученикорв по заданному пути.
+        /// </summary>
+        /// <param name="SaveList">Список тестируемых для сохранения</param>
+        /// <param name="path">Путь к папке для сохранения. Например "/Saves/AnaliseReault/"</param>
+        void Save(List<Pupil> SaveList, string path)
+        {
+            string Path = $@"{path}{DateTime.Today}";
+            int i = 0;
+            if (File.Exists(Path))
+                while (true)
+                {
+                    i++;
+                    if (!File.Exists($@"{path}{DateTime.Today}_{i}.sav"))
+                        break;
+                }
+
+            FileStream f = new FileStream(Path, FileMode.Create);
+            BinaryFormatter b = new BinaryFormatter();
+            b.Serialize(f, SaveList);
+            f.Close();
+        }
 
         /// <summary>
         /// Выполняет анализ, в зависимости от выбранного варианта
@@ -163,18 +198,10 @@ namespace FormServer
             switch(TypeOfAnalis.SelectedIndex)
             {
                 case 0:
-                    if (AnalysisClass.MotivationAnalysis(AnaliseList) == 1)
-                    {
-                        MessageBox.Show("Ошибка обработки , смените дамп");
-                        return;
-                    }
+                    AnalysisClass.MotivationAnalysis(AnaliseList,false);
                     break;
                 case 1:
-                    if (AnalysisClass.ShcoolCognitiveActivityTestAnalysis(AnaliseList) == 1)
-                    {
-                        MessageBox.Show("Ошибка обработки , смените дамп");
-                        return;
-                    }
+                    AnalysisClass.ShcoolCognitiveActivityTestAnalysis(AnaliseList,false);
                     break;
                 case 2:
                     {
@@ -182,6 +209,8 @@ namespace FormServer
                         return;
                     }
             }
+            Save(AnaliseList, "/Saves/AnaliseReault/");
+            WriteInExel(AnaliseList,"awd");
         }
 
         private void BeginAnalysis_Click(object sender, EventArgs e)
@@ -192,22 +221,7 @@ namespace FormServer
 
         private void FormServer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string Path = $@"/Saves/{DateTime.Today}";
-            int i = 0;
-            if (File.Exists(Path))
-                while (true)
-                {
-                    i++;
-                    if (!File.Exists($@"/Saves/{DateTime.Today}_{i}.sav"))
-                        break;
-                }
-
-            FileStream f = new FileStream(Path, FileMode.Create);
-            BinaryFormatter b = new BinaryFormatter();
-            b.Serialize(f, ListOfPupil);
-            f.Close();
-            
-
+            Save(AnaliseList, "/Saves/Temp/");
             BroadCastSending.Abort();
             ListeningData.Abort();
         }

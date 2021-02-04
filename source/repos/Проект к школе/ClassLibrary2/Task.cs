@@ -25,6 +25,14 @@ namespace LessonsResourses
         /// Описание задания
         /// </summary>
         public String Description;
+        /// <summary>
+        /// Оценка за таск.
+        /// </summary>
+        public string Mark;
+        /// <summary>
+        /// Время, потраченное на такс [c].
+        /// </summary>
+        public int TimeForTest;
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="Task"/>
