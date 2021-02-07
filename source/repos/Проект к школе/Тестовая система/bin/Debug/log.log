@@ -1,132 +1,287 @@
-04.02.2021 20:29:27:206		List of lesson is rewrited
-04.02.2021 20:29:27:207		Proggram load sucseed number of lesson - 2
-04.02.2021 20:29:29:94		Network setting is opened
-04.02.2021 20:29:31:367		Try to get IP: 1 of 10
-04.02.2021 20:29:33:436		IP was get
-04.02.2021 20:29:36:647		Connection-try start
-04.02.2021 20:29:36:649		Connection try: 1 of 10
-04.02.2021 20:29:36:651		Connection try: 2 of 10
-04.02.2021 20:29:36:652		Connection try: 3 of 10
-04.02.2021 20:29:36:654		Connection try: 4 of 10
-04.02.2021 20:29:36:656		Connection try: 5 of 10
-04.02.2021 20:29:36:657		Connection try: 6 of 10
-04.02.2021 20:29:36:660		Connection try: 7 of 10
-04.02.2021 20:29:36:662		Connection try: 8 of 10
-04.02.2021 20:29:36:664		Connection try: 9 of 10
-04.02.2021 20:29:36:667		Connection try: 10 of 10
-04.02.2021 20:29:36:669		Connection failed
-04.02.2021 20:29:39:135		Connection-try start
-04.02.2021 20:29:39:136		Connection try: 1 of 10
-04.02.2021 20:29:39:137		Connection try: 2 of 10
-04.02.2021 20:29:39:138		Connection try: 3 of 10
-04.02.2021 20:29:39:139		Connection try: 4 of 10
-04.02.2021 20:29:39:140		Connection try: 5 of 10
-04.02.2021 20:29:39:141		Connection try: 6 of 10
-04.02.2021 20:29:39:142		Connection try: 7 of 10
-04.02.2021 20:29:39:143		Connection try: 8 of 10
-04.02.2021 20:29:39:145		Connection try: 9 of 10
-04.02.2021 20:29:39:149		Connection try: 10 of 10
-04.02.2021 20:29:39:152		Connection failed
-04.02.2021 20:29:42:872		Connection-try start
-04.02.2021 20:29:42:874		Connection try: 1 of 10
-04.02.2021 20:29:42:875		Connection try: 2 of 10
-04.02.2021 20:29:42:876		Connection try: 3 of 10
-04.02.2021 20:29:42:877		Connection try: 4 of 10
-04.02.2021 20:29:42:878		Connection try: 5 of 10
-04.02.2021 20:29:42:879		Connection try: 6 of 10
-04.02.2021 20:29:42:882		Connection try: 7 of 10
-04.02.2021 20:29:42:883		Connection try: 8 of 10
-04.02.2021 20:29:42:884		Connection try: 9 of 10
-04.02.2021 20:29:42:886		Connection try: 10 of 10
-04.02.2021 20:29:42:887		Connection failed
-04.02.2021 20:29:45:193		Connection-try start
-04.02.2021 20:29:45:194		Connection try: 1 of 10
-04.02.2021 20:29:45:196		Connection try: 2 of 10
-04.02.2021 20:29:45:197		Connection try: 3 of 10
-04.02.2021 20:29:45:199		Connection try: 4 of 10
-04.02.2021 20:29:45:200		Connection try: 5 of 10
-04.02.2021 20:29:45:201		Connection try: 6 of 10
-04.02.2021 20:29:45:202		Connection try: 7 of 10
-04.02.2021 20:29:45:203		Connection try: 8 of 10
-04.02.2021 20:29:45:204		Connection try: 9 of 10
-04.02.2021 20:29:45:206		Connection try: 10 of 10
-04.02.2021 20:29:45:207		Connection failed
-04.02.2021 20:29:46:544		Network setting is closed
-04.02.2021 20:29:48:72		Registration is began
-04.02.2021 20:29:48:95		Test ClassLibrary2.Lesson is started
-04.02.2021 20:29:53:396		Next clicked
-04.02.2021 20:29:53:433		Registration is done
-04.02.2021 20:29:54:217		Next clicked
-04.02.2021 20:29:55:264		Next clicked
-04.02.2021 20:29:55:265		Added to pupil list:no
-04.02.2021 20:29:55:576		Next clicked
-04.02.2021 20:29:55:576		Added to pupil list:no
-04.02.2021 20:29:55:758		Next clicked
-04.02.2021 20:29:55:758		Added to pupil list:no
-04.02.2021 20:29:55:943		Next clicked
-04.02.2021 20:29:55:944		Added to pupil list:no
-04.02.2021 20:29:56:145		Next clicked
-04.02.2021 20:29:56:145		Added to pupil list:no
-04.02.2021 20:29:56:351		Next clicked
-04.02.2021 20:29:56:351		Added to pupil list:no
-04.02.2021 20:29:56:552		Next clicked
-04.02.2021 20:29:56:552		Added to pupil list:no
-04.02.2021 20:29:56:751		Next clicked
-04.02.2021 20:29:56:752		Added to pupil list:no
-04.02.2021 20:29:57:16		Next clicked
-04.02.2021 20:29:57:17		Added to pupil list:no
-04.02.2021 20:29:57:206		Next clicked
-04.02.2021 20:29:57:207		Added to pupil list:no
-04.02.2021 20:29:57:421		Next clicked
-04.02.2021 20:29:57:422		Added to pupil list:no
-04.02.2021 20:29:57:639		Next clicked
-04.02.2021 20:29:57:639		Added to pupil list:no
-04.02.2021 20:29:57:821		Next clicked
-04.02.2021 20:29:57:821		Added to pupil list:no
-04.02.2021 20:29:58:3		Next clicked
-04.02.2021 20:29:58:3		Added to pupil list:no
-04.02.2021 20:29:58:205		Next clicked
-04.02.2021 20:29:58:206		Added to pupil list:no
-04.02.2021 20:29:58:504		Next clicked
-04.02.2021 20:29:58:505		Added to pupil list:no
-04.02.2021 20:29:58:816		Next clicked
-04.02.2021 20:29:58:816		Added to pupil list:no
-04.02.2021 20:29:59:127		Next clicked
-04.02.2021 20:29:59:127		Added to pupil list:no
-04.02.2021 20:29:59:355		Next clicked
-04.02.2021 20:29:59:355		Added to pupil list:no
-04.02.2021 20:29:59:611		Next clicked
-04.02.2021 20:29:59:611		Added to pupil list:no
-04.02.2021 20:30:02:324		Next clicked
-04.02.2021 20:30:03:411		Next clicked
-04.02.2021 20:30:03:412		Added to pupil list:no
-04.02.2021 20:30:03:623		Next clicked
-04.02.2021 20:30:03:623		Added to pupil list:no
-04.02.2021 20:30:03:830		Next clicked
-04.02.2021 20:30:03:830		Added to pupil list:no
-04.02.2021 20:30:04:4		Next clicked
-04.02.2021 20:30:04:4		Added to pupil list:no
-04.02.2021 20:30:04:190		Next clicked
-04.02.2021 20:30:04:191		Added to pupil list:no
-04.02.2021 20:30:04:366		Next clicked
-04.02.2021 20:30:04:366		Added to pupil list:no
-04.02.2021 20:30:04:553		Next clicked
-04.02.2021 20:30:04:554		Added to pupil list:no
-04.02.2021 20:30:04:739		Next clicked
-04.02.2021 20:30:04:739		Added to pupil list:no
-04.02.2021 20:30:04:918		Next clicked
-04.02.2021 20:30:04:918		Added to pupil list:no
-04.02.2021 20:30:05:103		Next clicked
-04.02.2021 20:30:05:103		Added to pupil list:no
-04.02.2021 20:30:05:305		Next clicked
-04.02.2021 20:30:05:306		Added to pupil list:no
-04.02.2021 20:30:05:517		Next clicked
-04.02.2021 20:30:05:517		Added to pupil list:no
-04.02.2021 20:30:05:712		Next clicked
-04.02.2021 20:30:05:712		Added to pupil list:no
-04.02.2021 20:30:05:887		Next clicked
-04.02.2021 20:30:05:887		Added to pupil list:no
-04.02.2021 20:30:06:57		Next clicked
-04.02.2021 20:30:06:57		Added to pupil list:no
-04.02.2021 20:30:06:228		Next clicked
-04.02.2021 20:30:06:228		Added to pupil list:no
+07.02.2021 14:41:00:583		List of lesson is rewrited
+07.02.2021 14:41:00:584		Proggram load sucseed number of lesson - 2
+07.02.2021 14:41:02:400		Network setting is opened
+07.02.2021 14:41:03:545		Try to get IP: 1 of 10
+07.02.2021 14:41:04:74		IP was get
+07.02.2021 14:41:04:420		Connection-try start
+07.02.2021 14:41:04:421		Connection try: 1 of 10
+07.02.2021 14:41:04:442		Connected sucsseed by address: 192.168.0.9
+07.02.2021 14:41:04:825		Network setting is closed
+07.02.2021 14:41:06:359		Registration is began
+07.02.2021 14:41:06:378		Test ClassLibrary2.Lesson is started
+07.02.2021 14:41:10:673		Next clicked
+07.02.2021 14:41:10:690		Registration is done
+07.02.2021 14:41:11:520		Next clicked
+07.02.2021 14:41:11:840		Next clicked
+07.02.2021 14:41:11:841		Added to pupil list:no
+07.02.2021 14:41:12:340		Next clicked
+07.02.2021 14:41:12:340		Added to pupil list:no
+07.02.2021 14:41:12:371		Next clicked
+07.02.2021 14:41:12:372		Added to pupil list:no
+07.02.2021 14:41:12:401		Next clicked
+07.02.2021 14:41:12:401		Added to pupil list:no
+07.02.2021 14:41:12:435		Next clicked
+07.02.2021 14:41:12:436		Added to pupil list:no
+07.02.2021 14:41:12:467		Next clicked
+07.02.2021 14:41:12:467		Added to pupil list:no
+07.02.2021 14:41:12:499		Next clicked
+07.02.2021 14:41:12:499		Added to pupil list:no
+07.02.2021 14:41:12:534		Next clicked
+07.02.2021 14:41:12:534		Added to pupil list:no
+07.02.2021 14:41:12:565		Next clicked
+07.02.2021 14:41:12:566		Added to pupil list:no
+07.02.2021 14:41:12:596		Next clicked
+07.02.2021 14:41:12:597		Added to pupil list:no
+07.02.2021 14:41:12:630		Next clicked
+07.02.2021 14:41:12:630		Added to pupil list:no
+07.02.2021 14:41:12:661		Next clicked
+07.02.2021 14:41:12:662		Added to pupil list:no
+07.02.2021 14:41:12:692		Next clicked
+07.02.2021 14:41:12:692		Added to pupil list:no
+07.02.2021 14:41:12:723		Next clicked
+07.02.2021 14:41:12:724		Added to pupil list:no
+07.02.2021 14:41:12:755		Next clicked
+07.02.2021 14:41:12:756		Added to pupil list:no
+07.02.2021 14:41:12:785		Next clicked
+07.02.2021 14:41:12:786		Added to pupil list:no
+07.02.2021 14:41:12:819		Next clicked
+07.02.2021 14:41:12:819		Added to pupil list:no
+07.02.2021 14:41:12:850		Next clicked
+07.02.2021 14:41:12:851		Added to pupil list:no
+07.02.2021 14:41:12:881		Next clicked
+07.02.2021 14:41:12:882		Added to pupil list:no
+07.02.2021 14:41:12:918		Next clicked
+07.02.2021 14:41:12:919		Added to pupil list:no
+07.02.2021 14:41:12:950		Next clicked
+07.02.2021 14:41:12:983		Next clicked
+07.02.2021 14:41:12:984		Added to pupil list:no
+07.02.2021 14:41:13:12		Next clicked
+07.02.2021 14:41:13:13		Added to pupil list:no
+07.02.2021 14:41:13:46		Next clicked
+07.02.2021 14:41:13:47		Added to pupil list:no
+07.02.2021 14:41:13:76		Next clicked
+07.02.2021 14:41:13:77		Added to pupil list:no
+07.02.2021 14:41:13:107		Next clicked
+07.02.2021 14:41:13:108		Added to pupil list:no
+07.02.2021 14:41:13:139		Next clicked
+07.02.2021 14:41:13:140		Added to pupil list:no
+07.02.2021 14:41:13:170		Next clicked
+07.02.2021 14:41:13:170		Added to pupil list:no
+07.02.2021 14:41:13:203		Next clicked
+07.02.2021 14:41:13:204		Added to pupil list:no
+07.02.2021 14:41:13:235		Next clicked
+07.02.2021 14:41:13:235		Added to pupil list:no
+07.02.2021 14:41:13:268		Next clicked
+07.02.2021 14:41:13:269		Added to pupil list:no
+07.02.2021 14:41:13:306		Next clicked
+07.02.2021 14:41:13:307		Added to pupil list:no
+07.02.2021 14:41:13:337		Next clicked
+07.02.2021 14:41:13:338		Added to pupil list:no
+07.02.2021 14:41:13:366		Next clicked
+07.02.2021 14:41:13:366		Added to pupil list:no
+07.02.2021 14:41:13:397		Next clicked
+07.02.2021 14:41:13:398		Added to pupil list:no
+07.02.2021 14:41:13:429		Next clicked
+07.02.2021 14:41:13:430		Added to pupil list:no
+07.02.2021 14:41:13:462		Next clicked
+07.02.2021 14:41:13:463		Added to pupil list:no
+07.02.2021 14:41:13:494		Next clicked
+07.02.2021 14:41:13:494		Added to pupil list:no
+07.02.2021 14:41:13:525		Next clicked
+07.02.2021 14:41:13:526		Added to pupil list:no
+07.02.2021 14:41:13:557		Next clicked
+07.02.2021 14:41:13:557		Added to pupil list:no
+07.02.2021 14:41:13:589		Next clicked
+07.02.2021 14:41:13:590		Added to pupil list:no
+07.02.2021 14:41:13:620		Next clicked
+07.02.2021 14:41:13:652		Next clicked
+07.02.2021 14:41:13:653		Added to pupil list:no
+07.02.2021 14:41:13:690		Next clicked
+07.02.2021 14:41:13:690		Added to pupil list:no
+07.02.2021 14:41:13:719		Next clicked
+07.02.2021 14:41:13:719		Added to pupil list:no
+07.02.2021 14:41:13:749		Next clicked
+07.02.2021 14:41:13:750		Added to pupil list:no
+07.02.2021 14:41:13:782		Next clicked
+07.02.2021 14:41:13:782		Added to pupil list:no
+07.02.2021 14:41:13:813		Next clicked
+07.02.2021 14:41:13:813		Added to pupil list:no
+07.02.2021 14:41:13:844		Next clicked
+07.02.2021 14:41:13:845		Added to pupil list:no
+07.02.2021 14:41:13:876		Next clicked
+07.02.2021 14:41:13:877		Added to pupil list:no
+07.02.2021 14:41:13:908		Next clicked
+07.02.2021 14:41:13:908		Added to pupil list:no
+07.02.2021 14:41:13:941		Next clicked
+07.02.2021 14:41:13:941		Added to pupil list:no
+07.02.2021 14:41:13:972		Next clicked
+07.02.2021 14:41:13:972		Added to pupil list:no
+07.02.2021 14:41:14:4		Next clicked
+07.02.2021 14:41:14:4		Added to pupil list:no
+07.02.2021 14:41:14:38		Next clicked
+07.02.2021 14:41:14:39		Added to pupil list:no
+07.02.2021 14:41:14:73		Next clicked
+07.02.2021 14:41:14:73		Added to pupil list:no
+07.02.2021 14:41:14:104		Next clicked
+07.02.2021 14:41:14:104		Added to pupil list:no
+07.02.2021 14:41:14:134		Next clicked
+07.02.2021 14:41:14:135		Added to pupil list:no
+07.02.2021 14:41:14:167		Next clicked
+07.02.2021 14:41:14:167		Added to pupil list:no
+07.02.2021 14:41:14:198		Next clicked
+07.02.2021 14:41:14:198		Added to pupil list:no
+07.02.2021 14:41:14:229		Next clicked
+07.02.2021 14:41:14:229		Added to pupil list:no
+07.02.2021 14:41:14:260		Next clicked
+07.02.2021 14:41:14:261		Added to pupil list:no
+07.02.2021 14:41:14:291		Next clicked
+07.02.2021 14:41:14:292		Added to pupil list:no
+07.02.2021 14:41:14:328		Next clicked
+07.02.2021 14:41:14:329		Added to pupil list:no
+07.02.2021 14:41:14:357		Next clicked
+07.02.2021 14:41:14:357		Added to pupil list:no
+07.02.2021 14:41:14:388		Next clicked
+07.02.2021 14:41:14:389		Added to pupil list:no
+07.02.2021 14:41:14:422		Next clicked
+07.02.2021 14:41:14:423		Added to pupil list:no
+07.02.2021 14:41:14:464		Picture load failed , load error picture
+07.02.2021 14:41:14:466		Next clicked
+07.02.2021 14:41:14:468		Picture load failed , load error picture
+07.02.2021 14:41:14:489		Next clicked
+07.02.2021 14:41:14:529		Picture load failed , load error picture
+07.02.2021 14:41:14:533		Next clicked
+07.02.2021 14:41:14:533		Added to pupil list:no
+07.02.2021 14:41:14:536		Picture load failed , load error picture
+07.02.2021 14:41:14:551		Next clicked
+07.02.2021 14:41:14:552		Added to pupil list:no
+07.02.2021 14:41:14:555		Picture load failed , load error picture
+07.02.2021 14:41:14:582		Next clicked
+07.02.2021 14:41:14:583		Added to pupil list:no
+07.02.2021 14:41:14:594		Picture load failed , load error picture
+07.02.2021 14:41:14:613		Next clicked
+07.02.2021 14:41:14:614		Added to pupil list:no
+07.02.2021 14:41:14:624		Picture load failed , load error picture
+07.02.2021 14:41:14:645		Next clicked
+07.02.2021 14:41:14:645		Added to pupil list:no
+07.02.2021 14:41:14:647		Picture load failed , load error picture
+07.02.2021 14:41:14:676		Next clicked
+07.02.2021 14:41:14:676		Added to pupil list:no
+07.02.2021 14:41:14:678		Picture load failed , load error picture
+07.02.2021 14:41:14:709		Next clicked
+07.02.2021 14:41:14:710		Added to pupil list:no
+07.02.2021 14:41:14:724		Picture load failed , load error picture
+07.02.2021 14:41:14:740		Next clicked
+07.02.2021 14:41:14:741		Added to pupil list:no
+07.02.2021 14:41:14:753		Picture load failed , load error picture
+07.02.2021 14:41:15:27		Next clicked
+07.02.2021 14:41:15:28		Added to pupil list:no
+07.02.2021 14:41:15:30		Picture load failed , load error picture
+07.02.2021 14:41:15:528		Next clicked
+07.02.2021 14:41:15:529		Added to pupil list:no
+07.02.2021 14:41:15:531		Picture load failed , load error picture
+07.02.2021 14:41:15:559		Next clicked
+07.02.2021 14:41:15:559		Added to pupil list:no
+07.02.2021 14:41:15:573		Picture load failed , load error picture
+07.02.2021 14:41:15:591		Next clicked
+07.02.2021 14:41:15:591		Added to pupil list:no
+07.02.2021 14:41:15:594		Picture load failed , load error picture
+07.02.2021 14:41:15:621		Next clicked
+07.02.2021 14:41:15:622		Added to pupil list:no
+07.02.2021 14:41:15:624		Picture load failed , load error picture
+07.02.2021 14:41:15:655		Next clicked
+07.02.2021 14:41:15:655		Added to pupil list:no
+07.02.2021 14:41:15:658		Picture load failed , load error picture
+07.02.2021 14:41:15:687		Next clicked
+07.02.2021 14:41:15:687		Added to pupil list:no
+07.02.2021 14:41:15:689		Picture load failed , load error picture
+07.02.2021 14:41:15:717		Next clicked
+07.02.2021 14:41:15:718		Added to pupil list:no
+07.02.2021 14:41:15:725		Picture load failed , load error picture
+07.02.2021 14:41:15:752		Next clicked
+07.02.2021 14:41:15:753		Added to pupil list:no
+07.02.2021 14:41:15:786		Next clicked
+07.02.2021 14:41:15:787		Added to pupil list:no
+07.02.2021 14:41:15:798		Picture load failed , load error picture
+07.02.2021 14:41:15:817		Next clicked
+07.02.2021 14:41:15:818		Added to pupil list:no
+07.02.2021 14:41:15:855		Picture load failed , load error picture
+07.02.2021 14:41:15:857		Next clicked
+07.02.2021 14:41:15:881		Picture load failed , load error picture
+07.02.2021 14:41:15:883		Next clicked
+07.02.2021 14:41:15:884		Added to pupil list:no
+07.02.2021 14:41:15:895		Picture load failed , load error picture
+07.02.2021 14:41:15:913		Next clicked
+07.02.2021 14:41:15:913		Added to pupil list:no
+07.02.2021 14:41:15:915		Picture load failed , load error picture
+07.02.2021 14:41:15:944		Next clicked
+07.02.2021 14:41:15:945		Added to pupil list:no
+07.02.2021 14:41:15:958		Picture load failed , load error picture
+07.02.2021 14:41:15:976		Next clicked
+07.02.2021 14:41:15:976		Added to pupil list:no
+07.02.2021 14:41:15:987		Picture load failed , load error picture
+07.02.2021 14:41:16:7		Next clicked
+07.02.2021 14:41:16:7		Added to pupil list:no
+07.02.2021 14:41:16:9		Picture load failed , load error picture
+07.02.2021 14:41:16:38		Next clicked
+07.02.2021 14:41:16:40		Added to pupil list:no
+07.02.2021 14:41:16:42		Picture load failed , load error picture
+07.02.2021 14:41:16:71		Next clicked
+07.02.2021 14:41:16:71		Added to pupil list:no
+07.02.2021 14:41:16:82		Picture load failed , load error picture
+07.02.2021 14:41:16:321		Next clicked
+07.02.2021 14:41:16:321		Added to pupil list:no
+07.02.2021 14:41:16:323		Picture load failed , load error picture
+07.02.2021 14:41:16:820		Next clicked
+07.02.2021 14:41:16:820		Added to pupil list:no
+07.02.2021 14:41:16:822		Picture load failed , load error picture
+07.02.2021 14:41:16:854		Next clicked
+07.02.2021 14:41:16:854		Added to pupil list:no
+07.02.2021 14:41:16:856		Picture load failed , load error picture
+07.02.2021 14:41:16:888		Next clicked
+07.02.2021 14:41:16:889		Added to pupil list:no
+07.02.2021 14:41:16:892		Picture load failed , load error picture
+07.02.2021 14:41:16:919		Next clicked
+07.02.2021 14:41:16:919		Added to pupil list:no
+07.02.2021 14:41:16:921		Picture load failed , load error picture
+07.02.2021 14:41:16:949		Next clicked
+07.02.2021 14:41:16:949		Added to pupil list:no
+07.02.2021 14:41:16:982		Next clicked
+07.02.2021 14:41:16:982		Added to pupil list:no
+07.02.2021 14:41:16:986		Picture load failed , load error picture
+07.02.2021 14:41:17:13		Next clicked
+07.02.2021 14:41:17:14		Added to pupil list:no
+07.02.2021 14:41:17:49		Picture load failed , load error picture
+07.02.2021 14:41:17:51		Next clicked
+07.02.2021 14:41:17:77		Picture load failed , load error picture
+07.02.2021 14:41:17:79		Next clicked
+07.02.2021 14:41:17:80		Added to pupil list:no
+07.02.2021 14:41:17:81		Picture load failed , load error picture
+07.02.2021 14:41:17:107		Next clicked
+07.02.2021 14:41:17:107		Added to pupil list:no
+07.02.2021 14:41:17:109		Picture load failed , load error picture
+07.02.2021 14:41:17:140		Next clicked
+07.02.2021 14:41:17:141		Added to pupil list:no
+07.02.2021 14:41:17:171		Next clicked
+07.02.2021 14:41:17:172		Added to pupil list:no
+07.02.2021 14:41:17:173		Picture load failed , load error picture
+07.02.2021 14:41:17:203		Next clicked
+07.02.2021 14:41:17:203		Added to pupil list:no
+07.02.2021 14:41:17:238		Picture load failed , load error picture
+07.02.2021 14:41:17:239		Next clicked
+07.02.2021 14:41:17:263		Picture load failed , load error picture
+07.02.2021 14:41:17:272		Next clicked
+07.02.2021 14:41:17:272		Added to pupil list:no
+07.02.2021 14:41:17:274		Picture load failed , load error picture
+07.02.2021 14:41:17:303		Next clicked
+07.02.2021 14:41:17:303		Added to pupil list:no
+07.02.2021 14:41:17:304		Picture load failed , load error picture
+07.02.2021 14:41:17:670		Next clicked
+07.02.2021 14:41:17:670		Added to pupil list:no
+07.02.2021 14:41:18:251		Next clicked
+07.02.2021 14:41:18:251		Added to pupil list:no
+07.02.2021 14:41:19:278		Next clicked
+07.02.2021 14:41:19:278		Added to pupil list:no
+07.02.2021 14:41:19:309		Save local end.Path: Tests\Save.sav
+07.02.2021 14:41:19:528		1261
+07.02.2021 14:41:19:529		Data send is end sucseed
+07.02.2021 14:41:21:54		End of test

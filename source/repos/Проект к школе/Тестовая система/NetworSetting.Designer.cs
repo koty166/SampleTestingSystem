@@ -79,9 +79,8 @@
             this.NetworkStatys.AutoSize = true;
             this.NetworkStatys.Location = new System.Drawing.Point(78, 109);
             this.NetworkStatys.Name = "NetworkStatys";
-            this.NetworkStatys.Size = new System.Drawing.Size(35, 13);
+            this.NetworkStatys.Size = new System.Drawing.Size(0, 13);
             this.NetworkStatys.TabIndex = 4;
-            this.NetworkStatys.Text = "label3";
             // 
             // Done
             // 

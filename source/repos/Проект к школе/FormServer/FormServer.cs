@@ -12,13 +12,14 @@ using System.Diagnostics;
 using System.IO;
 using AnalysisLibrary;
 using ClassLibrary2.Security;
+using System.Security.Cryptography;
 
 namespace FormServer
 {
     public partial class FormServer : Form
     {
         static List<Pupil> ListOfPupil = new List<Pupil>();
-        static int NumOfSendingIPPackages = 0, IPChecking = 0 , PupilsData = 0;
+        static int NumOfSendingIPPackages = 0, IPChecking = 0, PupilsData = 0;
         static string SendingIP;
         static byte[] Key = new byte[256];
         Thread IPsender = null, DataListener = null;
@@ -28,13 +29,13 @@ namespace FormServer
             InitializeComponent();
         }
 
-        void WriteInExel(List<Pupil> pupList , String ExcelName)
+        void WriteInExel(List<Pupil> pupList, String ExcelName)
         {
             int n = 0;
             string[] MarkMass;
 
             FileTools.Log("Choosen show on Exel");
-            
+
             if (pupList.Count == 0) return;
 
             ///////////////garbage collecting.Killing exel proceses
@@ -125,7 +126,7 @@ namespace FormServer
                     }
                 }
             }
-            catch(Exception exep) { FileTools.Log(exep.Message); }
+            catch (Exception exep) { FileTools.Log(exep.Message); }
             DialogResult d = MessageBox.Show("Сохранить файл Exel в папку приложения?", "Сохранить", MessageBoxButtons.YesNo);
             if (d == DialogResult.Yes)
             {
@@ -182,7 +183,7 @@ namespace FormServer
                 if (DataListener != null && !DataListener.IsAlive)
                 {
                     ListeningDataGroupBox.Enabled = true;
-                    IsListenAlive.Text = "Рассылка IP закончена";
+                    IsListenAlive.Text = "Все данные получены";
                     GetingDataStatistic.Text = "Полученно данных учеников:" + PupilsData.ToString();
                     TryConeectionStatisticLabel.Text = "Проверок IP:" + IPChecking.ToString();
                     BeginAnalysis.Enabled = true;
@@ -199,7 +200,7 @@ namespace FormServer
             try { if (DataListener.IsAlive) return; }
             catch { }
 
-            WriteInExel(ListOfPupil,"Excel");
+            WriteInExel(ListOfPupil, "Excel");
         }
 
         private void FileSetupButton_Click(object sender, EventArgs e)
@@ -213,24 +214,24 @@ namespace FormServer
 
         void Analysis(String FileForAnalysisPath)
         {
-            FileStream f = new FileStream(FileForAnalysisPath,FileMode.Open);
+            FileStream f = new FileStream(FileForAnalysisPath, FileMode.Open);
             BinaryFormatter b = new BinaryFormatter();
             List<Pupil> pupList = null;
-            
+
             try
             {
-              pupList = (List<Pupil>)b.Deserialize(f);
+                pupList = (List<Pupil>)b.Deserialize(f);
             }
             catch
             {
                 f.Seek(0, SeekOrigin.Begin);
                 pupList = new List<Pupil>();
-                pupList.Add((Pupil)b.Deserialize(f));    
+                pupList.Add((Pupil)b.Deserialize(f));
             }
 
             f.Close();
 
-            switch(TypeOfAnalis.SelectedIndex)
+            switch (TypeOfAnalis.SelectedIndex)
             {
                 case 0:
                     if (AnalysisClass.MotivationAnalysis(pupList) == 1)
@@ -248,18 +249,18 @@ namespace FormServer
                     break;
                 case 2:
                     {
-                        WriteInExel(pupList,"Showed exel");
+                        WriteInExel(pupList, "Showed exel");
                         return;
                     }
             }
 
-            WriteInExel(pupList,"ModifiedExcel");
+            WriteInExel(pupList, "ModifiedExcel");
 
         }
 
         private void BeginAnalysis_Click(object sender, EventArgs e)
         {
-            if (TypeOfAnalis.SelectedItem == null||FileSetup.Text == "" || FileSetup.Text == null) return;
+            if (TypeOfAnalis.SelectedItem == null || FileSetup.Text == "" || FileSetup.Text == null) return;
             Analysis(openFileDialog1.FileName);
         }
 
@@ -267,7 +268,7 @@ namespace FormServer
         {
             if (IPsender != null && IPsender.IsAlive)
                 IPsender.Abort();
-            if ( DataListener != null && DataListener.IsAlive)
+            if (DataListener != null && DataListener.IsAlive)
             {
                 ////Sending TCP connection need to rigth end of waiting connections
                 TcpClient t = new TcpClient();
@@ -283,7 +284,7 @@ namespace FormServer
 
         private void FromTxt_Click(object sender, EventArgs e)
         {
-           
+
             Pupil p = null;
             for (int i = 0; i < 2; i++)
             {
@@ -305,7 +306,7 @@ namespace FormServer
                 r.Close();
                 ListOfPupil.Add(p);
             }
-            
+
             MessageBox.Show("Done");
         }
 
@@ -329,7 +330,7 @@ namespace FormServer
 
             sender.Close();
             FileTools.Log("Sending IP end");
- 
+
         }
 
         private void ListenStart_Click(object sender, EventArgs e)
@@ -346,22 +347,15 @@ namespace FormServer
             FileTools.Log("Listen data is start");
         }
 
-        static int IntFromBytes(byte[] Bytes)
-        {
-            int Out = 1;
-            foreach (var i in Bytes)
-                Out *= (int)i;
-            return Out;
-        }
-
         static void WaitForConnection(object many)
         {
             TcpListener l = new TcpListener(9090);
             Random r = new Random();
             BinaryFormatter b = new BinaryFormatter();
+            MemoryStream Mem = new MemoryStream();
             NetworkStream stream;
             List<Pupil> BufList = new List<Pupil>();
-            int dones = 0;
+            int dones = 0, Length;
             FileTools.Log("Wait connection started , pupils - " + (int)many);
 
             try
@@ -386,43 +380,42 @@ namespace FormServer
                         FileTools.Log("Send OK to try-connection request");
                         IPChecking++;
                     }
-                    else if (data[0] == 1)
+                    else
+                    if (data[0] == 1)
                     {
-                        Pupil pup;
-                        int NumOfBytes;
-                        byte BufByte;
-
-                       for (int i = 0; i < 256; i++)
-                            Key[i] = (byte)r.Next(0, 64);
-
-                        stream.Write(Key,0,256);
-
                         data = new byte[4];
-                        stream.Read(data,0,data.Length);
-                        NumOfBytes = BitConverter.ToInt32(data,0);
+                        int buf;
+                        Aes aes = Aes.Create();
+                        RSACryptoServiceProvider RSA = new RSACryptoServiceProvider();
+                        RSAParameters RSAinfo = RSA.ExportParameters(false);
+                        stream.Write(BitConverter.GetBytes(RSAinfo.Modulus.Length), 0, 4);
+                        stream.Write(BitConverter.GetBytes(RSAinfo.Exponent.Length), 0, 4);
 
-                       
-                         
-                        for (int i = 0; i < 256; i++)
-                        {
-                            BufByte = (byte)(63 - Key[i]);
-                            Key[i] = BufByte;
-                        }
+                        stream.Write(RSAinfo.Modulus, 0, RSAinfo.Modulus.Length);
+                        stream.Write(RSAinfo.Exponent, 0, RSAinfo.Exponent.Length);
+                        stream.Read(data, 0, 4);
+                        buf = BitConverter.ToInt32(data, 0);
+                        data = new byte[buf];
+                        stream.Read(data, 0, buf);
+                        aes.IV = RSA.Decrypt(data, true);
+                        data = new byte[4];
+                        stream.Read(data, 0, 4);
+                        buf = BitConverter.ToInt32(data, 0);
+                        data = new byte[buf];
+                        stream.Read(data, 0, buf);
+                        aes.Key = RSA.Decrypt(data, true);
 
-                        foreach (var item in Key)
-                        {
-                            FileTools.Log(item.ToString());
-                        }
-                        FileTools.Log("  ");
+                        CryptoStream CrStream = new CryptoStream(stream, aes.CreateDecryptor(), CryptoStreamMode.Read);
+                        data = new byte[4];
+                        CrStream.Read(data, 0, 4);
+                        Length = BitConverter.ToInt32(data, 0);
+                        data = new byte[Length];
+                        CrStream.Read(data, 0, Length);
+                        Mem.Write(data, 0, data.Length);
+                        Mem.Seek(0, SeekOrigin.Begin);
 
-
-                        data = new byte[NumOfBytes];
-                        stream.Read(data,0,NumOfBytes);
-
-                        pup = (Pupil)DecryptClass.Decrypt(data,Key);
-                        
-
-                        BufList.Add(pup);
+                        lock (BufList)
+                            BufList.Add((Pupil)b.Deserialize(Mem));
 
                         FileTools.Log($"Pupil {dones} data is get");
                         Console.WriteLine("Получены данные ученика");
@@ -449,7 +442,7 @@ namespace FormServer
                     }
                 }
             }
-            catch(Exception ex) { FileTools.Log(ex.Message); }
+            catch (Exception ex) { FileTools.Log(ex.Message); }
         }
     }
 }

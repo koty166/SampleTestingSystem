@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using ClassLibrary2;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using ClassLibrary2.Security;
 
 namespace Проект_к_школе
@@ -150,7 +151,7 @@ namespace Проект_к_школе
 
             b.Serialize(s, pupil);
             PupilData = s.ToArray();
-            s.Dispose();
+             s.Dispose();
 
             EndLocal(PupilData);
 
@@ -163,34 +164,43 @@ namespace Проект_к_школе
             }
             if (Sender.Connected)
             {
-                byte[] Key = new byte[256];
-                int DataLenght = 0;
-                this.Text = "Подключение завершено.Сброс данных...";
+                byte[] RSAModulus =null , RSAExponent = null;
+                int RSAModulusLenght, RSAExponentLenght;
+                Aes aes = Aes.Create();
+                this.Text = "Подключение завершено. Отправка данных...";
 
                 stream = Sender.GetStream();
-                byte[] data = new byte[1] { 1 };
+                byte[] data = new byte[] { 1 };
 
+                stream.Write(data, 0, 1);
+
+                data = new byte[8];
+                
+                stream.Read(data, 0, 4);
+                
+                
+                RSAModulusLenght = BitConverter.ToInt32(data, 0);
+                stream.Read(data, 0, 4);
+                RSAExponentLenght = BitConverter.ToInt32(data, 0);
+                RSAModulus = new byte[RSAModulusLenght];
+                RSAExponent = new byte[RSAExponentLenght];
+                stream.Read(RSAModulus, 0, RSAModulusLenght);
+                stream.Read(RSAExponent, 0, RSAExponentLenght);
+
+                data = EncryptRSA(aes.IV, RSAModulus, RSAExponent);
+                stream.Write(BitConverter.GetBytes(data.Length),0,4);
                 stream.Write(data, 0, data.Length);
-                
+                data = EncryptRSA(aes.Key, RSAModulus, RSAExponent);
+                stream.Write(BitConverter.GetBytes(data.Length), 0, 4);
+                stream.Write(data, 0, data.Length);
 
-                stream.Read(Key, 0, 256);
-
-                DataLenght = PupilData.Length * 64;
-
-               
-                for (int i = 0; i < 256; i++)
-                    Key[i] = (byte)(63 - Key[i]);
-
-                data = (byte[])EncryptClass.Encrypt(PupilData, Key , ref DataLenght);
-                PupilData = Key;
-                Key = BitConverter.GetBytes(data.Length);
-
-
-                stream.Write(Key, 0, 4);
-                stream.Write( data , 0 , data.Length );
-                
-    
+                CryptoStream CrSream = new CryptoStream(stream,aes.CreateEncryptor(),CryptoStreamMode.Write);
+                CrSream.Write(BitConverter.GetBytes(PupilData.Length), 0, 4);
+                CrSream.Write(PupilData, 0, PupilData.Length);
+                FileTools.Log(PupilData.Length.ToString());
+                CrSream.Close();
                 Sender.Close();
+                
                 
                 this.Text = "Сброс данных завершён успешно";
                 FileTools.Log("Data send is end sucseed");
@@ -395,6 +405,18 @@ namespace Проект_к_школе
                     Thread f = new Thread(new ParameterizedThreadStart(LoadPicture));
                     f.Start(CurrentLesson.QuestionList[CurrentQuestion + 1]);
                 }
+        }
+        static byte[] EncryptRSA(byte[] Data, byte[] RSAModulus, byte[] RSAExponent)
+        {
+            try
+            {
+                using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+                {
+                    RSA.ImportParameters(new RSAParameters() { Exponent = RSAExponent, Modulus = RSAModulus });
+                    return RSA.Encrypt(Data, true);
+                }
+            }
+            catch { return null; }
         }
     }
 }
